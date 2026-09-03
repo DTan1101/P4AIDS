@@ -1,0 +1,33 @@
+# Cấu hình suy luận / đánh giá.
+#   python tools/eval.py --test-dir data/test --output-csv outputs/results.csv
+
+experiment:
+  name: dml_mushroom          # trùng tên run lúc train để tự tìm checkpoint
+  output_dir: outputs
+  seed: 0
+  device: auto
+
+data:
+  test_dir: data/test
+  image_size: null            # null = lấy theo metadata trong checkpoint
+  batch_size: 64
+  num_workers: 4
+  pin_memory: true
+
+  normalize:                  # null = dùng lại mean/std đã lưu trong checkpoint
+    mean: null
+    std: null
+
+  class_to_label: null        # null = dùng ánh xạ đã lưu lúc train
+
+eval:
+  checkpoints: null           # null = tự dò toàn bộ *.pth trong checkpoint_dir
+  checkpoint_dir: null        # null = outputs/<name>/checkpoints
+  output_csv: null            # null = outputs/<name>/results.csv
+  ensemble: true              # trung bình xác suất của các model
+  tta: false                  # test-time augmentation: lật ngang + lật dọc
+  save_probabilities: false   # lưu thêm file .npy xác suất thô
+
+  submission:
+    columns: [image_name, label]
+    keep_extension: false     # false = bỏ đuôi .jpg trong cột image_name

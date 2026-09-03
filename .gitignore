@@ -1,0 +1,20 @@
+/legacy/**/*
+
+# Dữ liệu & kết quả
+/data/
+/outputs/*
+!/outputs/.gitkeep
+*.pth
+*.pt
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store

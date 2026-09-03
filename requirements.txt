@@ -1,0 +1,8 @@
+# Môi trường tham chiếu: Python 3.11, CUDA 12.1
+torch>=2.3
+torchvision>=0.18
+numpy>=1.24
+pandas>=2.0
+pillow>=9.5
+pyyaml>=6.0
+matplotlib>=3.7

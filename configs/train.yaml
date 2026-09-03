@@ -1,0 +1,89 @@
+# Cấu hình huấn luyện ensemble deep mutual learning cho ảnh nấm (OAI Challenge).
+# Mọi khoá ở đây đều có thể ghi đè từ CLI:
+#   python tools/train.py --epochs 20 --opts train.scheduler.type=cosine
+
+experiment:
+  name: dml_mushroom          # kết quả lưu ở outputs/<name>/
+  output_dir: outputs
+  seed: 0                     # ban tổ chức sẽ công bố seed lúc chấm
+  device: auto                # auto | cuda | cpu
+  deterministic: false        # true = chậm hơn nhưng tái lập chính xác
+
+data:
+  train_dir: data/train       # mỗi lớp một thư mục con
+  test_dir: data/test         # ảnh phẳng, không nhãn
+  image_size: 224
+  batch_size: 64
+  num_workers: 4
+  pin_memory: true
+  drop_last: false
+
+  val_split: 0.1              # tách validation TRƯỚC khi augment
+  split_seed: 42
+  stratified: true            # giữ nguyên tỉ lệ các lớp khi tách
+
+  use_multi_augment: true     # nhân bản mỗi ảnh train qua từng transform bên dưới
+  num_augment_copies: null    # null = dùng hết danh sách augmentations
+  augmentations:
+    - flip_crop               # lật ngang/dọc + random resized crop
+    - color_jitter
+    - random_erasing
+    - elastic
+    - plain                   # chỉ resize + normalize
+    - rotation
+
+  normalize:
+    auto: true                # tự tính mean/std trên tập train rồi cache lại
+    recompute: false          # true = bỏ qua cache, tính lại
+    mean: null                # điền vào đây để cố định giá trị
+    std: null
+
+  # QUAN TRỌNG - ánh xạ lớp sang mã nhãn nộp bài.
+  # Khoá là TÊN THƯ MỤC lớp nên không phụ thuộc thứ tự sắp xếp.
+  # Hiện đang để trùng với chỉ số lớp; hãy sửa lại đúng bảng mã của ban tổ chức.
+  class_to_label:
+    "bào ngư xám + trắng": 0
+    "linh chi trắng": 1
+    "nấm mỡ": 2
+    "Đùi gà Baby (cắt ngắn)": 3
+
+model:
+  num_classes: null           # null = lấy đúng số lớp có trong data.train_dir
+  pretrained: true
+  weights: null               # null = preset DEFAULT của torchvision
+  backbones:                  # mỗi backbone là một thành viên trong nhóm mutual learning
+    - efficientnet_b6
+    - efficientnet_v2_m
+    - resnet101
+  head:
+    type: mlp                 # mlp | linear
+    hidden_dims: [1024, 512]
+    dropout: [0.2, 0.3, 0.4]  # xác suất dropout đặt trước từng lớp Linear
+    activation: relu
+  head_overrides:             # head riêng cho từng backbone
+    resnet101:
+      dropout: [0.0, 0.5, 0.5]
+
+train:
+  num_epochs: 10
+  optimizer: adamw            # adamw | adam | sgd
+  learning_rate: 0.001
+  weight_decay: 0.01
+  betas: [0.9, 0.999]
+  label_smoothing: 0.1
+  grad_clip: 1.0              # 0 = tắt
+  amp: true                   # mixed precision, chỉ hiệu lực trên CUDA
+
+  mutual_weight: 0.5          # trọng số KL cho MỖI peer
+  average_peers: false        # true = lấy trung bình thay vì cộng dồn các peer
+  temperature: 1.0            # nhiệt độ làm mềm phân phối khi chưng cất
+
+  patience: 3                 # 0 = tắt early stopping
+  log_interval: 20            # số batch giữa hai lần log; 0 = chỉ log cuối epoch
+
+  scheduler:
+    type: onecycle            # onecycle | cosine | step | none
+    pct_start: 0.1
+    div_factor: 25
+    final_div_factor: 250
+    anneal_strategy: cos
