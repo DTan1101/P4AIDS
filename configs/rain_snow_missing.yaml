@@ -1,0 +1,7 @@
+# Cấu hình giả lập mất dữ liệu (Mục 4.3). Mặt nạ được sinh một lần và cache,
+# dùng chung cho mọi nhánh -- xem tools/build_masks.py.
+missing:
+  kinds: [point, subsequence, block]
+  rates: [0.10, 0.30, 0.50]
+  seed: 123
+  cache_dir: outputs/masks

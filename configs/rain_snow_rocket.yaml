@@ -1,0 +1,32 @@
+# Nhánh ROCKET (Mục 4.5). Override: python tools/run_rocket.py --opts rocket.variant=multi
+experiment:
+  name: rocket
+  output_dir: outputs/results/rocket
+  seed: 42
+
+data:
+  prepared_path: outputs/data/windows.npz
+
+missing:
+  cache_dir: outputs/masks
+  seed: 123
+
+rocket:
+  variant: mini          # mini | multi
+  use_mask_delta: true
+  # Số luồng numba cho MiniRocket/MultiRocket. Giữ nhỏ trên máy ít RAM/không có
+  # swap -- chạy hết số lõi (-1) với ~70 nghìn cửa sổ train có thể vượt RAM.
+  n_jobs: 2
+  # fit() ước lượng dilation/bias tốn bộ nhớ tỉ lệ thuận số mẫu đưa vào; chỉ cần
+  # một mẫu con nhỏ (khuyến nghị gốc của ROCKET/MiniRocket), transform() vẫn chạy
+  # trên toàn bộ dữ liệu thật. Tăng giá trị này nếu máy nhiều RAM.
+  max_fit_samples: 2500
+  # transform() cũng cấp phát bộ nhớ tỉ lệ thuận số mẫu đưa vào trong một lần gọi
+  # (đo thực nghiệm: full-batch transform trên ~70 nghìn mẫu OOM dù fit() đã nhỏ) --
+  # luôn transform theo từng lô.
+  transform_batch_size: 2000
+  # null = mặc định gốc của aeon (MiniRocket 10000, MultiRocket 6250 kernel), đúng
+  # chuẩn phương pháp. Với ~70 nghìn cửa sổ train, RidgeClassifierCV trên ma trận
+  # đặc trưng cỡ này có thể cần nhiều RAM hơn máy không có swap đang có (đã xác
+  # minh thực nghiệm) -- hạ xuống (ví dụ 1000-2000) nếu gặp lỗi hết bộ nhớ.
+  n_kernels: null

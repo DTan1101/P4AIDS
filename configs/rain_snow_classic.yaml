@@ -1,0 +1,20 @@
+# Nhánh Classic ML (Mục 4.4). Override: python tools/run_classic.py --opts classic.tune=true
+experiment:
+  name: classic_ml
+  output_dir: outputs/results/classic
+  seed: 42
+
+data:
+  prepared_path: outputs/data/windows.npz
+
+missing:
+  cache_dir: outputs/masks
+  seed: 123
+
+classic:
+  # xgboost_native | median_mask | missforest (Mục 4.4.2)
+  impute_strategy: xgboost_native
+  # none | scale_pos_weight | smote (Mục 4.4.3)
+  imbalance_strategy: scale_pos_weight
+  tune: false
+  n_trials: 30

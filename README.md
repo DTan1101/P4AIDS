@@ -1,119 +1,116 @@
-# P4AIDS — Mushroom Image Classification (OAI Challenge 2025)
+# P4AIDS — Rain/Snow Classification under Sensor Missingness
 
-This system performs mushroom image classification using deep mutual learning: multiple backbones are trained simultaneously, learning both from ground-truth labels and from each other's predicted distributions, and then combined into an ensemble during inference.
+Benchmark so sánh ba hướng phương pháp — học máy cổ điển (XGBoost), ROCKET
+(MiniRocket/MultiRocket), và học sâu cho dữ liệu thiếu (GRU-D, BRITS, SAITS) —
+cho bài toán phân loại pha giáng thủy Rain/Snow trên bộ dữ liệu thời tiết
+Szeged (2006–2016), dưới điều kiện cảm biến mất số đo được giả lập theo ba
+kiểu (point/subsequence/block) ở nhiều tỷ lệ (10/30/50%). Xem đầy đủ phương
+pháp luận và kết quả trong [report/](report/).
 
-The legacy code is in `legacy/` (for reference only, and already excluded via `.gitignore`).
+Pipeline ảnh nấm cũ (deep mutual learning) đã được chuyển sang
+`legacy/mushroom_classification/` khi dự án chuyển hướng sang bài toán này —
+xem `legacy/mushroom_classification/README.md`.
 
-## Structure
+## Cấu trúc
 
 ```
 P4AIDS/
-├── configs/                # YAML configuration
-│   ├── train.yaml
-│   └── eval.yaml
-├── datasets/               # Data
-│   ├── dataset.py          # MushroomDataset + augmentation wrappers
-│   ├── preprocess_data.py  # Transform, mean/std computation
-│   └── dataloader.py       # Train/val split, DataLoader creation
-├── models/                 # Model
-│   ├── backbone.py         # torchvision backbone with classifier head removed
-│   ├── head.py             # MLP classification head
-│   └── model.py            # Classifier = backbone + head, factory helpers
+├── datasets/
+│   ├── archive/weatherHistory.csv  # dữ liệu Szeged gốc
+│   ├── szeged.py                   # load_raw() / clean()
+│   ├── windows.py                  # cắt cửa sổ 24h -> nhãn t+1
+│   ├── splits.py                   # chia theo năm + fold rolling-origin
+│   ├── missingness.py              # giả lập point/subsequence/block, cache mặt nạ
+│   ├── features.py                 # LiteStatTemp, mask/Δt, catch22/tsfresh (tuỳ chọn)
+│   ├── dl_dataset.py                # Dataset PyTorch (value/mask/delta) cho nhánh DL
+│   └── cache.py                     # lưu/nạp dữ liệu đã chuẩn bị (.npz)
+├── models/
+│   ├── classic.py          # XGBoost (NaN gốc), median+mask, MissForest
+│   ├── rocket.py            # MiniRocket/MultiRocket + RidgeClassifierCV
+│   ├── deep.py               # GRU-Fill, GRU+mask/Δt, GRU-D (tự cài)
+│   ├── deep_pypots.py        # BRITS/SAITS/GRU-D qua thư viện PyPOTS
+│   └── units_stub.py         # UniTS -- CHƯA triển khai (xem docstring)
 ├── trainers/
-│   └── mutual_trainer.py   # Deep mutual learning training loop
-├── options/                # Command-line parameters
-│   ├── train_options.py
-│   └── eval_option.py
-├── tools/                  # Entry points
-│   ├── train.py
-│   └── eval.py
-├── utils/
-│   ├── metrics.py          # AverageMeter, ConfusionMatrix, accuracy
-│   └── utils.py            # Seed, device, config, logging, checkpoint
-└── outputs/                # Results for each run
+│   ├── classic_trainer.py
+│   ├── rocket_trainer.py
+│   └── deep_trainer.py
+├── evaluation/
+│   ├── metrics.py       # Macro F1, PR-AUC, balanced accuracy
+│   ├── baselines.py     # lớp đa số, persistence, ngưỡng nhiệt độ, logreg, k-NN
+│   ├── stats_tests.py   # McNemar, Friedman, biểu đồ critical difference
+│   └── explain.py       # SHAP (cây), Integrated Gradients (DL) -- tuỳ chọn
+├── options/
+│   └── experiment_options.py   # CLI dùng chung cho mọi tools/run_*.py
+├── tools/
+│   ├── prepare_data.py     # làm sạch + cắt cửa sổ + chia tập -> outputs/data/
+│   ├── build_masks.py      # sinh + cache mặt nạ thiếu dữ liệu -> outputs/masks/
+│   ├── run_baselines.py
+│   ├── run_classic.py
+│   ├── run_rocket.py
+│   ├── run_deep.py
+│   └── aggregate_results.py   # gộp kết quả -> bảng Chương 6 + CD diagram
+├── configs/
+│   ├── rain_snow_data.yaml
+│   ├── rain_snow_missing.yaml
+│   ├── rain_snow_classic.yaml
+│   ├── rain_snow_rocket.yaml
+│   └── rain_snow_deep.yaml
+├── utils/                 # seed/device/logging/config/checkpoint (dùng chung)
+├── report/                # báo cáo LaTeX (không nằm trong git, xem .gitignore)
+└── outputs/                # dữ liệu/mặt nạ/kết quả cache theo từng lần chạy
 ```
 
-## Installation
+## Cài đặt
 
 ```bash
-python -m venv venv && source venv/bin/activate
+python3.11 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Data preparation
+`requirements.txt` chia theo nhóm (core / ROCKET / Deep Learning / giải thích
+mô hình) — đọc comment trong file để chỉ cài nhánh bạn cần. Nhánh Deep
+Learning kéo theo `torch` + `pypots` (tải lớn); nhánh ROCKET cần `aeon`.
 
-```
-data/
-├── train/                  # one subdirectory per class
-│   ├── bào ngư xám + trắng/
-│   ├── linh chi trắng/
-│   ├── nấm mỡ/
-│   └── Đùi gà Baby (cắt ngắn)/
-└── test/                   # flat images, unlabeled
-    ├── 001.jpg
-    └── ...
-```
-
-The number of classes is inferred automatically from `data/train`, so no code changes are required.
-
-## Training
+## Quy trình chạy
 
 ```bash
-python tools/train.py --config configs/train.yaml
+# 1. Làm sạch dữ liệu, cắt cửa sổ, chia theo năm (một lần)
+python tools/prepare_data.py
+
+# 2. Sinh + cache mặt nạ thiếu dữ liệu dùng chung cho mọi nhánh (một lần)
+python tools/build_masks.py
+
+# 3. Baseline (Mục 5.2)
+python tools/run_baselines.py
+
+# 4. Classic ML (Mục 4.4) -- có thể lọc theo một cấu hình cụ thể
+python tools/run_classic.py --missing-kind point --missing-rate 0.3
+python tools/run_classic.py --opts classic.impute_strategy=missforest classic.tune=true
+
+# 5. ROCKET (Mục 4.5)
+python tools/run_rocket.py --opts rocket.variant=multi
+
+# 6. Deep Learning (Mục 4.6) -- chọn mô hình qua deep.model
+python tools/run_deep.py --opts deep.model=gru_d
+python tools/run_deep.py --opts deep.model=brits   # qua PyPOTS
+
+# 7. Gộp toàn bộ kết quả thành bảng cho Chương 6 + biểu đồ critical-difference
+python tools/aggregate_results.py
 ```
 
-Any key in the YAML can be overridden from the command line:
+Mỗi `tools/run_*.py` nhận chung các cờ: `--config`, `--seed`,
+`--missing-kind {point,subsequence,block}`, `--missing-rate {0.1,0.3,0.5}`
+(không truyền = chạy toàn bộ 9 cấu hình + 0% thiếu), và `--opts key.path=value`
+để override bất kỳ khoá nào trong YAML, theo đúng quy ước cũ của repo
+(`utils/utils.py:apply_overrides`).
 
-```bash
-python tools/train.py --epochs 20 --batch-size 32 --lr 3e-4 --no-amp
-```
+### Giới hạn bộ nhớ đã biết (ROCKET)
 
-```bash
-python tools/train.py --backbones efficientnet_b6 resnet101 --opts train.scheduler.type=cosine
-```
-
-Results are stored under `outputs/<experiment.name>/`: `checkpoints/`, `train.log`, `config.yaml`, `history.json`, and `training_history.png`.
-
-## Inference and result export
-
-```bash
-python tools/eval.py --name dml_mushroom --test-dir data/test
-```
-
-The script automatically finds checkpoints in `outputs/<name>/checkpoints/`, rebuilds the correct architecture and preprocessing from the saved metadata, and writes the CSV output. If the test directory is split by class (with ground-truth labels), it also prints an accuracy / F1 / confusion matrix report.
-
-```bash
-python tools/eval.py --checkpoints outputs/run/checkpoints/best_model1_efficientnet_b6.pth --tta
-```
-
-## Configuration
-
-Refer directly to the comments in `configs/train.yaml`. A few notable keys:
-
-| Key | Meaning |
-| --- | --- |
-| `model.backbones` | List of backbones participating in mutual learning (names from torchvision) |
-| `model.head` / `model.head_overrides` | Shared head architecture and per-backbone head overrides |
-| `train.mutual_weight` | KL weight with each peer (**0 = disable mutual learning**) |
-| `train.temperature` | Temperature used to soften the distribution during distillation |
-| `data.augmentations` | Transforms used for multi-augment training |
-| `data.class_to_label` | Mapping from class directory names to submission label IDs |
-
-> **Note on `data.class_to_label`:** it is currently set to match the class index. Please update it to the exact label mapping from the organizing committee before submitting.
-
-## Differences from `legacy/`
-
-| Issue in the old version | Fix |
-| --- | --- |
-| Train/val split performed after augmentation duplication, so the same original image appeared in both sets | Split first, stratify by class, then augment |
-| `clip_grad_norm_` was called on gradients still scaled by AMP, making it nearly ineffective | Call `scaler.unscale_()` before clipping |
-| `calculate_mean_std` computed the std of std across each batch | Compute using `sqrt(E[x²] − E[x]²)` over all pixels with caching |
-| `num_classes=3` was fixed while the dataset actually had 4 classes | Infer from the real class directories |
-| Corrupt images returned a tensor of shape `3×32×32`, breaking the batch | Replace with a correctly sized white image |
-| `MultiAugmentDataset` overwrote `dataset.transform` when sampling | Wrapper applies transforms internally, safe for multiple workers |
-| Three class models were nearly identical and hyperparameters were scattered across the code | Unified `Classifier` + YAML config |
-| KL was computed manually with `+1e-6` | Use `F.kl_div` on log-softmax for numerically stable behavior |
-| `main.py` imported `libs.setup_datav2`, and `test.py` called `trf.get_test_transforms()` — both missing | Removed and replaced with `tools/train.py` and `tools/eval.py` |
+Trên máy không có swap, `RidgeClassifierCV` trên ma trận đặc trưng MiniRocket
+mặc định (~10 nghìn chiều) với toàn bộ ~70 nghìn cửa sổ train có thể vượt RAM.
+`configs/rain_snow_rocket.yaml` đã đặt sẵn `n_jobs`, `max_fit_samples`,
+`transform_batch_size` ở mức an toàn; hạ thêm `rocket.n_kernels` (ví dụ
+1000–2000) nếu vẫn gặp lỗi hết bộ nhớ trên máy yếu hơn.
 
 ## License
 

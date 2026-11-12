@@ -1,8 +1,37 @@
 # Môi trường tham chiếu: Python 3.11, CUDA 12.1
-torch>=2.3
-torchvision>=0.18
+# Cài theo nhóm tuỳ theo nhánh bạn thực sự chạy (xem report/ Chương 4-6):
+#   pip install -r requirements.txt            # core + rocket + deep (mặc định, như dưới đây)
+# Có thể bỏ aeon/torch/pypots nếu chỉ chạy baseline + Classic ML (nhẹ hơn nhiều).
+
+# --- Core: datasets/, evaluation/, models/classic.py, trainers/classic_trainer.py ---
 numpy>=1.24
 pandas>=2.0
-pillow>=9.5
 pyyaml>=6.0
 matplotlib>=3.7
+scikit-learn>=1.3
+xgboost>=2.0
+scipy>=1.11
+statsmodels>=0.14
+imbalanced-learn>=0.12
+optuna>=3.6
+
+# --- Nhánh ROCKET (models/rocket.py, trainers/rocket_trainer.py) ---
+aeon>=0.11
+
+# --- Nhánh Deep Learning (models/deep*.py, trainers/deep_trainer.py) ---
+# torch kéo theo tải lớn (~2-3GB với CUDA); cài riêng nếu cần build CPU-only:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch>=2.3
+pypots>=1.1
+
+# --- Giải thích mô hình (evaluation/explain.py), tuỳ chọn (Mục 4.7/6.7) ---
+# shap>=0.45
+# captum>=0.7
+
+# --- Đặc trưng mở rộng tuỳ chọn (datasets/features.py), chưa kiểm thử trong repo này ---
+# tsfresh>=0.20
+# pycatch22>=0.4
+
+# --- Chỉ cần cho pipeline ảnh nấm cũ đã lưu trữ ở legacy/mushroom_classification/ ---
+# torchvision>=0.18
+# pillow>=9.5

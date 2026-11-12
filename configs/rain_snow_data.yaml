@@ -1,0 +1,10 @@
+# Cấu hình chuẩn bị dữ liệu: datasets/szeged.py -> windows.py -> splits.py (Mục 2, 4.2).
+# Override dòng lệnh: python tools/prepare_data.py --opts data.window=24
+data:
+  csv_path: datasets/archive/weatherHistory.csv
+  window: 24
+  # Chia theo năm (Mục 2.2): train 2006-2013, validation 2014, test cố định 2015-2016.
+  train_years: [2006, 2013]
+  val_years: [2014, 2014]
+  test_years: [2015, 2016]
+  output_path: outputs/data/windows.npz

@@ -1,0 +1,24 @@
+# Nhánh Deep Learning (Mục 4.6). Override: python tools/run_deep.py --opts deep.model=gru_d
+experiment:
+  name: deep
+  output_dir: outputs/results/deep
+  seed: 42
+  # Nhiều seed để báo cáo trung bình/độ lệch chuẩn (Mục 4.6.3).
+  seeds: [42, 1, 2]
+
+data:
+  prepared_path: outputs/data/windows.npz
+
+missing:
+  cache_dir: outputs/masks
+  seed: 123
+
+deep:
+  # gru_fill | gru_mask_delta | gru_d (tự cài) | brits | saits | grud_pypots (PyPOTS)
+  model: gru_fill
+  hidden_size: 64
+  epochs: 50
+  patience: 10
+  batch_size: 128
+  lr: 0.001
+  device: auto

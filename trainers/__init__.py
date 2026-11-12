@@ -1,5 +1,1 @@
-"""Các trainer."""
-
-from trainers.mutual_trainer import MutualTrainer
-
-__all__ = ["MutualTrainer"]
+"""Trainer cho từng nhánh phương pháp."""
