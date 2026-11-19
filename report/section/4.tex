@@ -20,45 +20,10 @@ kiểm định thống kê, giải thích mô hình).}
 \label{fig:pipeline-overview}
 \end{figure}
 
-\subsection{Tiền xử lý chung}
-\label{sec:tien-xu-ly-chung}
-
-\begin{itemize}
-  \item \textbf{Làm sạch:} loại cột hằng số (\texttt{Loud Cover}), xử lý áp suất bằng 0
-        và timestamp trùng như đã nêu ở Mục~\ref{sec:chat-luong-du-lieu}, loại bản ghi
-        không có nhãn hợp lệ.
-  \item \textbf{Cửa sổ trượt:} sinh các cặp $(X_{t-23:t}, y_{t+1})$ với bước trượt 1 giờ.
-  \item \textbf{Chia theo năm:} \TODO{xác định chính xác ranh giới train/val/test theo
-        năm (ví dụ huấn luyện 2006--2013, validation 2014, test 2015--2016) để mô phỏng
-        kịch bản dự báo tương lai thực tế.}
-  \item \textbf{Chống rò rỉ dữ liệu (data leakage):} mọi thống kê dùng để chuẩn hóa
-        (mean/std) hoặc để huấn luyện bộ nội suy (ví dụ MissForest) chỉ được ước lượng
-        trên tập huấn luyện, sau đó áp dụng lại cho validation/test; việc cắt cửa sổ
-        không cho phép một cửa sổ chứa dữ liệu ở cả hai phía của ranh giới chia tập.
-\end{itemize}
-
-\subsection{Giả lập cảm biến mất dữ liệu}
-\label{sec:gia-lap-mat-du-lieu}
-
-Ba kiểu mất dữ liệu được giả lập trên mỗi cửa sổ đầu vào, nhằm mô phỏng các nguyên nhân
-mất số đo khác nhau trong thực tế:
-
-\begin{itemize}
-  \item \textbf{Point:} từng giá trị bị loại độc lập theo xác suất $p$ (mô phỏng nhiễu đo
-        tức thời hoặc lỗi gói dữ liệu đơn lẻ).
-  \item \textbf{Subsequence:} các đoạn liên tiếp có độ dài thay đổi bị loại (mô phỏng mất
-        kết nối tạm thời).
-  \item \textbf{Block:} toàn bộ một hoặc nhiều biến bị loại trong một khoảng thời gian
-        (mô phỏng một cảm biến cụ thể bị hỏng hoàn toàn).
-\end{itemize}
-
-Mỗi kiểu được áp ở ba tỷ lệ thiếu dữ liệu 10\%, 30\% và 50\% (tính trên tổng số điểm dữ
-liệu trong cửa sổ). Với mỗi cửa sổ $X$ và mỗi cấu hình (kiểu, tỷ lệ), một \emph{mặt nạ}
-nhị phân $M \in \{0,1\}^{24 \times 5}$ được sinh ra \textbf{một lần} và lưu lại, sau đó
-dùng chung cho tất cả các phương pháp ở Mục~\ref{sec:nhanh-classic-ml}--\ref{sec:nhanh-deep-learning}.
-Việc dùng chung mặt nạ là điều kiện bắt buộc để đảm bảo mọi phương pháp được đánh giá
-trên đúng cùng một tập các giá trị bị thiếu, loại bỏ khả năng khác biệt kết quả do
-may rủi trong việc sinh mặt nạ.
+Tiền xử lý chung (làm sạch, cắt cửa sổ trượt, chia theo năm, chống rò rỉ dữ liệu) và cách
+giả lập mặt nạ thiếu dữ liệu (point/subsequence/block, dùng chung cho mọi nhánh) đã được
+trình bày chi tiết ở Mục~\ref{sec:quy-trinh-tien-xu-ly}--\ref{sec:sinh-mat-na}; các mục
+dưới đây tập trung vào phần riêng của từng nhánh phương pháp.
 
 \subsection{Nhánh Classic ML}
 \label{sec:nhanh-classic-ml}
@@ -72,7 +37,7 @@ may rủi trong việc sinh mặt nạ.
         cùng một số đặc trưng riêng cho nhiệt độ (ví dụ số lần cắt ngưỡng 0\textdegree C).}
   \item \textbf{Đặc trưng mask/$\Delta t$:} tỷ lệ giá trị thiếu theo biến, độ dài đoạn
         thiếu dài nhất, và thời gian trôi qua từ lần quan trắc hợp lệ gần nhất, được tính
-        trực tiếp từ mặt nạ $M$ ở Mục~\ref{sec:gia-lap-mat-du-lieu}.
+        trực tiếp từ mặt nạ $M$ ở Mục~\ref{sec:sinh-mat-na}.
   \item \textbf{catch22} \cite{lubba2019catch22} và \textbf{tsfresh} \cite{christ2018tsfresh}:
         bộ đặc trưng chuẩn hóa được trích xuất bằng thư viện tương ứng, dùng làm đối
         chứng/mở rộng cho LiteStatTemp.
