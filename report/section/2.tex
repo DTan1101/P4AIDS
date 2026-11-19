@@ -1,0 +1,124 @@
+\section{Dữ liệu}
+\label{sec:du-lieu}
+
+\subsection{Nguồn dữ liệu}
+\label{sec:nguon-du-lieu}
+
+Bộ dữ liệu sử dụng là Szeged Weather Dataset \cite{szegedweather}, ghi nhận quan trắc khí
+tượng theo giờ tại thành phố Szeged, Hungary. File gốc có \textbf{96.453 dòng} và 12 cột:
+\texttt{Formatted Date}, \texttt{Summary}, \texttt{Precip Type}, \texttt{Temperature (C)},
+\texttt{Apparent Temperature (C)}, \texttt{Humidity}, \texttt{Wind Speed (km/h)},
+\texttt{Wind Bearing (degrees)}, \texttt{Visibility (km)}, \texttt{Loud Cover},
+\texttt{Pressure (millibars)}, \texttt{Daily Summary}. Khoảng thời gian trải từ
+\textbf{2005-12-31 23:00} đến \textbf{2016-12-31 22:00} (thực chất là các năm
+2006--2016, với một giờ cuối năm 2005 lọt vào do lệch múi giờ khi quy đổi mốc thời
+gian gốc về UTC). Tần suất lấy mẫu gần như đều đặn theo giờ: sau khi sắp xếp theo thời
+gian, có đúng 96.427 cặp bản ghi liên tiếp cách nhau 1 giờ, 24 cặp cách nhau 0 giờ (timestamp
+trùng, xem Mục~\ref{sec:chat-luong-du-lieu}) và duy nhất 1 cặp cách nhau 4 giờ (một khoảng hở
+thật sự trong dữ liệu gốc). Sau khi làm sạch và quy về lưới giờ liên tục
+(Mục~\ref{sec:chat-luong-du-lieu}), bộ dữ liệu còn \textbf{96.432 dòng}, trong đó
+\textbf{95.912 dòng có nhãn Rain/Snow hợp lệ}.
+
+\subsection{Phân tích khám phá (EDA)}
+\label{sec:eda}
+
+\paragraph{Phân bố nhãn.} Trên 95.912 bản ghi có nhãn hợp lệ, \textbf{85.200 là Rain
+(88,8\%)} và \textbf{10.712 là Snow (11,2\%)} -- bài toán mất cân bằng lớp rõ rệt
+(tỷ lệ xấp xỉ 8:1), đúng như đã giả định khi thiết kế baseline lớp đa số
+(Mục~\ref{sec:baseline}) và các chiến lược xử lý mất cân bằng (Mục~\ref{sec:mat-can-bang-lop-classic}).
+Tỷ lệ Snow dao động theo năm từ 5,5\% (2014, năm ấm nhất trong giai đoạn khảo sát) đến
+15,9\% (2011), không có xu hướng tăng/giảm đơn điệu rõ ràng (Hình~\ref{fig:eda-snow-year}).
+Theo mùa, Snow gần như chỉ xuất hiện vào mùa Đông (37,9\% số giờ mùa Đông là Snow), rất
+hiếm vào Xuân/Thu (3,9\% và 3,1\%), và \textbf{không một giờ nào trong mùa Hạ được gán
+nhãn Snow} trong toàn bộ 11 năm dữ liệu (Hình~\ref{fig:eda-snow-season}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.78\textwidth]{figs/eda_snow_by_year.pdf}
+\caption{Tỷ lệ Snow theo năm, 2006--2016.}
+\label{fig:eda-snow-year}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.62\textwidth]{figs/eda_snow_by_season.pdf}
+\caption{Tỷ lệ Snow theo mùa, gộp toàn bộ 2006--2016.}
+\label{fig:eda-snow-season}
+\end{figure}
+
+\paragraph{Phân bố nhiệt độ theo nhãn.} Hình~\ref{fig:eda-temp-label} vẽ phân bố nhiệt độ
+của các bản ghi Rain và Snow. Phát hiện đáng chú ý: trên bộ dữ liệu này, \textbf{nhãn tách
+gần như tuyệt đối theo dấu của nhiệt độ} -- toàn bộ 10.712 bản ghi Snow có nhiệt độ
+$\le 0$\textdegree C (nhỏ nhất $-21{,}8$\textdegree C, lớn nhất đúng bằng
+$0{,}0$\textdegree C), và toàn bộ 85.200 bản ghi Rain có nhiệt độ $> 0$\textdegree C (nhỏ
+nhất $0{,}006$\textdegree C). Không tồn tại một bản ghi Rain nào ở nhiệt độ âm, cũng như
+không có bản ghi Snow nào ở nhiệt độ dương. Quan sát này củng cố nghi vấn đã nêu ở
+Mục~\ref{sec:han-che-nhan}: nhãn \texttt{Precip Type} của Dark Sky API nhiều khả năng cũng
+được suy ra (một phần) từ chính ngưỡng nhiệt độ $0$\textdegree C khi có giáng thủy, chứ
+không phải một quan trắc loại giáng thủy độc lập với nhiệt độ.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{figs/eda_temperature_by_label.pdf}
+\caption{Phân bố nhiệt độ theo nhãn Rain/Snow -- toàn dải (trái) và phóng to quanh
+ngưỡng $0$\textdegree C (phải). Đường nét đứt đánh dấu $0$\textdegree C.}
+\label{fig:eda-temp-label}
+\end{figure}
+
+Vì vậy, cách gọi "\emph{vùng chồng lấn}" cần được hiểu chính xác hơn trên bộ dữ liệu này:
+không phải hai lớp có giá trị nhiệt độ trùng nhau, mà là một \emph{dải gần ngưỡng} nơi phần
+lớn các trường hợp Snow tập trung sát $0$\textdegree C thay vì rải đều ra các giá trị rất
+âm. Cụ thể, trong dải $[-4, 4]$\textdegree C có 19.685 bản ghi, chiếm 38,4\% là Snow -- cao
+hơn hẳn tỷ lệ nền 11,2\% -- cho thấy đây là dải nhiệt độ mà việc phân loại nhạy cảm nhất với
+sai số hoặc giá trị thiếu của biến nhiệt độ. Nói cách khác: trên dữ liệu \emph{đầy đủ}, một
+ngưỡng nhiệt độ đơn giản gần như giải quyết trọn vẹn bài toán (baseline ngưỡng nhiệt độ ở
+Mục~\ref{sec:baseline} vì vậy được kỳ vọng rất mạnh khi không thiếu dữ liệu); nhưng khi
+nhiệt độ bị thiếu theo kịch bản giả lập ở Mục~\ref{sec:gia-lap-mat-du-lieu} -- đặc biệt với
+các bản ghi nằm trong dải sát ngưỡng này -- mô hình buộc phải dựa vào các biến tương quan
+khác (độ ẩm, áp suất, gió) hoặc nội suy thay vì chỉ nhìn vào nhiệt độ, và đây chính là phần
+việc khó thực sự mà đồ án muốn đánh giá.
+
+\subsection{Vấn đề chất lượng dữ liệu}
+\label{sec:chat-luong-du-lieu}
+
+Quá trình khảo sát dữ liệu phát hiện bốn vấn đề chất lượng cần xử lý trước khi huấn
+luyện, đều được xử lý tự động trong \texttt{datasets/szeged.py:clean()}:
+
+\begin{itemize}
+  \item \textbf{Áp suất bằng 0:} \textbf{1.288 dòng} (1,3\% tổng số dòng gốc) có
+        \texttt{Pressure~(millibars)~=~0} -- giá trị phi vật lý (áp suất khí quyển không
+        thể bằng 0), được xem như giá trị thiếu và chuyển thành NaN.
+  \item \textbf{Timestamp trùng:} \textbf{24 dòng} có mốc thời gian trùng với dòng ngay
+        trước đó; bản ghi trùng bị loại, chỉ giữ bản ghi xuất hiện đầu tiên.
+  \item \textbf{Cột hằng số:} cột \texttt{Loud Cover} chỉ nhận đúng một giá trị (0) trong
+        toàn bộ 96.453 dòng, không mang thông tin phân biệt, nên bị loại khỏi tập đặc
+        trưng đầu vào.
+  \item \textbf{Nhãn bị thiếu:} \textbf{517 dòng} (0,5\%) có \texttt{Precip Type} rỗng
+        hoặc khác \texttt{rain}/\texttt{snow}; các dòng này bị loại khỏi tập có nhãn hợp lệ
+        nhưng \emph{vẫn được giữ lại} trong lưới giờ liên tục (giá trị đặc trưng của chúng
+        vẫn dùng được làm ngữ cảnh lịch sử cho các cửa sổ khác, chỉ riêng nhãn bị đánh dấu
+        thiếu) -- xem thêm Mục~\ref{sec:phat-bieu-bai-toan} về cách cửa sổ bị loại nếu nhãn
+        tại $t+1$ không hợp lệ.
+\end{itemize}
+
+Ngoài ra, sau khi quy dữ liệu về lưới giờ liên tục theo từng giờ, phát hiện thêm
+\textbf{520 giờ bị hở hoàn toàn} (không có bản ghi gốc nào, chủ yếu trùng với các dòng vừa
+bị loại ở trên) -- đây là phần \emph{thiếu dữ liệu tự nhiên} của bộ dữ liệu, độc lập và được
+giữ tách biệt với phần mất dữ liệu \emph{giả lập} dùng để đánh giá độ bền vững của mô hình ở
+Mục~\ref{sec:gia-lap-mat-du-lieu}.
+
+\subsection{Hạn chế của nhãn}
+\label{sec:han-che-nhan}
+
+Nhãn Rain/Snow trong bộ dữ liệu Szeged không phải là kết quả quan trắc trực tiếp từ trạm
+khí tượng, mà được sinh ra từ dịch vụ Dark Sky API dựa trên mô hình nội suy/dự báo của
+bên thứ ba. Phát hiện ở Mục~\ref{sec:eda} -- nhãn tách gần như tuyệt đối theo dấu của
+nhiệt độ, không có một ngoại lệ nào trong hơn 95 nghìn bản ghi -- củng cố khả năng nhãn này
+\emph{chính nó} đã được suy ra (một phần) từ nhiệt độ bằng một quy tắc tương tự, chứ không
+phải một quan trắc loại giáng thủy độc lập. Do đó, mọi so sánh hiệu năng giữa các phương
+pháp trong báo cáo này cần được hiểu là so sánh dựa trên nhãn suy ra từ Dark Sky, không
+phải nhãn quan trắc thực địa tuyệt đối; một mô hình "học được đúng ngưỡng nhiệt độ" có thể
+đơn giản là đang học lại chính quy tắc đã sinh ra nhãn, chứ chưa chắc phản ánh khả năng
+phân biệt Rain/Snow trong các tình huống phức tạp hơn (ví dụ mưa đóng băng, mưa tuyết hỗn
+hợp) mà quy tắc đơn giản này không có bản ghi nào để phân biệt. Hạn chế này được thảo luận
+lại ở Mục~\ref{sec:han-che}.

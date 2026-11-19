@@ -35,3 +35,6 @@ pypots>=1.1
 # --- Chỉ cần cho pipeline ảnh nấm cũ đã lưu trữ ở legacy/mushroom_classification/ ---
 # torchvision>=0.18
 # pillow>=9.5
+
+# --- Test (tests/, chạy bằng `pytest`) ---
+pytest>=8.0

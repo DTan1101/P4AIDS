@@ -1,0 +1,105 @@
+\section{Kết quả và phân tích}
+\label{sec:ket-qua-va-phan-tich}
+
+\subsection{Kết quả trên dữ liệu đầy đủ (0\% thiếu)}
+\label{sec:ket-qua-du-lieu-day-du}
+
+\begin{table}[H]
+\centering
+\caption{Hiệu năng của tất cả mô hình và baseline trên tập test, không giả lập thiếu dữ
+liệu (0\%).}
+\label{tab:ket-qua-day-du}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Mô hình} & \textbf{Macro F1} & \textbf{PR-AUC} & \textbf{Precision} & \textbf{Recall} \\
+\midrule
+Lớp đa số & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
+Persistence & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
+Ngưỡng nhiệt độ & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
+Logistic Regression & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
+k-NN & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
+XGBoost (LiteStatTemp) & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
+MiniRocket & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
+MultiRocket & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
+GRU-D & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
+BRITS & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
+SAITS & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Kết quả chính: suy giảm hiệu năng theo tỷ lệ thiếu dữ liệu}
+\label{sec:ket-qua-chinh}
+
+\begin{figure}[H]
+\centering
+\TODO{Vẽ đường suy giảm Macro F1 (và PR-AUC) theo tỷ lệ thiếu dữ liệu (0/10/30/50\%),
+mỗi đường ứng với một mô hình, tách thành 3 subplot riêng cho từng kiểu mất dữ liệu
+(point/subsequence/block).}
+\caption{Suy giảm Macro F1 theo tỷ lệ và kiểu mất dữ liệu.}
+\label{fig:suy-giam-macro-f1}
+\end{figure}
+
+\TODO{Viết nhận xét định lượng: mô hình nào suy giảm ít nhất ở mỗi kiểu mất dữ liệu, và
+liệu kiểu block có gây suy giảm mạnh hơn point/subsequence ở cùng tỷ lệ hay không (dự
+kiến có, vì block loại bỏ toàn bộ tín hiệu của một biến trong một khoảng thời gian).}
+
+\subsection{Phân tích theo dải nhiệt độ và theo mùa}
+\label{sec:phan-tich-nhiet-do-mua}
+
+\TODO{So sánh Macro F1 của các mô hình riêng trong vùng nhiệt độ chồng lấn 0--4\textdegree C
+(Mục~\ref{sec:eda}) so với toàn tập test, và theo từng mùa, để kiểm tra liệu các mô hình
+có giữ được lợi thế so với baseline ngưỡng nhiệt độ đúng ở vùng khó nhất hay không.}
+
+\subsection{Ablation}
+\label{sec:ablation}
+
+\begin{itemize}
+  \item \textbf{Đóng góp của từng nhóm đặc trưng:} so sánh LiteStatTemp đơn lẻ, +catch22,
+        +tsfresh, +mask/$\Delta t$, để xác định nhóm đặc trưng đóng góp nhiều nhất.
+  \item \textbf{Có/không mask và $\Delta t$:} so sánh cùng một mô hình (ví dụ GRU) với và
+        không có hai kênh này, để cô lập đóng góp riêng của thông tin vị trí thiếu.
+  \item \textbf{Có/không tuning:} so sánh hiệu năng XGBoost với siêu tham số mặc định so
+        với sau khi tuning bằng Optuna (Mục~\ref{sec:tuning-classic-ml}).
+  \item \textbf{Xử lý mất cân bằng lớp:} so sánh các chiến lược ở Mục~\ref{sec:mat-can-bang-lop-classic}.
+\end{itemize}
+
+\TODO{Trình bày bảng/biểu đồ kết quả ablation và viết nhận xét cho từng dòng trên.}
+
+\subsection{Ý nghĩa thống kê}
+\label{sec:y-nghia-thong-ke}
+
+\TODO{Báo cáo kết quả kiểm định McNemar cho các cặp mô hình gần nhau nhất về Macro F1, và
+biểu đồ critical difference từ kiểm định Friedman (Mục~\ref{sec:kiem-dinh-thong-ke}), nêu
+rõ nhóm mô hình không khác biệt có ý nghĩa thống kê ở mức $\alpha = 0.05$.}
+
+\subsection{Chi phí tính toán}
+\label{sec:chi-phi-tinh-toan}
+
+\begin{table}[H]
+\centering
+\caption{Thời gian huấn luyện/suy luận và kích thước mô hình.}
+\label{tab:chi-phi-tinh-toan}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Mô hình} & \textbf{Thời gian huấn luyện} & \textbf{Thời gian suy luận / mẫu} & \textbf{Số tham số} \\
+\midrule
+\TODO{} & \TODO{} & \TODO{} & \TODO{} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Giải thích mô hình}
+\label{sec:giai-thich-mo-hinh-ket-qua}
+
+\TODO{Trình bày SHAP summary plot cho XGBoost và Integrated Gradients cho mô hình học sâu
+tốt nhất, cùng phân tích định tính 2--3 ca dự đoán sai điển hình (ví dụ mẫu có nhiệt độ
+trong vùng chồng lấn và tỷ lệ thiếu dữ liệu cao).}
+
+\subsection{Thảo luận}
+\label{sec:thao-luan}
+
+\TODO{Trả lời trực tiếp câu hỏi nghiên cứu ở Mục~\ref{sec:cau-hoi-nghien-cuu} dựa trên kết
+quả ở trên, so sánh với các phát hiện trong tài liệu (Chương~\ref{sec:tong-quan-tai-lieu}),
+và nêu rõ giới hạn của các kết luận (ví dụ chỉ áp dụng cho một trạm quan trắc, nhãn suy ra
+từ API).}

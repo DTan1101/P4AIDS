@@ -1,0 +1,50 @@
+\section{Thiết lập thực nghiệm}
+\label{sec:thiet-lap-thuc-nghiem}
+
+\subsection{Giao thức chia dữ liệu}
+\label{sec:giao-thuc-chia-du-lieu}
+
+Dữ liệu được chia theo thời gian để mô phỏng kịch bản dự báo thực tế, tránh rò rỉ thông
+tin tương lai vào quá trình chọn mô hình: \TODO{xác định cụ thể các fold rolling-origin
+dùng cho validation (ví dụ huấn luyện tăng dần theo năm, validate trên năm kế tiếp) và
+xác nhận tập test cuối cùng, cố định, là giai đoạn 2015--2016, không được dùng cho bất kỳ
+quyết định chọn mô hình hay siêu tham số nào.}
+
+\subsection{Baseline}
+\label{sec:baseline}
+
+\begin{itemize}
+  \item \textbf{Lớp đa số:} luôn dự đoán lớp xuất hiện nhiều hơn trong tập huấn luyện.
+  \item \textbf{Persistence:} dự đoán nhãn tại $t+1$ bằng nhãn quan trắc gần nhất hợp lệ
+        trong cửa sổ.
+  \item \textbf{Ngưỡng nhiệt độ:} phân loại Snow nếu nhiệt độ dưới một ngưỡng cố định
+        (\TODO{xác định ngưỡng, ví dụ hiệu chỉnh trên tập huấn luyện}), tương ứng với
+        hướng tiếp cận truyền thống ở Mục~\ref{sec:lit-phan-loai-giang-thuy}.
+  \item \textbf{Logistic Regression} và \textbf{k-NN:} trên đặc trưng LiteStatTemp sau
+        khi impute bằng median, làm baseline học máy đơn giản không chuyên biệt cho dữ
+        liệu thiếu.
+\end{itemize}
+
+\subsection{Metrics}
+\label{sec:metrics}
+
+\TODO{Lấy định nghĩa và lý do chọn từng chỉ số từ tài liệu metrics của nhóm (ví dụ vì sao
+chọn Macro F1 thay vì Accuracy do mất cân bằng lớp, và vì sao bổ sung PR-AUC để đánh giá
+độ nhạy với ngưỡng quyết định). Liệt kê đầy đủ: Macro F1, Precision/Recall theo lớp,
+PR-AUC, và bất kỳ chỉ số phụ nào khác (ví dụ Balanced Accuracy, Cohen's Kappa).}
+
+\subsection{Kiểm định thống kê}
+\label{sec:kiem-dinh-thong-ke}
+
+Sự khác biệt hiệu năng giữa từng cặp mô hình trên cùng tập test được kiểm định bằng
+McNemar's test \cite{mcnemar1947}, phù hợp để so sánh hai bộ phân loại trên cùng một tập
+dữ liệu. Để so sánh đồng thời nhiều mô hình trên nhiều cấu hình thiếu dữ liệu, kiểm định
+Friedman kèm biểu đồ critical difference (CD) \cite{demsar2006statistical} được dùng để
+xếp hạng và xác định nhóm mô hình không khác biệt có ý nghĩa thống kê.
+
+\subsection{Môi trường chạy}
+\label{sec:moi-truong-chay}
+
+\TODO{Ghi lại phần cứng (CPU/GPU, RAM), phiên bản Python và các thư viện chính (XGBoost,
+sktime/aeon cho MiniRocket/MultiRocket, PyTorch cho GRU-D/BRITS/SAITS/UniTS, Optuna), và
+danh sách seed cố định dùng cho khả năng tái lập kết quả.}

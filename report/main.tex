@@ -1,0 +1,278 @@
+\documentclass[11pt,a4paper]{article}
+
+% Packages
+% NOTE: the legacy vietnam+babel[vietnamese] combo (T5-encoded 8-bit fonts)
+% renders Vietnamese diacritics incorrectly under this tectonic build (silent
+% wrong-glyph substitution, not just missing-character warnings). Tectonic's
+% engine is XeTeX-based, so fontspec + a Unicode font bypasses that broken
+% legacy path entirely and renders correctly.
+\usepackage{fontspec}
+\setmainfont{DejaVu Serif}
+\usepackage[x11names,rgb]{xcolor}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{multirow}
+\usetikzlibrary{shapes.geometric,arrows,positioning,calc,
+                decorations.pathreplacing,fit,backgrounds,arrows.meta}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{stmaryrd}
+\usepackage{mathtools}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{proof}
+\usepackage{subcaption}
+\usepackage{amsfonts}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{tcolorbox}
+\usepackage{float}
+\usepackage{indentfirst}
+\usepackage{booktabs}
+\usepackage{titlesec}
+\usepackage{lastpage}
+
+% --- ALGORITHM PACKAGES ---
+% Use 'algorithm' for the float wrapper and 'algpseudocode' for the syntax.
+% Do NOT load 'algorithmic'.
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% --- CUSTOMIZATION ---
+\algrenewcommand{\algorithmicrequire}{\textbf{Input:}}
+\algrenewcommand{\algorithmicensure}{\textbf{Output:}}
+\algrenewcommand{\algorithmiccomment}[1]{\hfill\textcolor{gray}{\textit{\{#1\}}}}
+
+\newtheorem{definition}{Định nghĩa}
+\newtheorem{example}{Ví dụ}
+\newtheorem{remark}{Nhận xét}
+
+% Marker for sections of the outline that still need real content/data filled in.
+\newcommand{\TODO}[1]{\textcolor{red!70!black}{\textbf{[TODO: #1]}}}
+
+% Page layout
+\geometry{left=2cm,right=2cm,top=2.8cm,bottom=2.4cm,headheight=32pt,headsep=0.45cm,footskip=1.1cm}
+\setlength{\emergencystretch}{2em}
+
+% Cho phép ngắt dòng sau dấu gạch dưới trong \texttt{...}
+\let\originalunderscore\_
+\renewcommand{\_}{\originalunderscore\allowbreak}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{%
+    \begin{minipage}[c]{0.075\textwidth}
+        \includegraphics[width=0.72cm]{figs/HCMUT.pdf}
+    \end{minipage}%
+    \begin{minipage}[c]{0.79\textwidth}
+        \small Trường Đại học Bách khoa, ĐHQG TP. Hồ Chí Minh\\[-1pt]
+        \small Khoa Khoa học và Kỹ thuật Máy tính
+    \end{minipage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyfoot[L]{\footnotesize Báo cáo Đồ án -- P4AIDS}
+\fancyfoot[R]{\footnotesize Page \thepage/\pageref{LastPage}}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\fancypagestyle{plain}{%
+    \fancyhf{}
+    \fancyhead[L]{%
+        \begin{minipage}[c]{0.075\textwidth}
+            \includegraphics[width=0.72cm]{figs/HCMUT.pdf}
+        \end{minipage}%
+        \begin{minipage}[c]{0.79\textwidth}
+            \small Trường Đại học Bách khoa, ĐHQG TP. Hồ Chí Minh\\[-1pt]
+            \small Khoa Khoa học và Kỹ thuật Máy tính
+        \end{minipage}}
+    \fancyfoot[L]{\footnotesize Báo cáo Đồ án -- P4AIDS}
+    \fancyfoot[R]{\footnotesize Page \thepage/\pageref{LastPage}}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0.4pt}
+}
+
+% Chapter-like section headings while retaining the article class
+\titleformat{\section}[display]
+  {\normalfont\bfseries}
+  {\fontsize{26}{31}\selectfont\thesection}
+  {0.35em}
+  {\fontsize{22}{27}\selectfont\raggedright}
+\titlespacing*{\section}{0pt}{0.45cm}{1.1cm}
+
+\titleformat{\subsection}
+  {\normalfont\Large\bfseries}
+  {\thesubsection}{0.7em}{}
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries}
+  {\thesubsubsection}{0.7em}{}
+\titleformat{\paragraph}[runin]
+  {\normalfont\normalsize\bfseries\itshape}
+  {}{0pt}{}
+\titlespacing*{\paragraph}{0pt}{0.35cm}{0.6em}
+
+% Table of contents and list of figures
+\renewcommand{\contentsname}{Mục lục}
+\renewcommand{\listfigurename}{Danh sách hình ảnh}
+\renewcommand{\listtablename}{Danh sách bảng}
+\renewcommand{\cfttoctitlefont}{\Large\bfseries}
+\renewcommand{\cftloftitlefont}{\Large\bfseries}
+\renewcommand{\cftlottitlefont}{\Large\bfseries}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsecpagefont}{\bfseries}
+\setlength{\cftbeforesecskip}{0.45em}
+
+% Code listing style
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+% Hyperref setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,
+    citecolor=black,
+    urlcolor=blue,
+    pdftitle={bao_cao_rain_snow_classification},
+}
+
+% TikZ styles
+\tikzset{
+    process/.style={rectangle, minimum width=2.5cm, minimum height=1cm,
+                   text centered, draw=black, fill=blue!20},
+    server/.style={cylinder, shape border rotate=90, minimum width=2cm,
+                  minimum height=1.5cm, draw=black, fill=green!20},
+    client/.style={rectangle, rounded corners, minimum width=2cm,
+                  minimum height=1cm, draw=black, fill=orange!20},
+    arrow/.style={thick,->,>=stealth},
+    bidiarrow/.style={thick,<->,>=stealth},
+}
+
+\begin{document}
+
+% Title page
+\begin{titlepage}
+    \thispagestyle{empty}
+    \begin{tikzpicture}[remember picture,overlay]
+        \draw[line width=0.8pt]
+            ($(current page.north west)+(0.8cm,-0.8cm)$)
+            rectangle
+            ($(current page.south east)+(-0.8cm,0.8cm)$);
+        \draw[line width=0.35pt]
+            ($(current page.north west)+(1.05cm,-1.05cm)$)
+            rectangle
+            ($(current page.south east)+(-1.05cm,1.05cm)$);
+        \draw[line width=0.35pt]
+            ($(current page.north west)+(1.28cm,-0.68cm)$) --
+            ($(current page.north east)+(-1.28cm,-0.68cm)$);
+        \draw[line width=0.35pt]
+            ($(current page.south west)+(1.28cm,0.68cm)$) --
+            ($(current page.south east)+(-1.28cm,0.68cm)$);
+    \end{tikzpicture}
+    \centering
+    \vspace*{0.55cm}
+
+    {\Large\textbf{ĐẠI HỌC QUỐC GIA TP.HỒ CHÍ MINH}}\\[0.3cm]
+    {\Large\textbf{TRƯỜNG ĐẠI HỌC BÁCH KHOA}}\\[0.3cm]
+    {\large KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH}\\[2cm]
+
+    \includegraphics[width=0.3\textwidth]{figs/HCMUT.pdf}\\[1cm]
+
+    {\large\textbf{BÁO CÁO BÀI TẬP LỚN }}\\
+    {\Large\textbf{LẬP TRÌNH CHO TRÍ TUỆ NHÂN TẠO VÀ KHOA HỌC DỮ LIỆU}}\\[0.5cm]
+    {\LARGE\textbf{
+        PHÂN LOẠI PHA GIÁNG THỦY MƯA/TUYẾT TỪ DỮ LIỆU THỜI TIẾT SZEGED
+        KHI CẢM BIẾN BỊ MẤT SỐ ĐO: SO SÁNH HỌC MÁY CỔ ĐIỂN, ROCKET
+        VÀ HỌC SÂU CHO DỮ LIỆU CHUỖI THỜI GIAN THIẾU
+    }}\\[0.3cm]
+    {\small\itshape
+        Rain/Snow Phase Classification on the Szeged Weather Dataset under
+        Sensor Missingness: Benchmarking Classic ML, ROCKET and Deep Learning
+        for Incomplete Time Series
+    }\\[0.3cm]
+
+    \vfill
+
+    \begin{tabular}{@{}r l@{}}
+        \textbf{Sinh viên thực hiện:}   & \TODO{Họ và tên} -- \TODO{MSSV}\\
+                                        & \TODO{Họ và tên} -- \TODO{MSSV}\\
+                                        & \TODO{Họ và tên} -- \TODO{MSSV}\\
+                                        & \TODO{Họ và tên} -- \TODO{MSSV}\\
+                                        & \TODO{Họ và tên} -- \TODO{MSSV}\\[0.35cm]
+        \textbf{Giảng viên hướng dẫn:}  & \TODO{Họ và tên GVHD}
+    \end{tabular}
+
+    \vfill
+
+    {\large \textit{TP. Hồ Chí Minh, tháng \number\month{} năm \number\year}}
+\end{titlepage}
+
+% Table of contents
+\pagenumbering{Roman}
+\tableofcontents
+\newpage
+\addcontentsline{toc}{section}{Danh sách hình ảnh}
+\listoffigures
+\newpage
+\addcontentsline{toc}{section}{Danh sách bảng}
+\listoftables
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+% Abstract / Tóm tắt
+\input{section/0_tomtat}
+\newpage
+
+% Main content
+\input{section/1}
+\newpage
+\input{section/2}
+\newpage
+\input{section/3}
+\newpage
+\input{section/4}
+\newpage
+\input{section/5}
+\newpage
+\input{section/6}
+\newpage
+\input{section/7}
+
+% Appendices
+\newpage
+\appendix
+\input{section/appendix}
+
+% References
+\newpage
+\bibliographystyle{splncs04}
+\bibliography{refs}
+
+\end{document}

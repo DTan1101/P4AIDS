@@ -1,0 +1,182 @@
+\section{Phương pháp đề xuất}
+\label{sec:phuong-phap-de-xuat}
+
+\subsection{Tổng quan pipeline}
+\label{sec:tong-quan-pipeline}
+
+Hình~\ref{fig:pipeline-overview} minh họa pipeline chung: dữ liệu thô Szeged được làm
+sạch và cắt cửa sổ trượt, sau đó một bộ mặt nạ thiếu dữ liệu dùng chung được áp lên cùng
+một tập cửa sổ để tạo ra các bản sao bị thiếu ở nhiều tỷ lệ/kiểu khác nhau. Từ đây,
+pipeline rẽ thành ba nhánh xử lý độc lập -- Classic ML, ROCKET, và Deep Learning -- mỗi
+nhánh có bước tiền xử lý riêng phù hợp với giả định đầu vào của mình, trước khi hội tụ
+vào một khâu đánh giá chung (Chương~\ref{sec:thiet-lap-thuc-nghiem}).
+
+\begin{figure}[H]
+\centering
+\TODO{Vẽ sơ đồ pipeline: Dữ liệu thô → Làm sạch + cắt cửa sổ → Mặt nạ thiếu dữ liệu dùng
+chung → rẽ 3 nhánh (Classic ML / ROCKET / Deep Learning) → Đánh giá chung (metrics,
+kiểm định thống kê, giải thích mô hình).}
+\caption{Tổng quan pipeline của đồ án.}
+\label{fig:pipeline-overview}
+\end{figure}
+
+\subsection{Tiền xử lý chung}
+\label{sec:tien-xu-ly-chung}
+
+\begin{itemize}
+  \item \textbf{Làm sạch:} loại cột hằng số (\texttt{Loud Cover}), xử lý áp suất bằng 0
+        và timestamp trùng như đã nêu ở Mục~\ref{sec:chat-luong-du-lieu}, loại bản ghi
+        không có nhãn hợp lệ.
+  \item \textbf{Cửa sổ trượt:} sinh các cặp $(X_{t-23:t}, y_{t+1})$ với bước trượt 1 giờ.
+  \item \textbf{Chia theo năm:} \TODO{xác định chính xác ranh giới train/val/test theo
+        năm (ví dụ huấn luyện 2006--2013, validation 2014, test 2015--2016) để mô phỏng
+        kịch bản dự báo tương lai thực tế.}
+  \item \textbf{Chống rò rỉ dữ liệu (data leakage):} mọi thống kê dùng để chuẩn hóa
+        (mean/std) hoặc để huấn luyện bộ nội suy (ví dụ MissForest) chỉ được ước lượng
+        trên tập huấn luyện, sau đó áp dụng lại cho validation/test; việc cắt cửa sổ
+        không cho phép một cửa sổ chứa dữ liệu ở cả hai phía của ranh giới chia tập.
+\end{itemize}
+
+\subsection{Giả lập cảm biến mất dữ liệu}
+\label{sec:gia-lap-mat-du-lieu}
+
+Ba kiểu mất dữ liệu được giả lập trên mỗi cửa sổ đầu vào, nhằm mô phỏng các nguyên nhân
+mất số đo khác nhau trong thực tế:
+
+\begin{itemize}
+  \item \textbf{Point:} từng giá trị bị loại độc lập theo xác suất $p$ (mô phỏng nhiễu đo
+        tức thời hoặc lỗi gói dữ liệu đơn lẻ).
+  \item \textbf{Subsequence:} các đoạn liên tiếp có độ dài thay đổi bị loại (mô phỏng mất
+        kết nối tạm thời).
+  \item \textbf{Block:} toàn bộ một hoặc nhiều biến bị loại trong một khoảng thời gian
+        (mô phỏng một cảm biến cụ thể bị hỏng hoàn toàn).
+\end{itemize}
+
+Mỗi kiểu được áp ở ba tỷ lệ thiếu dữ liệu 10\%, 30\% và 50\% (tính trên tổng số điểm dữ
+liệu trong cửa sổ). Với mỗi cửa sổ $X$ và mỗi cấu hình (kiểu, tỷ lệ), một \emph{mặt nạ}
+nhị phân $M \in \{0,1\}^{24 \times 5}$ được sinh ra \textbf{một lần} và lưu lại, sau đó
+dùng chung cho tất cả các phương pháp ở Mục~\ref{sec:nhanh-classic-ml}--\ref{sec:nhanh-deep-learning}.
+Việc dùng chung mặt nạ là điều kiện bắt buộc để đảm bảo mọi phương pháp được đánh giá
+trên đúng cùng một tập các giá trị bị thiếu, loại bỏ khả năng khác biệt kết quả do
+may rủi trong việc sinh mặt nạ.
+
+\subsection{Nhánh Classic ML}
+\label{sec:nhanh-classic-ml}
+
+\subsubsection{Feature engineering}
+\label{sec:feature-engineering}
+
+\begin{itemize}
+  \item \textbf{LiteStatTemp:} \TODO{định nghĩa chính xác tập đặc trưng thống kê/nhiệt độ
+        rút gọn tự thiết kế -- ví dụ mean/std/min/max/slope của từng biến trong cửa sổ,
+        cùng một số đặc trưng riêng cho nhiệt độ (ví dụ số lần cắt ngưỡng 0\textdegree C).}
+  \item \textbf{Đặc trưng mask/$\Delta t$:} tỷ lệ giá trị thiếu theo biến, độ dài đoạn
+        thiếu dài nhất, và thời gian trôi qua từ lần quan trắc hợp lệ gần nhất, được tính
+        trực tiếp từ mặt nạ $M$ ở Mục~\ref{sec:gia-lap-mat-du-lieu}.
+  \item \textbf{catch22} \cite{lubba2019catch22} và \textbf{tsfresh} \cite{christ2018tsfresh}:
+        bộ đặc trưng chuẩn hóa được trích xuất bằng thư viện tương ứng, dùng làm đối
+        chứng/mở rộng cho LiteStatTemp.
+\end{itemize}
+
+\subsubsection{Xử lý dữ liệu thiếu}
+\label{sec:xu-ly-thieu-classic-ml}
+
+Ba cách xử lý dữ liệu thiếu được so sánh ở nhánh này:
+
+\begin{enumerate}
+  \item \textbf{XGBoost nhận NaN trực tiếp} \cite{chen2016xgboost}: khai thác khả năng
+        học hướng phân nhánh tối ưu cho giá trị thiếu ngay trong quá trình huấn luyện
+        cây, không cần bước impute riêng.
+  \item \textbf{Median kèm mask:} điền giá trị thiếu bằng trung vị (ước lượng trên tập
+        huấn luyện) và bổ sung đặc trưng mask tương ứng, làm baseline impute đơn giản.
+  \item \textbf{MissForest} \cite{stekhoven2012missforest}: impute lặp dựa trên random
+        forest, khai thác tương quan giữa các biến để ước lượng giá trị thiếu tốt hơn
+        median.
+\end{enumerate}
+
+\subsubsection{Xử lý mất cân bằng lớp}
+\label{sec:mat-can-bang-lop-classic}
+
+\TODO{Xác nhận mức độ mất cân bằng Rain/Snow thực tế (xem Mục~\ref{sec:eda}) và chọn
+chiến lược xử lý -- ví dụ \texttt{scale\_pos\_weight} của XGBoost, hoặc oversampling
+(SMOTE) trên tập huấn luyện -- so sánh các chiến lược này ở Mục~\ref{sec:ablation}.}
+
+\subsubsection{Hyperparameter tuning}
+\label{sec:tuning-classic-ml}
+
+Siêu tham số của XGBoost (độ sâu cây, learning rate, số lượng cây, subsample,
+colsample\_bytree, min\_child\_weight) được tối ưu bằng Optuna \cite{akiba2019optuna},
+với hàm mục tiêu là Macro F1 trung bình trên các fold validation (Mục~\ref{sec:giao-thuc-chia-du-lieu}).
+\TODO{Ghi lại không gian tìm kiếm cụ thể cho từng siêu tham số và số lượng trial đã
+chạy.}
+
+\subsection{Nhánh ROCKET}
+\label{sec:nhanh-rocket}
+
+MiniRocket \cite{dempster2021minirocket} và MultiRocket \cite{tan2022multirocket} yêu cầu
+đầu vào không có giá trị thiếu, do đó mỗi cửa sổ bị thiếu được nội suy tuyến tính theo
+thời gian cho từng biến trước khi đưa vào bộ biến đổi kernel ngẫu nhiên; các đoạn thiếu ở
+đầu/cuối cửa sổ được điền bằng giá trị hợp lệ gần nhất (forward/backward fill). Đặc trưng
+đầu ra của MiniRocket/MultiRocket sau đó được đưa vào một mô hình tuyến tính (ridge
+classifier) để phân loại. Việc nội suy trước khi biến đổi khiến nhánh này "mù" với vị trí
+thiếu gốc trừ khi đặc trưng mask/$\Delta t$ ở Mục~\ref{sec:feature-engineering} được nối
+thêm vào đặc trưng ROCKET trước khi phân loại.
+
+\subsection{Nhánh Deep Learning}
+\label{sec:nhanh-deep-learning}
+
+\subsubsection{Tiền xử lý riêng cho Deep Learning}
+\label{sec:tien-xu-ly-dl}
+
+Mỗi biến được chuẩn hóa (z-score, thống kê ước lượng trên tập huấn luyện), và với mỗi
+cửa sổ, hai kênh phụ được tạo thêm cho mỗi biến: kênh \emph{mask} (1 nếu quan trắc hợp
+lệ, 0 nếu thiếu) và kênh \emph{delta} ($\Delta t$, thời gian trôi qua từ lần quan trắc
+hợp lệ gần nhất của biến đó). Đầu vào mô hình do đó có 3 kênh cho mỗi biến gốc (giá trị,
+mask, delta).
+
+\subsubsection{Mô hình}
+\label{sec:mo-hinh-dl}
+
+\begin{itemize}
+  \item \textbf{GRU-Fill:} GRU chuẩn trên dữ liệu đã được điền giá trị đơn giản (forward
+        fill), dùng làm baseline học sâu không khai thác mask/delta.
+  \item \textbf{GRU kèm mask và delta:} GRU-Fill mở rộng bằng cách nối thêm kênh mask và
+        delta vào đầu vào, không thay đổi kiến trúc cell.
+  \item \textbf{GRU-D} \cite{che2018grud}: cổng decay nhận trực tiếp mask và delta để
+        điều chỉnh suy giảm ảnh hưởng của giá trị quan trắc cũ.
+  \item \textbf{BRITS} \cite{cao2018brits}: imputation hai chiều dựa trên RNN, huấn
+        luyện đa mục tiêu (imputation + phân loại).
+  \item \textbf{SAITS} \cite{du2023saits}: self-attention với mục tiêu kép imputation và
+        phân loại.
+  \item \textbf{UniTS} \cite{gao2024units} (nếu đủ thời gian/tài nguyên): fine-tune từ
+        checkpoint pretrained cho tác vụ phân loại trên dữ liệu Szeged.
+\end{itemize}
+
+\subsubsection{Kỹ thuật huấn luyện}
+\label{sec:ky-thuat-huan-luyen-dl}
+
+\begin{itemize}
+  \item \textbf{Loss có trọng số lớp:} cross-entropy với trọng số tỷ lệ nghịch với tần
+        suất lớp, để giảm thiên lệch do mất cân bằng Rain/Snow.
+  \item \textbf{Early stopping:} dừng huấn luyện khi Macro F1 trên tập validation không
+        cải thiện sau $k$ epoch liên tiếp (\TODO{xác định $k$ cụ thể}).
+  \item \textbf{Scheduler:} giảm learning rate theo kế hoạch (\TODO{xác định loại
+        scheduler -- cosine annealing hoặc reduce-on-plateau -- và tham số cụ thể}).
+  \item \textbf{Nhiều seed:} mỗi mô hình được huấn luyện lại với \TODO{số lượng} seed
+        khác nhau để báo cáo trung bình và độ lệch chuẩn của mỗi chỉ số.
+\end{itemize}
+
+\subsubsection{Fine-tuning}
+\label{sec:fine-tuning}
+
+\TODO{Nếu sử dụng UniTS: mô tả checkpoint pretrained được dùng, chiến lược fine-tuning
+(toàn phần hoặc chỉ fine-tune head phân loại), và số epoch/learning rate fine-tuning.}
+
+\subsection{Giải thích mô hình}
+\label{sec:giai-thich-mo-hinh}
+
+Đóng góp của từng đặc trưng đến quyết định phân loại được phân tích bằng SHAP
+\cite{lundberg2017shap} cho các mô hình dạng cây (XGBoost), và bằng Integrated Gradients
+\cite{sundararajan2017integratedgradients} cho các mô hình học sâu, nhằm kiểm tra xem các
+mô hình có thực sự khai thác thông tin mask/$\Delta t$ khi dữ liệu bị thiếu hay không.
+Kết quả giải thích mô hình được trình bày ở Mục~\ref{sec:giai-thich-mo-hinh-ket-qua}.

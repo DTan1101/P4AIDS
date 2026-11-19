@@ -1,0 +1,108 @@
+\section{Tổng quan tài liệu}
+\label{sec:tong-quan-tai-lieu}
+
+\subsection{Phân loại pha giáng thủy}
+\label{sec:lit-phan-loai-giang-thuy}
+
+Hướng tiếp cận truyền thống nhất để phân biệt mưa và tuyết là áp một ngưỡng nhiệt độ
+không khí hoặc nhiệt độ ướt (wet-bulb temperature) cố định hoặc theo vùng khí hậu
+\cite{jennings2018}. Các nghiên cứu này cho thấy ngưỡng tối ưu thay đổi đáng kể theo vị
+trí địa lý và mùa, và luôn tồn tại một dải nhiệt độ chồng lấn mà bản thân nhiệt độ không
+đủ để phân biệt hai pha. Các công trình gần đây hơn \cite{webb2025} đặt vấn đề học máy
+cho bài toán này, chỉ ra rằng mô hình học máy có thể khai thác thêm thông tin từ độ ẩm,
+áp suất và gió để cải thiện độ chính xác trong vùng chồng lấn, nhưng phần lớn các nghiên
+cứu này giả định dữ liệu đầu vào đầy đủ.
+
+\textbf{Hệ quả cho đồ án:} ngưỡng nhiệt độ được dùng làm baseline tối thiểu
+(Mục~\ref{sec:baseline}), còn các mô hình học máy/học sâu được kỳ vọng vượt baseline này
+đặc biệt trong dải nhiệt độ chồng lấn và khi dữ liệu bị thiếu.
+
+\subsection{Trích xuất đặc trưng chuỗi thời gian và mô hình cây}
+\label{sec:lit-feature-tree}
+
+Một hướng tiếp cận phổ biến cho phân loại chuỗi thời gian là trích xuất một tập đặc
+trưng thống kê/thời gian-tần số từ mỗi cửa sổ, sau đó đưa vào một mô hình phân loại dạng
+bảng. Các bộ công cụ tiêu biểu gồm tsfresh \cite{christ2018tsfresh}, trích xuất hàng trăm
+đặc trưng tự động có kiểm định ý nghĩa thống kê, và catch22 \cite{lubba2019catch22}, một
+tập 22 đặc trưng rút gọn được chọn để vừa có tính phân biệt cao vừa giảm chi phí tính
+toán. Kết hợp với các mô hình gradient boosting như XGBoost \cite{chen2016xgboost}, các
+phương pháp này thường đạt hiệu năng cạnh tranh với chi phí huấn luyện thấp hơn học sâu.
+
+\textbf{Hệ quả cho đồ án:} nhánh Classic ML (Mục~\ref{sec:nhanh-classic-ml}) kết hợp đặc
+trưng catch22/tsfresh với XGBoost, đồng thời khai thác khả năng nhận giá trị thiếu trực
+tiếp của XGBoost như một baseline xử lý thiếu dữ liệu đơn giản.
+
+\subsection{Họ ROCKET}
+\label{sec:lit-rocket}
+
+Họ phương pháp ROCKET biến đổi chuỗi thời gian bằng một số lượng lớn kernel tích chập
+ngẫu nhiên, sau đó dùng các đặc trưng tổng hợp (ví dụ tỷ lệ giá trị dương) để huấn luyện
+một mô hình tuyến tính. MiniRocket \cite{dempster2021minirocket} giảm không gian kernel
+xuống phần lớn là tất định, giúp tăng tốc đáng kể so với ROCKET gốc mà không giảm độ
+chính xác. MultiRocket \cite{tan2022multirocket} mở rộng thêm các phép biến đổi đầu vào
+(first-order difference) và nhiều phép pooling để tăng độ đa dạng đặc trưng.
+
+\textbf{Hệ quả cho đồ án:} vì ROCKET không được thiết kế cho dữ liệu thiếu, nhánh ROCKET
+(Mục~\ref{sec:nhanh-rocket}) cần một bước nội suy dữ liệu trước khi biến đổi, và kết quả
+của nhánh này cho biết liệu một bộ biến đổi mạnh nhưng "mù" với vị trí thiếu dữ liệu có
+đủ bền vững hay không.
+
+\subsection{RNN xử lý dữ liệu thiếu}
+\label{sec:lit-rnn-missing}
+
+GRU-D \cite{che2018grud} mở rộng GRU bằng cách đưa trực tiếp mặt nạ thiếu dữ liệu và thời
+gian trôi qua từ lần quan trắc hợp lệ gần nhất ($\Delta t$) vào cổng decay của trạng thái
+ẩn và của giá trị đầu vào, cho phép mô hình "quên" có kiểm soát khi dữ liệu thiếu kéo
+dài. BRITS \cite{cao2018brits} đi theo hướng khác: xây dựng một mô hình imputation hai
+chiều (forward/backward) dựa trên RNN, huấn luyện đồng thời với tác vụ phân loại để lan
+truyền thông tin ngữ cảnh qua các đoạn thiếu.
+
+\textbf{Hệ quả cho đồ án:} cả hai kiến trúc được triển khai trong nhánh Deep Learning
+(Mục~\ref{sec:nhanh-deep-learning}) cùng với một mô hình GRU đơn giản có mask/$\Delta t$
+làm đặc trưng bổ sung (GRU-Fill), nhằm đo đóng góp riêng của cơ chế decay có kiểm soát.
+
+\subsection{Transformer và mô hình nền tảng}
+\label{sec:lit-transformer}
+
+SAITS \cite{du2023saits} dùng cơ chế self-attention với một mục tiêu kép (joint-optimization
+giữa imputation và dự đoán) để tránh phải xây hai pha huấn luyện riêng biệt như BRITS.
+Các mô hình nền tảng chuỗi thời gian đa nhiệm gần đây, ví dụ UniTS \cite{gao2024units},
+được huấn luyện trước trên nhiều bộ dữ liệu và nhiều tác vụ (dự báo, phân loại,
+imputation), cho phép fine-tune trên một bài toán cụ thể với lượng dữ liệu huấn luyện ít
+hơn.
+
+\textbf{Hệ quả cho đồ án:} SAITS được đưa vào như đại diện cho hướng attention-based
+imputation, và UniTS (nếu đủ thời gian/tài nguyên) được dùng để kiểm tra liệu fine-tuning
+từ một mô hình nền tảng có mang lại lợi thế so với huấn luyện từ đầu trên riêng dữ liệu
+Szeged.
+
+\subsection{Đánh giá trên Szeged và các benchmark liên quan}
+\label{sec:lit-benchmark-szeged}
+
+\TODO{Rà soát các báo cáo/đồ án/kernel công khai đã dùng bộ dữ liệu Szeged (chủ yếu cho
+hồi quy nhiệt độ hoặc phân loại Rain/Snow ở điều kiện dữ liệu đầy đủ), và nêu rõ điểm
+khác biệt: các công trình này không giả lập hoặc đánh giá dưới điều kiện mất dữ liệu.}
+
+\subsection{Bảng tổng hợp và khoảng trống nghiên cứu}
+\label{sec:lit-tong-hop}
+
+\begin{table}[H]
+\centering
+\caption{Tổng hợp các hướng tiếp cận liên quan và vị trí của đồ án.}
+\label{tab:lit-summary}
+\begin{tabular}{@{}p{3.1cm}p{4.3cm}p{4.3cm}@{}}
+\toprule
+\textbf{Hướng tiếp cận} & \textbf{Giả định chính} & \textbf{Khoảng trống so với đồ án} \\
+\midrule
+Ngưỡng nhiệt độ \cite{jennings2018,webb2025} & Dữ liệu đầy đủ, mối quan hệ nhiệt độ--pha giáng thủy ổn định & Không xử lý dữ liệu thiếu; độ chính xác thấp trong vùng chồng lấn \\
+Đặc trưng + cây quyết định \cite{christ2018tsfresh,lubba2019catch22,chen2016xgboost} & Cửa sổ đầu vào đầy đủ hoặc thiếu ngẫu nhiên nhẹ & Thiếu đánh giá hệ thống theo nhiều tỷ lệ/kiểu thiếu \\
+ROCKET \cite{dempster2021minirocket,tan2022multirocket} & Chuỗi đầu vào liên tục, không thiếu & Cần bước nội suy riêng; chưa có benchmark dưới điều kiện thiếu \\
+RNN cho dữ liệu thiếu \cite{che2018grud,cao2018brits} & Thiếu dữ liệu là điều kiện vận hành bình thường & Ít được so sánh trực tiếp với ROCKET/đặc trưng cổ điển trên cùng bài toán \\
+Attention/mô hình nền tảng \cite{du2023saits,gao2024units} & Có đủ dữ liệu/tài nguyên để huấn luyện hoặc fine-tune & Chi phí tính toán cao, chưa rõ có cần thiết cho bài toán quy mô một trạm \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Khoảng trống chung là: chưa có nghiên cứu so sánh trực tiếp ba hướng tiếp cận trên cùng
+một bộ dữ liệu, cùng một giao thức giả lập thiếu dữ liệu và cùng một tập chỉ số đánh giá
+-- đây chính là mục tiêu của đồ án.

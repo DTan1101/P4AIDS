@@ -1,0 +1,38 @@
+\section{Kết luận và hướng phát triển}
+\label{sec:ket-luan}
+
+\subsection{Tóm tắt kết quả}
+\label{sec:tom-tat-ket-qua}
+
+\TODO{Tóm tắt lại phát hiện chính từ Mục~\ref{sec:ket-qua-chinh} và~\ref{sec:thao-luan}:
+họ phương pháp nào giữ hiệu năng tốt nhất khi tỷ lệ thiếu dữ liệu tăng, và mức độ cải
+thiện cụ thể so với các baseline ở Mục~\ref{sec:baseline}.}
+
+\subsection{Hạn chế}
+\label{sec:han-che}
+
+\begin{itemize}
+  \item \textbf{Nhãn từ API:} như đã nêu ở Mục~\ref{sec:han-che-nhan}, nhãn Rain/Snow
+        được suy ra từ Dark Sky API, không phải quan trắc thực địa trực tiếp, nên mọi kết
+        luận về độ chính xác tuyệt đối cần được hiểu là so với nhãn tham chiếu này.
+  \item \textbf{Một trạm quan trắc:} toàn bộ benchmark chỉ dựa trên dữ liệu của một trạm
+        (Szeged), nên khả năng tổng quát hóa sang vùng khí hậu khác chưa được kiểm chứng.
+  \item \textbf{Mất dữ liệu là giả lập:} mặt nạ thiếu dữ liệu (Mục~\ref{sec:gia-lap-mat-du-lieu})
+        được sinh tổng hợp, có thể không phản ánh đúng phân bố mất dữ liệu thực tế của
+        một cảm biến cụ thể (ví dụ tương quan giữa các biến khi cùng một trạm gặp sự cố
+        nguồn điện).
+\end{itemize}
+
+\subsection{Hướng phát triển}
+\label{sec:huong-phat-trien}
+
+\begin{itemize}
+  \item \textbf{Neural CDE:} khai thác mô hình continuous-time (Neural Controlled
+        Differential Equations) để xử lý tự nhiên dữ liệu lấy mẫu không đều, thay vì phải
+        rời rạc hóa thành cửa sổ cố định 24 giờ.
+  \item \textbf{Dữ liệu nhiều trạm:} mở rộng benchmark sang nhiều trạm quan trắc ở các
+        vùng khí hậu khác nhau để kiểm chứng khả năng tổng quát hóa của kết luận.
+  \item \textbf{Triển khai trên Edge:} đánh giá khả năng chạy mô hình tốt nhất (cân bằng
+        giữa hiệu năng và chi phí tính toán, xem Mục~\ref{sec:chi-phi-tinh-toan}) trên
+        thiết bị biên gắn tại trạm quan trắc thực tế.
+\end{itemize}

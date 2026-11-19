@@ -1,0 +1,72 @@
+\section{Giới thiệu và xác định bài toán}
+\label{sec:gioi-thieu}
+
+\subsection{Bối cảnh}
+\label{sec:boi-canh}
+
+Phân biệt chính xác giữa mưa (Rain) và tuyết (Snow) có ý nghĩa thực tiễn trực tiếp đối
+với cảnh báo giao thông đường bộ, lập kế hoạch nông nghiệp và vận hành lưới điện/hạ tầng
+đô thị ở các vùng khí hậu lạnh, vì hai pha giáng thủy này gây ra hệ quả vận hành khác
+nhau dù xảy ra trong cùng một dải nhiệt độ. Trong thực tế, các trạm quan trắc tự động
+không cung cấp chuỗi dữ liệu liên tục và đầy đủ: cảm biến hỏng, mất điện, lỗi truyền tín
+hiệu hoặc bảo trì định kỳ khiến một phần quan trắc bị thiếu tại các thời điểm ngẫu nhiên
+hoặc theo từng đoạn liên tục. Một mô hình phân loại chỉ được kiểm chứng trên dữ liệu đầy
+đủ có thể suy giảm hiệu năng mạnh khi gặp dữ liệu thiếu trong vận hành thực tế, nhưng mức
+độ suy giảm theo từng họ phương pháp (học máy cổ điển, biến đổi chuỗi thời gian, học sâu)
+hiện chưa được so sánh một cách hệ thống trên cùng một bộ dữ liệu và cùng một giao thức
+giả lập thiếu dữ liệu.
+
+\subsection{Phát biểu bài toán}
+\label{sec:phat-bieu-bai-toan}
+
+Bài toán được phát biểu như một bài toán phân loại nhị phân trên chuỗi thời gian đa biến:
+
+\begin{itemize}
+  \item \textbf{Đầu vào:} cửa sổ trượt $X \in \mathbb{R}^{24 \times 5}$, tương ứng với
+        24 giờ quan trắc liên tiếp của 5 biến khí tượng (nhiệt độ, độ ẩm, tốc độ gió, áp
+        suất, và độ che phủ mây/khả năng nhìn).
+  \item \textbf{Đầu ra:} nhãn nhị phân $y \in \{\text{Rain}, \text{Snow}\}$ tại thời
+        điểm $t+1$, ngay sau cửa sổ quan trắc.
+  \item \textbf{Điều kiện ràng buộc:} tại thời điểm suy luận, một phần của $X$ có thể bị
+        thiếu (giả lập theo mẫu điểm, đoạn liên tiếp hoặc khối), và mô hình phải đưa ra
+        dự đoán mà không được truy cập nhãn hoặc dữ liệu tương lai.
+\end{itemize}
+
+\subsection{Câu hỏi nghiên cứu}
+\label{sec:cau-hoi-nghien-cuu}
+
+Câu hỏi nghiên cứu trung tâm của đồ án là: \emph{trong số các họ phương pháp học máy cổ
+điển dựa trên đặc trưng, họ biến đổi ROCKET, và học sâu chuyên biệt cho dữ liệu thiếu,
+phương pháp nào giữ được hiệu năng phân loại Rain/Snow tốt nhất khi tỷ lệ và kiểu mất dữ
+liệu tăng lên?} Các câu hỏi phụ bao gồm: mức suy giảm hiệu năng có khác nhau theo kiểu
+mất dữ liệu (điểm/đoạn/khối) hay không, và việc đưa thêm thông tin về vị trí mất dữ liệu
+(mask, $\Delta t$) có cải thiện khả năng chống chịu của từng họ phương pháp hay không.
+
+\subsection{Đóng góp}
+\label{sec:dong-gop}
+
+\begin{itemize}
+  \item Xây dựng một giao thức benchmark thống nhất trên bộ dữ liệu Szeged, trong đó ba
+        kiểu mất dữ liệu (điểm, đoạn liên tiếp, khối) ở các tỷ lệ 10/30/50\% được giả lập
+        bằng một bộ mặt nạ dùng chung cho mọi phương pháp, đảm bảo so sánh công bằng.
+  \item So sánh có hệ thống ba hướng phương pháp -- đặc trưng chuỗi thời gian kết hợp cây
+        quyết định/gradient boosting, họ biến đổi ROCKET, và học sâu cho dữ liệu thiếu
+        (GRU-D, BRITS, SAITS, UniTS) -- trên cùng một tập huấn luyện/kiểm tra và cùng một
+        tập chỉ số đánh giá.
+  \item Phân tích định lượng mức suy giảm hiệu năng (Macro F1, PR-AUC) theo tỷ lệ và kiểu
+        mất dữ liệu, kèm kiểm định ý nghĩa thống kê (McNemar, Friedman) và ablation cho
+        từng thành phần (đặc trưng, mask/$\Delta t$, tuning, xử lý mất cân bằng lớp).
+  \item \TODO{Bổ sung đóng góp thứ tư nếu có (ví dụ: phân tích giải thích mô hình bằng
+        SHAP/Integrated Gradients, hoặc một phát hiện cụ thể về dải nhiệt độ chồng lấn
+        0--4\textdegree C).}
+\end{itemize}
+
+\subsection{Cấu trúc báo cáo}
+\label{sec:cau-truc-bao-cao}
+
+Phần còn lại của báo cáo được tổ chức như sau. Chương~\ref{sec:du-lieu} trình bày bộ dữ
+liệu Szeged và các vấn đề chất lượng dữ liệu liên quan. Chương~\ref{sec:tong-quan-tai-lieu}
+tổng quan các hướng tiếp cận liên quan trong tài liệu. Chương~\ref{sec:phuong-phap-de-xuat}
+trình bày pipeline và các phương pháp được triển khai. Chương~\ref{sec:thiet-lap-thuc-nghiem}
+mô tả thiết lập thực nghiệm. Chương~\ref{sec:ket-qua-va-phan-tich} trình bày và phân tích
+kết quả. Chương~\ref{sec:ket-luan} tổng kết và đề xuất hướng phát triển.

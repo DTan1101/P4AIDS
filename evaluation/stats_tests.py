@@ -36,6 +36,13 @@ def mcnemar_test(y_true: Sequence[int], pred_a: Sequence[int],
     only_b = int(np.sum(~correct_a & correct_b))
     both_wrong = int(np.sum(~correct_a & ~correct_b))
 
+    if only_a + only_b == 0:
+        # Không có cặp bất đồng nào (hai mô hình đúng/sai giống hệt nhau trên mọi
+        # mẫu): thống kê hiệu chỉnh liên tục của statsmodels chia cho (only_a+only_b)
+        # = 0, cho p-value vô nghĩa (0.0) thay vì đúng ra phải là "không có bằng
+        # chứng khác biệt" (p=1.0). Trả thẳng kết quả này, không gọi statsmodels.
+        return 0.0, 1.0
+
     table = [[both_correct, only_a], [only_b, both_wrong]]
     result = mcnemar(table, exact=False, correction=True)
     return float(result.statistic), float(result.pvalue)

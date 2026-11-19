@@ -112,6 +112,20 @@ mặc định (~10 nghìn chiều) với toàn bộ ~70 nghìn cửa sổ train 
 `transform_batch_size` ở mức an toàn; hạ thêm `rocket.n_kernels` (ví dụ
 1000–2000) nếu vẫn gặp lỗi hết bộ nhớ trên máy yếu hơn.
 
+## Kiểm thử
+
+```bash
+pytest tests/ -v
+```
+
+`tests/` kiểm tra các bất biến quan trọng của pipeline dữ liệu và đánh giá
+(`datasets/szeged|windows|splits|missingness|features.py`,
+`evaluation/metrics|baselines|stats_tests|explain.py`): chống rò rỉ dữ liệu
+khi chia theo năm, tỷ lệ mặt nạ thiếu dữ liệu đúng mục tiêu, nhãn cửa sổ đúng
+vị trí t+1, các độ đo khớp với sklearn, McNemar/Friedman/critical-difference
+đúng trên các case biết trước kết quả. Không phụ thuộc `datasets/archive/`
+(dùng dữ liệu tổng hợp dựng trong fixture) nên chạy trong vài giây.
+
 ## License
 
 For educational purposes only.

@@ -1,0 +1,25 @@
+\section*{Tóm tắt}
+\addcontentsline{toc}{section}{Tóm tắt}
+
+Phân biệt mưa và tuyết tại thời điểm $t+1$ là một bài toán phân loại thời tiết quan
+trọng cho cảnh báo giao thông, nông nghiệp và vận hành lưới điện, nhưng các trạm quan
+trắc thực tế thường xuyên mất số đo do lỗi cảm biến, mất điện hoặc lỗi truyền tín hiệu.
+Đồ án này xây dựng và đánh giá một benchmark trên bộ dữ liệu thời tiết Szeged
+(2006--2016), với đầu vào là cửa sổ trượt 24 giờ của 5 biến quan trắc (nhiệt độ, độ ẩm,
+tốc độ gió, áp suất, độ che phủ mây/khả năng nhìn) và đầu ra là nhãn Rain/Snow tại
+$t+1$, trong điều kiện dữ liệu bị thiếu được giả lập theo ba kiểu (điểm, đoạn liên tiếp,
+khối) ở các tỷ lệ 10/30/50\%.
+
+Nhóm so sánh ba hướng phương pháp trên cùng một giao thức và cùng một bộ mặt nạ thiếu
+dữ liệu: (i) học máy cổ điển dựa trên đặc trưng chuỗi thời gian (LiteStatTemp, catch22,
+tsfresh) kết hợp XGBoost/MissForest; (ii) họ biến đổi ROCKET (MiniRocket, MultiRocket);
+và (iii) học sâu dành cho dữ liệu thiếu (GRU-D, BRITS, SAITS, UniTS). Hiệu năng được đo
+bằng Macro F1 và PR-AUC, kiểm định ý nghĩa thống kê bằng McNemar và Friedman, và được
+giải thích bằng SHAP/Integrated Gradients.
+
+\TODO{Điền một con số kết quả chính (ví dụ: mô hình nào giữ Macro F1 cao nhất tại tỷ lệ
+thiếu 50\%, và mức sụt giảm so với baseline) cùng một câu kết luận tổng quát sau khi có
+kết quả thực nghiệm.}
+
+\textbf{Từ khóa:} phân loại pha giáng thủy, dữ liệu chuỗi thời gian bị thiếu, Szeged
+weather dataset, ROCKET, học sâu cho dữ liệu thiếu, GRU-D, BRITS, SAITS.
