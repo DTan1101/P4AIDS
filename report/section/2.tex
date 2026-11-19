@@ -260,6 +260,63 @@ Giờ & Temp. (°C) & Humidity & Wind (km/h) & Pressure (mb) & Visib. (km) \\
 \footnotesize Nhãn tại $t{+}1$ = 01/01 \textbf{23:00} $\to$ \textbf{Rain} ($y=0$).
 \end{table}
 
+\subsection{Sinh mặt nạ thiếu dữ liệu giả lập}
+\label{sec:sinh-mat-na}
+
+Phần thiếu dữ liệu \emph{tự nhiên} của bộ dữ liệu rất nhỏ (0,42\% số điểm,
+Mục~\ref{sec:du-lieu-sau-tien-xu-ly}) -- không đủ để đánh giá mô hình hoạt động tốt đến
+đâu khi cảm biến thực sự mất số đo. Vì vậy, ngay trên $X$ đã tiền xử lý, đồ án \textbf{giả
+lập thêm} mất dữ liệu theo ba kiểu, ở ba tỷ lệ 10/30/50\% (mô tả đầy đủ về động cơ và thiết
+kế ở Mục~\ref{sec:gia-lap-mat-du-lieu}; phần này trình bày cụ thể mặt nạ được sinh ra như
+thế nào và trông như thế nào trên dữ liệu thật):
+
+\begin{itemize}
+  \item \textbf{Point:} từng điểm $(giờ, biến)$ bị ẩn độc lập, chọn ngẫu nhiên không lặp
+        trong số các điểm đang quan sát được -- mô phỏng nhiễu đo/lỗi gói tin rời rạc.
+  \item \textbf{Subsequence:} nhiều đoạn liên tiếp ngắn/vừa (độ dài ngẫu nhiên, tối đa nửa
+        cửa sổ), mỗi đoạn trên \emph{một} biến -- mô phỏng mất kết nối tạm thời.
+  \item \textbf{Block:} một hoặc nhiều biến bị ẩn \emph{toàn bộ} trong một đoạn thời gian
+        dài (tối thiểu nửa cửa sổ) -- mô phỏng một cảm biến hỏng hẳn trong thời gian dài.
+\end{itemize}
+
+Với mỗi cửa sổ, \texttt{datasets/missingness.py:generate\_mask()} tính trước một
+\emph{ngân sách} = (tỷ lệ mục tiêu $\times$ 120 điểm/cửa sổ) $-$ (số điểm đã thiếu tự
+nhiên), rồi chọn đúng số điểm đó để ẩn thêm theo kiểu tương ứng -- nhờ vậy tỷ lệ thiếu
+\emph{thực tế} luôn sát tỷ lệ mục tiêu dù dữ liệu vốn đã có một ít NaN tự nhiên
+(Bảng~\ref{tab:ty-le-mat-du-lieu-thuc-te}). Mặt nạ được sinh với \textbf{seed cố định}
+một lần duy nhất và lưu cache (\texttt{outputs/masks/}), để cả ba nhánh phương pháp dùng
+chung đúng một mặt nạ cho mỗi cấu hình -- điều kiện bắt buộc để so sánh công bằng.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{figs/missingness_mask_example.pdf}
+\caption{Ba kiểu mất dữ liệu giả lập áp lên \emph{cùng một} cửa sổ 24 giờ $\times$ 5 biến
+thật (không có NaN tự nhiên để mặt nạ hiện rõ): point rải rác từng điểm, subsequence tạo
+đoạn liên tiếp trên từng biến, block xoá nguyên biến trong một khoảng thời gian dài.}
+\label{fig:missingness-example}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Tỷ lệ thiếu mục tiêu so với thực tế, đo trên toàn bộ 95.888 cửa sổ (seed=123).}
+\label{tab:ty-le-mat-du-lieu-thuc-te}
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Kiểu} & \textbf{Mục tiêu 10\%} & \textbf{Mục tiêu 30\%} & \textbf{Mục tiêu 50\%} \\
+\midrule
+Point & 10,14\% & 30,06\% & 50,02\% \\
+Subsequence & 10,14\% & 30,06\% & 50,02\% \\
+Block & 10,14\% & 30,06\% & 50,02\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Sai lệch nhỏ và đều giữa ba kiểu (ví dụ 10,14\% thay vì đúng 10,00\%) đến từ việc làm tròn
+ngân sách về số nguyên trên từng cửa sổ 120 điểm, cộng thêm 0,42\% đã thiếu sẵn tự nhiên --
+không phải do lỗi thuật toán, và sai lệch này giống hệt nhau ở cả ba kiểu vì cùng dùng
+chung một công thức ngân sách.
+
 \subsection{Hạn chế của nhãn}
 \label{sec:han-che-nhan}
 
