@@ -78,6 +78,52 @@ các bản ghi nằm trong dải sát ngưỡng này -- mô hình buộc phải 
 khác (độ ẩm, áp suất, gió) hoặc nội suy thay vì chỉ nhìn vào nhiệt độ, và đây chính là phần
 việc khó thực sự mà đồ án muốn đánh giá.
 
+\subsection{Hướng xử lý mất cân bằng dữ liệu}
+\label{sec:xu-ly-mat-can-bang}
+
+Tỷ lệ Rain:Snow xấp xỉ 8:1 (Mục~\ref{sec:eda}) khiến một mô hình không xử lý gì có thể đạt
+Accuracy cao giả tạo (88,8\% chỉ bằng cách luôn đoán Rain) trong khi gần như không nhận ra
+được Snow -- đúng là hành vi của baseline lớp đa số (Mục~\ref{sec:baseline}). Đồ án xử lý
+vấn đề này ở \textbf{hai tầng độc lập}, áp dụng đồng thời:
+
+\begin{enumerate}
+  \item \textbf{Tầng đánh giá (không phụ thuộc thuật toán):} dùng \textbf{Macro F1} và
+        \textbf{PR-AUC} làm chỉ số chính thay vì Accuracy (Mục~\ref{sec:metrics}) -- hai chỉ
+        số này không bị "pha loãng" bởi lớp đa số, nên vẫn phản ánh đúng chất lượng kể cả
+        khi không áp dụng bất kỳ kỹ thuật cân bằng nào ở bước huấn luyện.
+  \item \textbf{Tầng thuật toán:} mỗi nhánh/baseline có cơ chế xử lý mất cân bằng riêng,
+        phù hợp với bản chất mô hình (Bảng~\ref{tab:xu-ly-mat-can-bang}).
+\end{enumerate}
+
+\begin{table}[H]
+\centering
+\caption{Hướng xử lý mất cân bằng lớp theo từng thành phần.}
+\label{tab:xu-ly-mat-can-bang}
+\small
+\begin{tabular}{@{}p{3.5cm}p{3.1cm}p{7.3cm}@{}}
+\toprule
+\textbf{Thành phần} & \textbf{Chiến lược} & \textbf{Cơ chế} \\
+\midrule
+Baseline Logistic Regression & \texttt{class\_weight}\newline\texttt{="balanced"} & Trọng số mỗi lớp tỷ lệ nghịch tần suất, áp trực tiếp vào hàm mất mát (\texttt{evaluation/baselines.py}). \\
+\addlinespace
+Baseline k-NN & Không xử lý & \texttt{KNeighborsClassifier} của scikit-learn không hỗ trợ trọng số lớp; giữ nguyên làm baseline "thô". \\
+\addlinespace
+Classic ML (XGBoost) & \texttt{scale\_pos\_weight}\newline (mặc định) hoặc SMOTE & \texttt{scale\_pos\_weight} = (số Rain)/(số Snow) trên tập train; SMOTE sinh thêm mẫu Snow tổng hợp trước khi huấn luyện (\texttt{models/classic.py}, \texttt{trainers/classic\_trainer.py}) -- so sánh hai chiến lược ở Mục~\ref{sec:ablation}. \\
+\addlinespace
+ROCKET (RidgeClassifierCV) & \texttt{class\_weight}\newline\texttt{="balanced"} & Trọng số nghịch tần suất lớp trong hàm mất mát ridge, đồng nhất với baseline Logistic Regression (\texttt{models/rocket.py}). \\
+\addlinespace
+Deep Learning\newline (mọi mô hình GRU/BRITS/SAITS) & Cross-entropy\newline có trọng số lớp & Trọng số lớp $c$ = $N / (2 \times \text{số mẫu lớp } c)$, áp cho cả vòng lặp huấn luyện tự cài lẫn \texttt{WeightedCrossEntropy} tuỳ biến cho PyPOTS (\texttt{trainers/deep\_trainer.py}). \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Baseline persistence và ngưỡng nhiệt độ không cần xử lý mất cân bằng: đây là các quy tắc
+đơn giản (tra nhãn quá khứ, so sánh ngưỡng), không học qua một hàm mất mát nên khái niệm
+"trọng số lớp" không áp dụng được. Với nhánh Classic ML, cả ba lựa chọn -- không xử lý,
+\texttt{scale\_pos\_weight}, SMOTE -- đều được chạy và so sánh trực tiếp bằng Macro F1 ở
+Mục~\ref{sec:ablation}, để trả lời câu hỏi kỹ thuật cân bằng nào thực sự cải thiện kết quả
+trên bộ dữ liệu này thay vì mặc định chọn một chiến lược.
+
 \subsection{Vấn đề chất lượng dữ liệu}
 \label{sec:chat-luong-du-lieu}
 
@@ -106,6 +152,113 @@ Ngoài ra, sau khi quy dữ liệu về lưới giờ liên tục theo từng gi
 bị loại ở trên) -- đây là phần \emph{thiếu dữ liệu tự nhiên} của bộ dữ liệu, độc lập và được
 giữ tách biệt với phần mất dữ liệu \emph{giả lập} dùng để đánh giá độ bền vững của mô hình ở
 Mục~\ref{sec:gia-lap-mat-du-lieu}.
+
+\subsection{Quy trình tiền xử lý}
+\label{sec:quy-trinh-tien-xu-ly}
+
+Toàn bộ quy trình từ CSV thô đến dữ liệu sẵn sàng huấn luyện gồm bốn bước tự động, lần
+lượt nằm trong \texttt{datasets/szeged.py}, \texttt{datasets/windows.py} và
+\texttt{datasets/splits.py} (Hình~\ref{fig:pipeline-tien-xu-ly}): \textbf{(1)} đọc và sắp
+xếp dữ liệu thô theo thời gian; \textbf{(2)} làm sạch (loại cột hằng số, sửa giá trị phi
+vật lý, loại bản ghi trùng/nhãn không hợp lệ, quy về lưới giờ liên tục -- chi tiết ở
+Mục~\ref{sec:chat-luong-du-lieu}); \textbf{(3)} cắt cửa sổ trượt 24 giờ, gán nhãn tại giờ
+$t{+}1$ ngay sau mỗi cửa sổ; \textbf{(4)} chia tập train/validation/test theo năm.
+
+\begin{figure}[H]
+\centering
+\resizebox{0.78\textwidth}{!}{%
+\begin{tikzpicture}[
+  data/.style={rectangle, rounded corners, draw=black, fill=orange!15,
+               minimum width=7.2cm, minimum height=1.0cm, align=center, font=\small},
+  proc/.style={rectangle, draw=black, fill=blue!15,
+               minimum width=7.2cm, minimum height=1.3cm, align=center, font=\small},
+  split/.style={rectangle, rounded corners, draw=black, fill=orange!15,
+                minimum width=2.2cm, minimum height=1.0cm, align=center, font=\small},
+  arr/.style={thick, ->, >=stealth}
+]
+  \node[data] (csv) {CSV thô\\96.453 dòng $\times$ 12 cột};
+  \node[proc, below=0.5cm of csv] (load) {\texttt{load\_raw()}\\Parse timestamp (UTC, naive), sắp xếp theo thời gian};
+  \node[proc, below=0.5cm of load] (clean) {\texttt{clean()}\\Loại \texttt{Loud Cover} $\cdot$ Pressure=0$\to$NaN $\cdot$ dedupe\\ $\cdot$ lọc nhãn không hợp lệ $\cdot$ reindex lưới giờ liên tục};
+  \node[data, below=0.5cm of clean] (cleaned) {DataFrame sạch: 96.432 dòng (lưới giờ liên tục)\\95.912 dòng có nhãn Rain/Snow hợp lệ};
+  \node[proc, below=0.5cm of cleaned, minimum height=1.0cm] (window) {\texttt{build\_windows(window=24)}\\Cửa sổ trượt 24 giờ $\to$ nhãn tại $t{+}1$};
+  \node[data, below=0.5cm of window] (windowed) {$X$: (95.888, 24, 5) $\quad$ $y$: (95.888,)};
+  \node[proc, below=0.5cm of windowed, minimum height=1.0cm] (split) {\texttt{year\_split()}\\Chia theo năm, chống rò rỉ dữ liệu};
+  \node[split, below=0.6cm of split, xshift=-2.6cm] (train) {Train\\69.962};
+  \node[split, below=0.6cm of split] (val) {Val\\8.757};
+  \node[split, below=0.6cm of split, xshift=2.6cm] (test) {Test\\17.169};
+
+  \draw[arr] (csv) -- (load);
+  \draw[arr] (load) -- (clean);
+  \draw[arr] (clean) -- (cleaned);
+  \draw[arr] (cleaned) -- (window);
+  \draw[arr] (window) -- (windowed);
+  \draw[arr] (windowed) -- (split);
+  \draw[arr] (split) -- (train);
+  \draw[arr] (split) -- (val);
+  \draw[arr] (split) -- (test);
+\end{tikzpicture}}
+\caption{Quy trình tiền xử lý: từ CSV thô đến ba tập train/validation/test.}
+\label{fig:pipeline-tien-xu-ly}
+\end{figure}
+
+Hai bước (3) và (4) chưa được mô tả ở Mục~\ref{sec:chat-luong-du-lieu}:
+
+\begin{itemize}
+  \item \textbf{Cắt cửa sổ trượt (\texttt{build\_windows}):} với mỗi vị trí $i$ trên lưới
+        giờ liên tục, đặc trưng là 24 giờ $[i-23, i]$, nhãn là giá trị tại giờ $i+1$.
+        Cửa sổ bị loại nếu nhãn tại $i+1$ không hợp lệ (NaN); \textbf{đặc trưng vẫn được
+        giữ} dù một vài giờ trong cửa sổ trùng với phần thiếu dữ liệu tự nhiên
+        (Mục~\ref{sec:chat-luong-du-lieu}) -- đây là lựa chọn có chủ đích, để phần thiếu
+        tự nhiên (rất nhỏ, 0,42\% tổng số điểm) không bị trộn lẫn với phần mất dữ liệu
+        \emph{giả lập} sẽ thêm vào ở Mục~\ref{sec:gia-lap-mat-du-lieu}.
+  \item \textbf{Chia tập (\texttt{year\_split}):} chia theo \emph{thời gian}, không xáo
+        trộn ngẫu nhiên -- train gồm các cửa sổ có nhãn thuộc 2006--2013, validation thuộc
+        2014, test thuộc 2015--2016 (cố định, không dùng để chọn mô hình/siêu tham số).
+        Cách chia này mô phỏng đúng kịch bản dự báo thực tế (dự đoán tương lai từ quá khứ)
+        và tránh rò rỉ dữ liệu giữa các tập.
+\end{itemize}
+
+\subsection{Dữ liệu sau tiền xử lý}
+\label{sec:du-lieu-sau-tien-xu-ly}
+
+Sau bốn bước trên, dữ liệu sẵn sàng cho mọi nhánh phương pháp (Chương~\ref{sec:phuong-phap-de-xuat})
+là hai mảng NumPy: $X$ kiểu \texttt{float32}, shape $(95{.}888,\ 24,\ 5)$ -- tương ứng
+95.888 cửa sổ, mỗi cửa sổ 24 giờ $\times$ 5 biến (Mục~\ref{sec:nguon-du-lieu}) -- và $y$
+kiểu \texttt{int64}, shape $(95{.}888,)$ với $y \in \{0 \text{ (Rain)}, 1 \text{ (Snow)}\}$.
+Tỷ lệ Snow trong $y$ là 11,2\%, khớp với tỷ lệ trên toàn bộ dữ liệu có nhãn
+(Mục~\ref{sec:eda}) -- việc cắt cửa sổ không làm lệch phân bố lớp. $X$ còn chứa NaN tại
+0,42\% số điểm, đúng bằng phần thiếu dữ liệu tự nhiên đã nêu ở
+Mục~\ref{sec:chat-luong-du-lieu} (chưa tính phần giả lập thêm ở Chương~\ref{sec:phuong-phap-de-xuat}).
+Ba tập được đánh chỉ số (không sao chép dữ liệu) theo Mục~\ref{sec:quy-trinh-tien-xu-ly}:
+69.962 cửa sổ train, 8.757 validation, 17.169 test.
+
+Bảng~\ref{tab:vi-du-cua-so} minh hoạ cụ thể một cửa sổ thật (cửa sổ đầu tiên của tập
+train): 24 giờ từ 31/12/2005 23:00 đến 01/01/2006 22:00 là đặc trưng đầu vào, nhãn
+Rain được lấy từ giờ \textbf{01/01/2006 23:00} -- đúng là giờ ngay sau cửa sổ, không phải
+giờ cuối cùng của cửa sổ.
+
+\begin{table}[H]
+\centering
+\caption{Ví dụ một cửa sổ đầu vào thật (rút gọn, chỉ hiện 3 giờ đầu và 3 giờ cuối trong 24 giờ).}
+\label{tab:vi-du-cua-so}
+\small
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Giờ & Temp. (°C) & Humidity & Wind (km/h) & Pressure (mb) & Visib. (km) \\
+\midrule
+31/12 23:00 & 0,58 & 0,89 & 17,11 & 1016,66 & 9,98 \\
+01/01 00:00 & 1,16 & 0,85 & 16,62 & 1016,15 & 9,90 \\
+01/01 01:00 & 1,67 & 0,82 & 20,25 & 1015,87 & 9,90 \\
+\multicolumn{6}{c}{$\vdots$ (18 giờ còn lại)} \\
+01/01 20:00 & 4,93 & 0,86 & 23,94 & 1009,43 & 15,73 \\
+01/01 21:00 & 5,47 & 0,87 & 22,72 & 1009,51 & 14,80 \\
+01/01 22:00 & 5,42 & 0,86 & 19,56 & 1009,64 & 15,65 \\
+\bottomrule
+\end{tabular}
+
+\vspace{2pt}
+\footnotesize Nhãn tại $t{+}1$ = 01/01 \textbf{23:00} $\to$ \textbf{Rain} ($y=0$).
+\end{table}
 
 \subsection{Hạn chế của nhãn}
 \label{sec:han-che-nhan}

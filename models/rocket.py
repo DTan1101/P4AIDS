@@ -62,15 +62,20 @@ def build_rocket_transformer(variant: str = "mini", random_state: int = 42, n_jo
     raise ValueError(f"variant phải thuộc {ROCKET_VARIANTS}, nhận '{variant}'.")
 
 
-def build_ridge_classifier(cv: int = 5) -> RidgeClassifierCV:
+def build_ridge_classifier(cv: int = 5, class_weight: Optional[str] = "balanced") -> RidgeClassifierCV:
     """``cv`` cố định (k-fold tường minh), KHÔNG dùng ``cv=None``: mặc định của
     sklearn khi ``cv=None`` dùng một "trick" generalized-CV dựa trên SVD của toàn
     bộ ma trận thiết kế, cấp phát một ma trận ``U`` cùng kích thước với đặc trưng
     đầu vào -- với ~70 nghìn cửa sổ train x ~10 nghìn đặc trưng ROCKET, đã xác minh
     thực nghiệm việc này gây OOM trên máy không có swap. ``cv`` tường minh chậm hơn
     (phải refit theo từng fold) nhưng bộ nhớ ổn định, không phụ thuộc cỡ dữ liệu.
+
+    ``class_weight="balanced"`` (mặc định): Snow chỉ chiếm ~11\% dữ liệu (Mục 2.2 báo
+    cáo), nên trọng số nghịch đảo tần suất lớp được áp ngay ở bước này, đồng nhất với
+    cách nhánh Classic ML (``scale_pos_weight``) và Deep Learning (cross-entropy có
+    trọng số) xử lý mất cân bằng -- xem Mục 2.7.
     """
-    return RidgeClassifierCV(alphas=np.logspace(-3, 3, 5), cv=cv)
+    return RidgeClassifierCV(alphas=np.logspace(-3, 3, 5), cv=cv, class_weight=class_weight)
 
 
 class RocketClassifier:

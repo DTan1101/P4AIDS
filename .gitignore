@@ -2,7 +2,6 @@
 
 # Dữ liệu & kết quả
 /data/
-/outputs/*
 !/outputs/.gitkeep
 *.pth
 *.pt
