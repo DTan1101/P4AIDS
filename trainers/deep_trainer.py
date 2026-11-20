@@ -22,7 +22,6 @@ from datasets.dl_dataset import WeatherWindowDataset, prepare_dl_arrays
 from datasets.missingness import MissingnessConfig
 from evaluation.metrics import compute_all_metrics
 from models.deep import build_custom_deep_model
-from models.deep_pypots import build_pypots_model
 from utils.utils import get_device, seed_everything
 
 logger = logging.getLogger("p4aids")
@@ -148,6 +147,8 @@ def run_deep_pypots(X: np.ndarray, y: np.ndarray, mask: np.ndarray,
                      epochs: int = 100, patience: int = 10, batch_size: int = 64,
                      seed: int = 42, device: Optional[str] = None, **model_kwargs: Any) -> DeepRunResult:
     """Huấn luyện một mô hình PyPOTS (BRITS/SAITS/GRU-D) cho một cấu hình."""
+    from models.deep_pypots import build_pypots_model
+
     seed_everything(seed)
     torch_device = str(get_device(device or "auto"))
 

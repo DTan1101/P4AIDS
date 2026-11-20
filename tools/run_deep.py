@@ -44,14 +44,14 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     setup_logger()
     logger = logging.getLogger("p4aids")
 
-    data = load_prepared_data(cfg["data"].get("output_path", "outputs/data/windows.npz"))
+    data = load_prepared_data(cfg["data"].get("prepared_path", cfg["data"].get("output_path", "outputs/data/windows.npz")))
     X, y = data["X"], data["y"]
     train_idx, val_idx, test_idx = data["train_idx"], data["val_idx"], data["test_idx"]
     masks = resolve_masks(X, args, cfg.get("missing", {}))
 
     deep_cfg = cfg["deep"]
     model_name = deep_cfg.get("model", "gru_fill")
-    seeds = cfg["experiment"].get("seeds", [int(cfg["experiment"].get("seed", 42))])
+    seeds = [int(args.seed)] if args.seed is not None else cfg["experiment"].get("seeds", [int(cfg["experiment"].get("seed", 42))])
     patience = deep_cfg.get("patience", 10)
     kwargs = dict(
         hidden_size=int(deep_cfg.get("hidden_size", 64)), epochs=int(deep_cfg.get("epochs", 50)),
@@ -59,8 +59,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         batch_size=int(deep_cfg.get("batch_size", 128)),
         device=deep_cfg.get("device", "auto"),
     )
-    if model_name in CUSTOM_MODEL_NAMES:
-        kwargs["lr"] = float(deep_cfg.get("lr", 1e-3))
+    kwargs["lr"] = float(deep_cfg.get("lr", 1e-3))
+    if model_name in PYPOTS_MODEL_NAMES:
+        kwargs.update(deep_cfg.get("pypots", {}))
 
     output_dir = cfg["experiment"].get("output_dir", "outputs/results/deep")
     ensure_dir(output_dir)

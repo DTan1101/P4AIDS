@@ -22,7 +22,7 @@ aeon>=0.11
 # torch kéo theo tải lớn (~2-3GB với CUDA); cài riêng nếu cần build CPU-only:
 #   pip install torch --index-url https://download.pytorch.org/whl/cpu
 torch>=2.3
-pypots>=1.1
+pypots==2.0  # API adapter được kiểm thử với phiên bản này
 
 # --- Giải thích mô hình (evaluation/explain.py), tuỳ chọn (Mục 4.7/6.7) ---
 # shap>=0.45
