@@ -19,8 +19,8 @@ if REPO_ROOT not in sys.path:
 
 from datasets.cache import load_prepared_data  # noqa: E402
 from options.experiment_options import parse_experiment_options, resolve_masks  # noqa: E402
-from trainers.deep_trainer import CUSTOM_MODEL_NAMES, PYPOTS_MODEL_NAMES, run_deep_multiseed  # noqa: E402
-from utils.utils import ensure_dir, save_json, setup_logger  # noqa: E402
+from trainers.deep_trainer import CUSTOM_MODEL_NAMES, DEEP_PROTOCOL, PYPOTS_MODEL_NAMES, run_deep_multiseed  # noqa: E402
+from utils.utils import dump_config, ensure_dir, save_json, setup_logger  # noqa: E402
 
 DEFAULT_CONFIG = "configs/rain_snow_deep.yaml"
 ALL_MODEL_NAMES = CUSTOM_MODEL_NAMES + PYPOTS_MODEL_NAMES
@@ -61,19 +61,28 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     )
     kwargs["lr"] = float(deep_cfg.get("lr", 1e-3))
     if model_name in PYPOTS_MODEL_NAMES:
-        kwargs.update(deep_cfg.get("pypots", {}))
+        pypots_options = deep_cfg.get("pypots", {})
+        if set(pypots_options) & (set(kwargs) | {"artifact_dir", "seed", "saving_path"}):
+            raise ValueError("deep.pypots chỉ chứa tuỳ chọn kiến trúc; dùng deep.* cho tham số chung.")
+        kwargs.update(pypots_options)
 
     output_dir = cfg["experiment"].get("output_dir", "outputs/results/deep")
     ensure_dir(output_dir)
+    if not seeds or len(set(seeds)) != len(seeds):
+        raise ValueError("Danh sách seeds phải không rỗng và không trùng.")
+    cfg["experiment"]["seeds"] = list(seeds)
+    kwargs["artifact_dir"] = os.path.join(output_dir, "artifacts")
+    dump_config(cfg, os.path.join(output_dir, f"config_{model_name}_{DEEP_PROTOCOL}.yaml"))
     for config, mask in masks.items():
         logger.info("Deep Learning | %s | model=%s | seeds=%s", config.key, model_name, seeds)
         results = run_deep_multiseed(seeds, X, y, mask, train_idx, val_idx, test_idx,
                                       config, model_name, **kwargs)
         payload = [dataclasses.asdict(r) for r in results]
-        save_json(payload, os.path.join(output_dir, f"deep_{model_name}_{config.key}.json"))
+        save_json(payload, os.path.join(output_dir, f"deep_{model_name}_{config.key}_{DEEP_PROTOCOL}.json"))
         for r in results:
             logger.info("  seed=%d -> test_macro_f1=%.4f test_pr_auc=%.4f",
                         r.seed, r.test_metrics["macro_f1"], r.test_metrics.get("pr_auc", float("nan")))
+            logger.info("  checkpoint=%s predictions=%s", r.checkpoint_path, r.prediction_path)
     return 0
 
 

@@ -14,8 +14,8 @@ LƯU Ý QUAN TRỌNG: McNemar's test (Mục 6.5) cần dự đoán theo từng m
 chỉ số tổng hợp) của hai mô hình trên CÙNG tập test. Các file .json ở đây chỉ lưu
 chỉ số tổng hợp (để file nhẹ), nên script này KHÔNG tự chạy McNemar. Khi cần, gọi
 ``evaluation.stats_tests.mcnemar_test(y_true, pred_a, pred_b)`` trực tiếp sau khi
-có hai mảng dự đoán theo từng mẫu từ ``tools/run_*.py`` (có thể nạp lại mô hình
-đã lưu hoặc chạy lại inference).
+có hai mảng dự đoán theo từng mẫu. Nhánh deep lưu chúng trong predictions.npz;
+cần đối chiếu test_idx và test_y_true trước khi chạy kiểm định.
 """
 
 from __future__ import annotations
@@ -161,6 +161,13 @@ def build_cd_diagram(rows: List[Dict[str, Any]], save_path: str) -> None:
     deep_protocols = {r["protocol"] for r in rows if r["branch"] == "deep"}
     if len(deep_protocols) > 1:
         logging.getLogger("p4aids").warning("Bỏ qua CD: kết quả deep trộn nhiều giao thức %s.", deep_protocols)
+        return
+    deep_seeds = defaultdict(set)
+    for row in rows:
+        if row["branch"] == "deep" and row["split"] == "test":
+            deep_seeds[(row["model"], row["kind"], row["rate"])].add(row["seed"])
+    if len({frozenset(seeds) for seeds in deep_seeds.values()}) > 1:
+        logging.getLogger("p4aids").warning("Bỏ qua CD: các cấu hình deep không dùng cùng bộ seed.")
         return
     test_rows = [r for r in aggregate_seeds(rows) if r["split"] == "test" and r["macro_f1"] is not None]
     models = sorted({r["model"] for r in test_rows})

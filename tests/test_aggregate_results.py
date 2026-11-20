@@ -40,3 +40,18 @@ def test_summary_keeps_protocols_separate_and_rejects_duplicate_seed():
     summary = aggregate.aggregate_seeds([row, dict(row, protocol="legacy")])
     assert len(summary) == 2
     assert all(r["n_seeds"] == 1 and r["macro_f1_std"] == 0.0 for r in summary)
+
+
+@pytest.mark.parametrize("mismatch", ["protocol", "seed"])
+def test_cd_skips_mixed_protocols_or_seed_sets(tmp_path, monkeypatch, mismatch):
+    rows = []
+    for model in ("gru_fill", "brits", "saits"):
+        for rate in (0.3, 0.5):
+            row = aggregate._row("deep", model, "point", rate, "test", {"macro_f1": 0.5})
+            row.update(seed=42, protocol="deep-v2")
+            rows.append(row)
+    rows[-1][mismatch] = "legacy" if mismatch == "protocol" else 1
+    def unexpected(*args):
+        pytest.fail("CD must not mix protocols or different seed sets")
+    monkeypatch.setattr(aggregate, "friedman_test", unexpected)
+    aggregate.build_cd_diagram(rows, str(tmp_path / "cd.png"))

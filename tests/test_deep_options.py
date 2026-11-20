@@ -34,6 +34,9 @@ deep:
     monkeypatch.setattr(run_deep, "run_deep_multiseed", train)
     assert run_deep.main(["--config", str(config), "--seed", "9", "--hidden-size", "11",
                           "--lr", "0.003"]) == 0
+    from utils.utils import load_yaml
+    saved_config = next((tmp_path / "results").glob("config_*.yaml"))
+    assert load_yaml(str(saved_config))["experiment"]["seeds"] == [9]
     assert loaded == ["custom-data.npz"]
     assert calls[0][0] == [9]
     assert calls[0][1]["hidden_size"] == 11
@@ -45,8 +48,9 @@ deep:
 def test_pypots_factory_uses_size_and_lr(name):
     pytest.importorskip("pypots")
     from models.deep_pypots import build_pypots_model
-    model = build_pypots_model(name, 4, 2, hidden_size=8, lr=0.004, device="cpu")
+    model = build_pypots_model(name, 4, 2, hidden_size=8, lr=0.004, epochs=1, patience=10, device="cpu")
     assert model.optimizer.torch_optimizer.param_groups[0]["lr"] == 0.004
+    assert model.validation_metric.lower_better is False
     if name == "saits":
         assert model.d_model == 8
     else:
