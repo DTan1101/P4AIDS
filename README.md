@@ -113,13 +113,13 @@ mô hình bằng chính CLI đó, không có vòng train riêng.
 
 ```bash
 # Xem kế hoạch, kiểm tra dữ liệu/mask; chưa tạo thư mục chiến dịch hay train.
-rtk proxy python tools/run_deep_experiments.py --models all --output-dir outputs/experiments/deep_report --dry-run
+python tools/run_deep_experiments.py --models all --output-dir outputs/experiments/deep_report --dry-run
 
 # Chạy đủ 6 mô hình × (không ẩn thêm + 9 case thiếu) × 3 seed = 180 lần train.
-rtk proxy python tools/run_deep_experiments.py --models all --seeds 42 1 2 --output-dir outputs/experiments/deep_report
+python tools/run_deep_experiments.py --models all --seeds 42 1 2 --output-dir outputs/experiments/deep_report
 
 # Chỉ chạy 2 mô hình với một case, cùng tham số chung, thêm tham số riêng.
-rtk proxy python tools/run_deep_experiments.py \
+python tools/run_deep_experiments.py \
   --models gru_d saits --seeds 42 1 2 \
   --missing-kind block --missing-rate 0.5 \
   --hidden-size 64 --epochs 50 --patience 10 --batch-size 128 --lr 0.001 \
@@ -200,9 +200,9 @@ mô hình; giá trị riêng như `rnn_hidden_size` hoặc `d_model` được ư
 Tuỳ chọn không được constructor hỗ trợ sẽ báo lỗi.
 
 ```bash
-rtk proxy python tools/run_deep.py --model brits --hidden-size 32 --lr 0.0005 --seed 7 --missing-kind block --missing-rate 0.5
-rtk proxy python tools/run_deep.py --model saits --opts deep.pypots.n_layers=1 deep.pypots.d_model=32 deep.pypots.n_heads=4
-rtk proxy python tools/aggregate_results.py
+python tools/run_deep.py --model brits --hidden-size 32 --lr 0.0005 --seed 7 --missing-kind block --missing-rate 0.5
+python tools/run_deep.py --model saits --opts deep.pypots.n_layers=1 deep.pypots.d_model=32 deep.pypots.n_heads=4
+python tools/aggregate_results.py
 ```
 
 Mỗi lần chạy CLI ghi JSON metrics có tên chứa phiên bản giao thức và YAML cấu
