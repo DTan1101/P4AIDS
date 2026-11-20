@@ -196,24 +196,25 @@ def build_cd_diagram(rows: List[Dict[str, Any]], save_path: str) -> None:
     critical_difference_diagram(models, score_matrix, save_path)
 
 
-def main() -> int:
+def main(results_dir: str = None) -> int:
+    results_dir = results_dir or RESULTS_DIR
     setup_logger()
     logger = logging.getLogger("p4aids")
 
-    rows = (load_baselines(RESULTS_DIR) + load_classic(RESULTS_DIR) +
-            load_rocket(RESULTS_DIR) + load_deep(RESULTS_DIR))
+    rows = (load_baselines(results_dir) + load_classic(results_dir) +
+            load_rocket(results_dir) + load_deep(results_dir))
     if not rows:
-        logger.warning("Không tìm thấy kết quả nào trong '%s'. Chạy tools/run_*.py trước.", RESULTS_DIR)
+        logger.warning("Không tìm thấy kết quả nào trong '%s'. Chạy tools/run_*.py trước.", results_dir)
         return 1
 
     means = aggregate_seeds(rows)
-    write_csv(means, os.path.join(RESULTS_DIR, "summary_mean.csv"), MEAN_COLUMNS)
-    write_markdown(means, os.path.join(RESULTS_DIR, "summary_mean.md"), MEAN_COLUMNS)
-    write_csv(rows, os.path.join(RESULTS_DIR, "summary.csv"))
-    write_markdown(rows, os.path.join(RESULTS_DIR, "summary.md"))
-    logger.info("Đã ghi %d dòng kết quả vào '%s/summary.{csv,md}'.", len(rows), RESULTS_DIR)
+    write_csv(means, os.path.join(results_dir, "summary_mean.csv"), MEAN_COLUMNS)
+    write_markdown(means, os.path.join(results_dir, "summary_mean.md"), MEAN_COLUMNS)
+    write_csv(rows, os.path.join(results_dir, "summary.csv"))
+    write_markdown(rows, os.path.join(results_dir, "summary.md"))
+    logger.info("Đã ghi %d dòng kết quả vào '%s/summary.{csv,md}'.", len(rows), results_dir)
 
-    build_cd_diagram(rows, os.path.join(RESULTS_DIR, "critical_difference.png"))
+    build_cd_diagram(rows, os.path.join(results_dir, "critical_difference.png"))
     return 0
 
 

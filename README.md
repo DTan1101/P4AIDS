@@ -48,6 +48,7 @@ P4AIDS/
 │   ├── run_classic.py
 │   ├── run_rocket.py
 │   ├── run_deep.py
+│   ├── run_deep_experiments.py # chiến dịch DL nhiều mô hình, manifest + log + tổng hợp
 │   └── aggregate_results.py   # gộp kết quả -> bảng Chương 6 + CD diagram
 ├── configs/
 │   ├── rain_snow_data.yaml
@@ -103,6 +104,77 @@ Mỗi `tools/run_*.py` nhận chung các cờ: `--config`, `--seed`,
 (không truyền = chạy toàn bộ 9 cấu hình + 0% thiếu), và `--opts key.path=value`
 để override bất kỳ khoá nào trong YAML, theo đúng quy ước cũ của repo
 (`utils/utils.py:apply_overrides`).
+
+### Chạy chiến dịch Deep Learning có thể tái lập
+
+Dùng cùng môi trường Python đã cài `requirements.txt`, chạy từ thư mục gốc.
+CLI một mô hình vẫn là `tools/run_deep.py`; CLI chiến dịch chạy tuần tự nhiều
+mô hình bằng chính CLI đó, không có vòng train riêng.
+
+```bash
+# Xem kế hoạch, kiểm tra dữ liệu/mask; chưa tạo thư mục chiến dịch hay train.
+rtk proxy python tools/run_deep_experiments.py --models all --output-dir outputs/experiments/deep_report --dry-run
+
+# Chạy đủ 6 mô hình × (không ẩn thêm + 9 case thiếu) × 3 seed = 180 lần train.
+rtk proxy python tools/run_deep_experiments.py --models all --seeds 42 1 2 --output-dir outputs/experiments/deep_report
+
+# Chỉ chạy 2 mô hình với một case, cùng tham số chung, thêm tham số riêng.
+rtk proxy python tools/run_deep_experiments.py \
+  --models gru_d saits --seeds 42 1 2 \
+  --missing-kind block --missing-rate 0.5 \
+  --hidden-size 64 --epochs 50 --patience 10 --batch-size 128 --lr 0.001 \
+  --output-dir outputs/experiments/deep_pair \
+  --model-opts saits.pypots.n_layers=1 saits.pypots.n_heads=4
+```
+
+- `--models`: danh sách tên hoặc `all` (mặc định). `--seeds` ghi đè seed trong
+  YAML; `--seed` chọn một seed. Không dùng đồng thời hai cờ seed.
+- `--hidden-size`, `--epochs`, `--patience`, `--batch-size`, `--lr` áp dụng chung.
+  `--opts` dùng quy ước YAML hiện có, ví dụ `deep.device=cuda`.
+- `--model-opts` override riêng phần `deep` của mô hình được chọn, ví dụ
+  `brits.hidden_size=32`, `saits.pypots.d_model=32`.
+  Thứ tự ưu tiên: YAML → cờ chung → `--opts` → `--model-opts`.
+  Chọn mô hình/thư mục bằng `--models`/`--output-dir`.
+- Không lọc kiểu/tỷ lệ thì chạy đủ 10 case; có một trong hai bộ lọc thì chỉ
+  chạy các case thiếu tương ứng, không thêm case không ẩn dữ liệu.
+- Thư mục chiến dịch phải chưa tồn tại để không ghi đè thí nghiệm trước.
+  Nếu đổi siêu tham số hoặc chạy lặp lại, chọn tên thư mục mới.
+
+Cấu trúc kết quả:
+
+```text
+outputs/experiments/deep_report/
+├── manifest.json          # kế hoạch, trạng thái, provenance và môi trường
+├── configs/<model>.yaml  # snapshot cấu hình dùng để chạy từng mô hình
+├── logs/<model>.log      # stdout/stderr của từng subprocess
+└── results/
+    ├── deep/            # JSON từng seed/case và checkpoint/prediction
+    ├── summary.csv
+    ├── summary_mean.csv
+    ├── summary.md
+    ├── summary_mean.md
+    └── critical_difference.png  # khi đủ mô hình/case tương thích
+```
+
+Manifest lưu commit/trạng thái Git, SHA-256 code, requirements, dữ liệu đã
+chuẩn bị và từng mask sử dụng; phiên bản Python/package, GPU khả dụng, seed,
+config, command và trạng thái từng mô hình. Runner kiểm tra mask khớp dữ liệu
+trước khi tạo chiến dịch. `--dry-run` không yêu cầu cài PyPOTS để xem kế hoạch;
+trước khi chạy thật, runner kiểm tra dependency tổng hợp và tên tham số PyPOTS.
+Khi một subprocess lỗi, runner dừng, lưu trạng thái `failed` cùng mã thoát;
+xem log tương ứng. Khi bị Ctrl+C, manifest ghi `interrupted`.
+
+Chế độ deterministic mặc định bật cho CLI DL: cố định seed, cấu hình cuDNN/
+cuBLAS và yêu cầu thuật toán deterministic của PyTorch. Có thể tắt bằng
+`--no-deterministic`. Điều này hỗ trợ tái lập trong cùng môi trường; không
+cam kết kết quả giống từng bit giữa GPU/driver/PyTorch khác nhau. Kernel không
+hỗ trợ deterministic sẽ báo lỗi; không tự âm thầm chuyển sang chế độ khác.
+
+Để chạy lại, giữ cùng code/dependency, đối chiếu checksum data/mask, dùng cùng
+args/config và chọn `--output-dir` mới. Manifest mô tả môi trường, không đóng
+gói sẵn môi trường hoặc sao chép dữ liệu/mask. `pipeline_seconds` là thời gian
+của cả CLI theo mô hình (gồm tiền xử lý, train, validation/test và lưu file),
+không phải riêng thời gian train. Runner chưa hỗ trợ resume hay bỏ qua job cũ.
 
 ### Giao thức Deep Learning và artifact
 

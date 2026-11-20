@@ -8,6 +8,7 @@ BRITS/SAITS/GRU-D (PyPOTS), nhiều seed (Mục 4.6.3).
 from __future__ import annotations
 
 import dataclasses
+import argparse
 import logging
 import os
 import sys
@@ -27,16 +28,43 @@ ALL_MODEL_NAMES = CUSTOM_MODEL_NAMES + PYPOTS_MODEL_NAMES
 ARG_TO_CONFIG = {
     "model": "deep.model", "hidden_size": "deep.hidden_size", "epochs": "deep.epochs",
     "patience": "deep.patience", "batch_size": "deep.batch_size", "lr": "deep.lr",
+    "deterministic": "deep.deterministic",
 }
 
 
-def add_arguments(parser) -> None:
-    parser.add_argument("--model", type=str, default=None, choices=list(ALL_MODEL_NAMES))
+def add_training_arguments(parser) -> None:
     parser.add_argument("--hidden-size", type=int, default=None)
     parser.add_argument("--epochs", type=int, default=None)
     parser.add_argument("--patience", type=int, default=None)
     parser.add_argument("--batch-size", type=int, default=None)
     parser.add_argument("--lr", type=float, default=None)
+    parser.add_argument("--deterministic", action=argparse.BooleanOptionalAction, default=None)
+
+
+def add_arguments(parser) -> None:
+    parser.add_argument("--model", type=str, default=None, choices=list(ALL_MODEL_NAMES))
+    add_training_arguments(parser)
+
+
+def training_kwargs(deep_cfg):
+    """Resolve tham số chung và tham số riêng PyPOTS cho cả hai CLI."""
+    model_name = deep_cfg.get("model", "gru_fill")
+    patience = deep_cfg.get("patience", 10)
+    kwargs = dict(
+        hidden_size=int(deep_cfg.get("hidden_size", 64)), epochs=int(deep_cfg.get("epochs", 50)),
+        patience=None if patience is None else int(patience),
+        batch_size=int(deep_cfg.get("batch_size", 128)),
+        device=deep_cfg.get("device", "auto"),
+        deterministic=bool(deep_cfg.get("deterministic", True)),
+    )
+    kwargs["lr"] = float(deep_cfg.get("lr", 1e-3))
+    if model_name in PYPOTS_MODEL_NAMES:
+        pypots_options = deep_cfg.get("pypots", {})
+        if set(pypots_options) & (set(kwargs) | {"artifact_dir", "seed", "saving_path"}):
+            raise ValueError("deep.pypots chỉ chứa tuỳ chọn kiến trúc; dùng deep.* cho tham số chung.")
+        kwargs.update(pypots_options)
+
+    return kwargs
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
@@ -52,19 +80,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     deep_cfg = cfg["deep"]
     model_name = deep_cfg.get("model", "gru_fill")
     seeds = [int(args.seed)] if args.seed is not None else cfg["experiment"].get("seeds", [int(cfg["experiment"].get("seed", 42))])
-    patience = deep_cfg.get("patience", 10)
-    kwargs = dict(
-        hidden_size=int(deep_cfg.get("hidden_size", 64)), epochs=int(deep_cfg.get("epochs", 50)),
-        patience=None if patience is None else int(patience),
-        batch_size=int(deep_cfg.get("batch_size", 128)),
-        device=deep_cfg.get("device", "auto"),
-    )
-    kwargs["lr"] = float(deep_cfg.get("lr", 1e-3))
-    if model_name in PYPOTS_MODEL_NAMES:
-        pypots_options = deep_cfg.get("pypots", {})
-        if set(pypots_options) & (set(kwargs) | {"artifact_dir", "seed", "saving_path"}):
-            raise ValueError("deep.pypots chỉ chứa tuỳ chọn kiến trúc; dùng deep.* cho tham số chung.")
-        kwargs.update(pypots_options)
+    kwargs = training_kwargs(deep_cfg)
 
     output_dir = cfg["experiment"].get("output_dir", "outputs/results/deep")
     ensure_dir(output_dir)

@@ -34,6 +34,13 @@ CUSTOM_MODEL_NAMES = ("gru_fill", "gru_mask_delta", "gru_d")
 PYPOTS_MODEL_NAMES = ("brits", "saits", "grud_pypots")
 
 
+def _seed_deep(seed: int, deterministic: bool) -> None:
+    if deterministic:
+        os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
+    seed_everything(seed, deterministic=deterministic)
+    torch.use_deterministic_algorithms(deterministic)
+
+
 @dataclass
 class DeepRunResult:
     config: MissingnessConfig
@@ -102,13 +109,14 @@ def run_deep_custom(X: np.ndarray, y: np.ndarray, mask: np.ndarray,
                      config: MissingnessConfig, model_name: str = "gru_fill",
                      hidden_size: int = 64, epochs: int = 50, patience: Optional[int] = 10,
                      batch_size: int = 128, lr: float = 1e-3, seed: int = 42,
-                     device: Optional[str] = None, artifact_dir: Optional[str] = None) -> DeepRunResult:
+                     device: Optional[str] = None, artifact_dir: Optional[str] = None,
+                     deterministic: bool = False) -> DeepRunResult:
     """Huấn luyện một mô hình tự cài (GRU-Fill/GRU+mask-delta/GRU-D) cho một cấu hình.
 
     ``patience=None`` tắt early stopping (huấn luyện đủ ``epochs``), đồng nhất với
     quy ước của PyPOTS ở :func:`run_deep_pypots`.
     """
-    seed_everything(seed)
+    _seed_deep(seed, deterministic)
     torch_device = get_device(device or "auto")
 
     if epochs < 1:
@@ -173,7 +181,8 @@ def run_deep_custom(X: np.ndarray, y: np.ndarray, mask: np.ndarray,
                            best_epoch=best_epoch, history=history)
     meta = dict(n_features=n_features, n_steps=X.shape[1], mean=mean.tolist(), std=std.tolist(),
                 model_kwargs={"hidden_size": hidden_size}, class_weight=_class_weight(y[train_idx]).tolist(),
-                training=dict(epochs=epochs, patience=patience, batch_size=batch_size, lr=lr))
+                training=dict(epochs=epochs, patience=patience, batch_size=batch_size, lr=lr,
+                              deterministic=deterministic))
     predictions = {"val": (val_idx, _predict_loader(model, val_loader, torch_device)),
                    "test": (test_idx, _predict_loader(model, test_loader, torch_device))}
     return _finish_run(result, model, meta, predictions, artifact_dir)
@@ -185,11 +194,12 @@ def run_deep_pypots(X: np.ndarray, y: np.ndarray, mask: np.ndarray,
                      epochs: int = 100, patience: Optional[int] = 10, batch_size: int = 64,
                      seed: int = 42, device: Optional[str] = None, hidden_size: int = 64,
                      lr: float = 1e-3, artifact_dir: Optional[str] = None,
+                     deterministic: bool = False,
                      **model_kwargs: Any) -> DeepRunResult:
     """Huấn luyện một mô hình PyPOTS (BRITS/SAITS/GRU-D) cho một cấu hình."""
     from models.deep_pypots import build_pypots_model
 
-    seed_everything(seed)
+    _seed_deep(seed, deterministic)
     torch_device = str(get_device(device or "auto"))
 
     if epochs < 1:
@@ -213,7 +223,8 @@ def run_deep_pypots(X: np.ndarray, y: np.ndarray, mask: np.ndarray,
                            best_epoch=model.best_epoch, history=model.history)
     meta = dict(n_features=n_features, n_steps=X.shape[1], mean=mean.tolist(), std=std.tolist(),
                 model_kwargs={"hidden_size": hidden_size, **model_kwargs}, class_weight=weight.tolist(),
-                training=dict(epochs=epochs, patience=patience, batch_size=batch_size, lr=lr),
+                training=dict(epochs=epochs, patience=patience, batch_size=batch_size, lr=lr,
+                              deterministic=deterministic),
                 pypots_version=version("pypots"))
     predictions = {"val": (val_idx, _predict(val_idx)), "test": (test_idx, _predict(test_idx))}
     return _finish_run(result, model.model, meta, predictions, artifact_dir)
