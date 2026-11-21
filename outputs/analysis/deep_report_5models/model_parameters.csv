@@ -1,0 +1,6 @@
+model,total_parameters,trainable_parameters
+GRU-Fill,13762,13762
+GRU+mask/delta,15682,15682
+GRU-D,16101,16101
+BRITS,40820,40820
+SAITS,135344,135344
