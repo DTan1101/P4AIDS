@@ -1,0 +1,288 @@
+[
+  {
+    "config": {
+      "kind": "subsequence",
+      "rate": 0.5
+    },
+    "model_name": "gru_fill",
+    "seed": 42,
+    "val_metrics": {
+      "macro_f1": 0.8796139465928468,
+      "balanced_accuracy": 0.9343027777223873,
+      "per_class": {
+        "Rain": {
+          "precision": 0.9935992122107337,
+          "recall": 0.9758220502901354,
+          "f1": 0.9846303976579653,
+          "support": 8272
+        },
+        "Snow": {
+          "precision": 0.684044233807267,
+          "recall": 0.8927835051546392,
+          "f1": 0.774597495527728,
+          "support": 485
+        }
+      },
+      "n_samples": 8757,
+      "pr_auc": 0.9102626330383559
+    },
+    "test_metrics": {
+      "macro_f1": 0.8323175344182929,
+      "balanced_accuracy": 0.9317675993474724,
+      "per_class": {
+        "Rain": {
+          "precision": 0.9932657687691693,
+          "recall": 0.939992428066633,
+          "f1": 0.9658950917460934,
+          "support": 15848
+        },
+        "Snow": {
+          "precision": 0.5619530170428374,
+          "recall": 0.9235427706283119,
+          "f1": 0.6987399770904925,
+          "support": 1321
+        }
+      },
+      "n_samples": 17169,
+      "pr_auc": 0.8656765511596681
+    },
+    "best_epoch": 10,
+    "history": {
+      "train_loss": [
+        0.20980486127569672,
+        0.17021797157074103,
+        0.15773133028680186,
+        0.1480643074437799,
+        0.14165845267745786,
+        0.1368189567542363,
+        0.1329385606875382,
+        0.12984741663372895,
+        0.126418603158591,
+        0.12055122254866339,
+        0.11894346603616318,
+        0.11642790125720597,
+        0.11499559921272531,
+        0.11455149185493371,
+        0.11242564660737023,
+        0.10828642050567204,
+        0.10781244717037619,
+        0.1068246596129973,
+        0.10592843810886333,
+        0.10381465033303744,
+        0.10273392418962969
+      ],
+      "val_macro_f1": [
+        0.8080172092963567,
+        0.841800572336135,
+        0.8088248556998556,
+        0.8575738303803961,
+        0.8747499351670576,
+        0.8558624943734058,
+        0.8578374077971436,
+        0.8703076558519776,
+        0.8702421261704341,
+        0.8545138132261223,
+        0.8796139465928468,
+        0.8786302721992332,
+        0.8622267084446127,
+        0.8750066538283553,
+        0.877563555363258,
+        0.8691343606483619,
+        0.8713588254054361,
+        0.8762047744693512,
+        0.8782525068967026,
+        0.8727611873278422,
+        0.8786861673377757
+      ]
+    },
+    "protocol": "deep-v2-observed-zscore-macro-f1",
+    "checkpoint_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_50/seed42/checkpoint.pt",
+    "prediction_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_50/seed42/predictions.npz"
+  },
+  {
+    "config": {
+      "kind": "subsequence",
+      "rate": 0.5
+    },
+    "model_name": "gru_fill",
+    "seed": 1,
+    "val_metrics": {
+      "macro_f1": 0.8867348804325978,
+      "balanced_accuracy": 0.900631368521805,
+      "per_class": {
+        "Rain": {
+          "precision": 0.9891924711596842,
+          "recall": 0.9847678916827853,
+          "f1": 0.9869752226328224,
+          "support": 8272
+        },
+        "Snow": {
+          "precision": 0.7586206896551724,
+          "recall": 0.8164948453608247,
+          "f1": 0.7864945382323734,
+          "support": 485
+        }
+      },
+      "n_samples": 8757,
+      "pr_auc": 0.8808825518056247
+    },
+    "test_metrics": {
+      "macro_f1": 0.8499993480063774,
+      "balanced_accuracy": 0.8851205586302271,
+      "per_class": {
+        "Rain": {
+          "precision": 0.9834190231362467,
+          "recall": 0.965547703180212,
+          "f1": 0.9744014263881814,
+          "support": 15848
+        },
+        "Snow": {
+          "precision": 0.6606587942821628,
+          "recall": 0.8046934140802422,
+          "f1": 0.7255972696245734,
+          "support": 1321
+        }
+      },
+      "n_samples": 17169,
+      "pr_auc": 0.8197591589418263
+    },
+    "best_epoch": 1,
+    "history": {
+      "train_loss": [
+        0.21033663112098414,
+        0.17260680933870345,
+        0.15634838905623047,
+        0.14819809773212225,
+        0.14007326987272525,
+        0.1369576022850636,
+        0.1285530390634667,
+        0.12654357343304679,
+        0.12480120882930792,
+        0.12304714102285136,
+        0.11901325423230315,
+        0.11851922104888658
+      ],
+      "val_macro_f1": [
+        0.8237234497176055,
+        0.8867348804325978,
+        0.8280424488415357,
+        0.8672711719087267,
+        0.8551814045601174,
+        0.8402415132891963,
+        0.8588113196386407,
+        0.863533077299597,
+        0.8715996752426483,
+        0.8685469844804807,
+        0.8776708277106895,
+        0.8734282040109254
+      ]
+    },
+    "protocol": "deep-v2-observed-zscore-macro-f1",
+    "checkpoint_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_50/seed1/checkpoint.pt",
+    "prediction_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_50/seed1/predictions.npz"
+  },
+  {
+    "config": {
+      "kind": "subsequence",
+      "rate": 0.5
+    },
+    "model_name": "gru_fill",
+    "seed": 2,
+    "val_metrics": {
+      "macro_f1": 0.8774250440917107,
+      "balanced_accuracy": 0.9377011505712975,
+      "per_class": {
+        "Rain": {
+          "precision": 0.9940799210656142,
+          "recall": 0.9743713733075435,
+          "f1": 0.9841269841269841,
+          "support": 8272
+        },
+        "Snow": {
+          "precision": 0.6733436055469953,
+          "recall": 0.9010309278350516,
+          "f1": 0.7707231040564374,
+          "support": 485
+        }
+      },
+      "n_samples": 8757,
+      "pr_auc": 0.9105178349989543
+    },
+    "test_metrics": {
+      "macro_f1": 0.8307943625741878,
+      "balanced_accuracy": 0.9265002287056332,
+      "per_class": {
+        "Rain": {
+          "precision": 0.992280047916944,
+          "recall": 0.9408127208480566,
+          "f1": 0.9658612424693918,
+          "support": 15848
+        },
+        "Snow": {
+          "precision": 0.5622958469435371,
+          "recall": 0.9121877365632097,
+          "f1": 0.6957274826789839,
+          "support": 1321
+        }
+      },
+      "n_samples": 17169,
+      "pr_auc": 0.8586316689267317
+    },
+    "best_epoch": 12,
+    "history": {
+      "train_loss": [
+        0.21066771990041253,
+        0.1703692347106072,
+        0.15504374452541672,
+        0.14669901231751462,
+        0.14062002562681858,
+        0.13765711946924789,
+        0.13321921341224496,
+        0.13197319451851044,
+        0.13010546742752865,
+        0.1260808873667643,
+        0.12416600414625356,
+        0.12167585372630027,
+        0.12019283271850387,
+        0.11795074739824495,
+        0.1159187012196647,
+        0.11335697215684046,
+        0.11222068845522022,
+        0.10456749672561459,
+        0.10349138697347808,
+        0.10110513785948921,
+        0.09927124383401861,
+        0.09528173186737615,
+        0.0941565084061578
+      ],
+      "val_macro_f1": [
+        0.8088649435936817,
+        0.8275634789825168,
+        0.8469303862448128,
+        0.8538227010886122,
+        0.841405509141042,
+        0.8438630343146285,
+        0.8227832754356366,
+        0.8632364512817792,
+        0.8467464311586739,
+        0.8565225866407227,
+        0.8550698786318499,
+        0.8697312322465238,
+        0.8774250440917107,
+        0.8632309703304228,
+        0.8750875551038292,
+        0.8702469057509796,
+        0.8689539327642132,
+        0.8679892541123932,
+        0.8657907247815271,
+        0.8611331634681081,
+        0.8727106227106227,
+        0.8705193728182677,
+        0.8650729774640198
+      ]
+    },
+    "protocol": "deep-v2-observed-zscore-macro-f1",
+    "checkpoint_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_50/seed2/checkpoint.pt",
+    "prediction_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_50/seed2/predictions.npz"
+  }
+]

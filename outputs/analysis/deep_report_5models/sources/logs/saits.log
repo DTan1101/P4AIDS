@@ -1,0 +1,902 @@
+[00:27:37] INFO | Deep Learning | point_00 | model=saits | seeds=[42, 1, 2]
+2026-11-22 00:27:39 [INFO]: Using the given device: cuda
+2026-11-22 00:27:39 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 00:27:39 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 00:27:39 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[00:27:48] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.8757
+[00:27:58] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.9385
+[00:28:07] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.9464
+[00:28:16] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9546
+[00:28:26] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.9482
+[00:28:35] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9405
+[00:28:45] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9451
+[00:28:54] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9667
+[00:29:03] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9379
+[00:29:13] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9351
+[00:29:22] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9447
+[00:29:32] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9582
+[00:29:41] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9529
+[00:29:50] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9459
+[00:30:00] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9598
+[00:30:09] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9337
+[00:30:19] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9442
+[00:30:28] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9479
+2026-11-22 00:30:30 [INFO]: Using the given device: cuda
+2026-11-22 00:30:30 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 00:30:30 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 00:30:30 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[00:30:40] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.9199
+[00:30:49] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.9133
+[00:30:59] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.9192
+[00:31:08] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9258
+[00:31:18] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.9455
+[00:31:27] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9223
+[00:31:37] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9300
+[00:31:46] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9181
+[00:31:56] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9552
+[00:32:05] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9536
+[00:32:15] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9067
+[00:32:24] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9422
+[00:32:34] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9388
+[00:32:43] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9346
+[00:32:53] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9531
+[00:33:03] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9438
+[00:33:13] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9443
+[00:33:22] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9537
+[00:33:32] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.9539
+2026-11-22 00:33:34 [INFO]: Using the given device: cuda
+2026-11-22 00:33:34 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 00:33:34 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 00:33:34 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[00:33:44] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.9442
+[00:33:53] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.8944
+[00:34:03] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.8869
+[00:34:13] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9149
+[00:34:23] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.9018
+[00:34:32] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9515
+[00:34:42] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9402
+[00:34:52] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9491
+[00:35:01] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9492
+[00:35:11] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9245
+[00:35:21] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9378
+[00:35:31] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9299
+[00:35:40] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9410
+[00:35:51] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9408
+[00:36:02] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9583
+[00:36:11] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9462
+[00:36:21] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9626
+[00:36:30] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9429
+[00:36:40] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.9616
+[00:36:49] INFO | [SAITSClassifier] epoch 19: val_macro_f1=0.9561
+[00:36:59] INFO | [SAITSClassifier] epoch 20: val_macro_f1=0.9504
+[00:37:08] INFO | [SAITSClassifier] epoch 21: val_macro_f1=0.9559
+[00:37:18] INFO | [SAITSClassifier] epoch 22: val_macro_f1=0.9492
+[00:37:27] INFO | [SAITSClassifier] epoch 23: val_macro_f1=0.9516
+[00:37:36] INFO | [SAITSClassifier] epoch 24: val_macro_f1=0.9513
+[00:37:46] INFO | [SAITSClassifier] epoch 25: val_macro_f1=0.9598
+[00:37:55] INFO | [SAITSClassifier] epoch 26: val_macro_f1=0.9612
+[00:37:57] INFO |   seed=42 -> test_macro_f1=0.9467 test_pr_auc=0.9691
+[00:37:57] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_00/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_00/seed42/predictions.npz
+[00:37:57] INFO |   seed=1 -> test_macro_f1=0.9401 test_pr_auc=0.9764
+[00:37:57] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_00/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_00/seed1/predictions.npz
+[00:37:57] INFO |   seed=2 -> test_macro_f1=0.9436 test_pr_auc=0.9739
+[00:37:57] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_00/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_00/seed2/predictions.npz
+[00:37:57] INFO | Deep Learning | point_10 | model=saits | seeds=[42, 1, 2]
+2026-11-22 00:37:57 [INFO]: Using the given device: cuda
+2026-11-22 00:37:57 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 00:37:57 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 00:37:57 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[00:38:07] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.9011
+[00:38:16] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.9375
+[00:38:26] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.9434
+[00:38:35] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9599
+[00:38:45] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.9333
+[00:38:54] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9207
+[00:39:04] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9394
+[00:39:13] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9623
+[00:39:23] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9490
+[00:39:32] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9160
+[00:39:42] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9367
+[00:39:51] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9420
+[00:40:01] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9553
+[00:40:10] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9468
+[00:40:20] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9578
+[00:40:29] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9215
+[00:40:39] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9423
+[00:40:48] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9486
+2026-11-22 00:40:50 [INFO]: Using the given device: cuda
+2026-11-22 00:40:50 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 00:40:50 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 00:40:50 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[00:40:59] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.9007
+[00:41:09] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.9094
+[00:41:18] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.9194
+[00:41:27] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9072
+[00:41:37] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.9330
+[00:41:46] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9282
+[00:41:56] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9091
+[00:42:05] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9010
+[00:42:15] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9416
+[00:42:25] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9583
+[00:42:34] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9302
+[00:42:43] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9266
+[00:42:53] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9432
+[00:43:02] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9223
+[00:43:12] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9527
+[00:43:21] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9424
+[00:43:31] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9430
+[00:43:40] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9447
+[00:43:50] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.9491
+[00:43:59] INFO | [SAITSClassifier] epoch 19: val_macro_f1=0.9565
+2026-11-22 00:44:01 [INFO]: Using the given device: cuda
+2026-11-22 00:44:01 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 00:44:01 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 00:44:01 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[00:44:10] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.9388
+[00:44:20] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.8986
+[00:44:29] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.8784
+[00:44:39] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9077
+[00:44:48] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.9122
+[00:44:58] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9334
+[00:45:09] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9317
+[00:45:19] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9406
+[00:45:28] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9527
+[00:45:38] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9162
+[00:45:48] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9260
+[00:45:58] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9161
+[00:46:07] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9190
+[00:46:17] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9340
+[00:46:26] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9492
+[00:46:36] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9462
+[00:46:46] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9598
+[00:46:55] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9419
+[00:47:05] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.9546
+[00:47:15] INFO | [SAITSClassifier] epoch 19: val_macro_f1=0.9533
+[00:47:25] INFO | [SAITSClassifier] epoch 20: val_macro_f1=0.9470
+[00:47:34] INFO | [SAITSClassifier] epoch 21: val_macro_f1=0.9573
+[00:47:44] INFO | [SAITSClassifier] epoch 22: val_macro_f1=0.9462
+[00:47:54] INFO | [SAITSClassifier] epoch 23: val_macro_f1=0.9481
+[00:48:03] INFO | [SAITSClassifier] epoch 24: val_macro_f1=0.9456
+[00:48:13] INFO | [SAITSClassifier] epoch 25: val_macro_f1=0.9589
+[00:48:24] INFO | [SAITSClassifier] epoch 26: val_macro_f1=0.9587
+[00:48:26] INFO |   seed=42 -> test_macro_f1=0.9417 test_pr_auc=0.9694
+[00:48:26] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_10/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_10/seed42/predictions.npz
+[00:48:26] INFO |   seed=1 -> test_macro_f1=0.9303 test_pr_auc=0.9701
+[00:48:26] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_10/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_10/seed1/predictions.npz
+[00:48:26] INFO |   seed=2 -> test_macro_f1=0.9406 test_pr_auc=0.9727
+[00:48:26] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_10/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_10/seed2/predictions.npz
+[00:48:26] INFO | Deep Learning | point_30 | model=saits | seeds=[42, 1, 2]
+2026-11-22 00:48:26 [INFO]: Using the given device: cuda
+2026-11-22 00:48:26 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 00:48:26 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 00:48:26 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[00:48:37] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.9019
+[00:48:48] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.9279
+[00:48:58] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.9314
+[00:49:08] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9540
+[00:49:19] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.9444
+[00:49:29] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9218
+[00:49:38] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9285
+[00:49:48] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9569
+[00:49:57] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9387
+[00:50:07] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9061
+[00:50:17] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9066
+[00:50:26] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9495
+[00:50:36] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9396
+[00:50:45] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9403
+[00:50:55] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9556
+[00:51:04] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9317
+[00:51:14] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9410
+[00:51:24] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9434
+2026-11-22 00:51:25 [INFO]: Using the given device: cuda
+2026-11-22 00:51:25 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 00:51:25 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 00:51:25 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[00:51:35] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.8651
+[00:51:45] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.9023
+[00:51:54] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.8983
+[00:52:04] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9160
+[00:52:14] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.9142
+[00:52:24] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9177
+[00:52:33] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9169
+[00:52:43] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9014
+[00:52:53] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9435
+[00:53:03] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9399
+[00:53:12] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9208
+[00:53:22] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9350
+[00:53:32] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9358
+[00:53:42] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9362
+[00:53:51] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9498
+[00:54:01] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9288
+[00:54:11] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9303
+[00:54:21] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9385
+[00:54:30] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.9335
+[00:54:40] INFO | [SAITSClassifier] epoch 19: val_macro_f1=0.9601
+[00:54:50] INFO | [SAITSClassifier] epoch 20: val_macro_f1=0.9516
+[00:54:59] INFO | [SAITSClassifier] epoch 21: val_macro_f1=0.9458
+[00:55:09] INFO | [SAITSClassifier] epoch 22: val_macro_f1=0.9397
+[00:55:18] INFO | [SAITSClassifier] epoch 23: val_macro_f1=0.9364
+[00:55:28] INFO | [SAITSClassifier] epoch 24: val_macro_f1=0.9446
+[00:55:38] INFO | [SAITSClassifier] epoch 25: val_macro_f1=0.9495
+[00:55:48] INFO | [SAITSClassifier] epoch 26: val_macro_f1=0.9465
+[00:55:57] INFO | [SAITSClassifier] epoch 27: val_macro_f1=0.9516
+[00:56:07] INFO | [SAITSClassifier] epoch 28: val_macro_f1=0.9523
+[00:56:17] INFO | [SAITSClassifier] epoch 29: val_macro_f1=0.9529
+2026-11-22 00:56:18 [INFO]: Using the given device: cuda
+2026-11-22 00:56:18 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 00:56:18 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 00:56:18 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[00:56:28] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.9457
+[00:56:37] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.9024
+[00:56:47] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.8747
+[00:56:56] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9088
+[00:57:06] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.9146
+[00:57:15] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9266
+[00:57:25] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9413
+[00:57:35] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9242
+[00:57:44] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9432
+[00:57:54] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9295
+[00:58:03] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9287
+[00:58:05] INFO |   seed=42 -> test_macro_f1=0.9315 test_pr_auc=0.9564
+[00:58:05] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_30/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_30/seed42/predictions.npz
+[00:58:05] INFO |   seed=1 -> test_macro_f1=0.9357 test_pr_auc=0.9665
+[00:58:05] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_30/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_30/seed1/predictions.npz
+[00:58:05] INFO |   seed=2 -> test_macro_f1=0.9105 test_pr_auc=0.9208
+[00:58:05] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_30/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_30/seed2/predictions.npz
+[00:58:05] INFO | Deep Learning | point_50 | model=saits | seeds=[42, 1, 2]
+2026-11-22 00:58:05 [INFO]: Using the given device: cuda
+2026-11-22 00:58:05 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 00:58:05 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 00:58:05 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[00:58:15] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.8966
+[00:58:24] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.9409
+[00:58:34] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.9300
+[00:58:44] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9427
+[00:58:53] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.9246
+[00:59:03] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9012
+[00:59:14] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9387
+[00:59:24] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9417
+[00:59:34] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9440
+[00:59:43] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9262
+[00:59:53] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9054
+[01:00:02] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9338
+[01:00:12] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9485
+[01:00:21] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9356
+[01:00:31] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9407
+[01:00:40] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9174
+[01:00:50] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9239
+[01:01:00] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9364
+[01:01:09] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.9352
+[01:01:19] INFO | [SAITSClassifier] epoch 19: val_macro_f1=0.9167
+[01:01:28] INFO | [SAITSClassifier] epoch 20: val_macro_f1=0.9402
+[01:01:38] INFO | [SAITSClassifier] epoch 21: val_macro_f1=0.9420
+[01:01:48] INFO | [SAITSClassifier] epoch 22: val_macro_f1=0.9358
+2026-11-22 01:01:50 [INFO]: Using the given device: cuda
+2026-11-22 01:01:50 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 01:01:50 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 01:01:50 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[01:01:59] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.8853
+[01:02:09] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.9008
+[01:02:18] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.9117
+[01:02:28] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.8981
+[01:02:38] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.9263
+[01:02:48] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9089
+[01:02:58] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9097
+[01:03:08] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9065
+[01:03:17] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9192
+[01:03:27] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9389
+[01:03:36] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9031
+[01:03:46] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9300
+[01:03:55] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9419
+[01:04:05] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9172
+[01:04:14] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9398
+[01:04:24] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9139
+[01:04:33] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9404
+[01:04:43] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9263
+[01:04:53] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.9330
+[01:05:03] INFO | [SAITSClassifier] epoch 19: val_macro_f1=0.9398
+[01:05:14] INFO | [SAITSClassifier] epoch 20: val_macro_f1=0.9476
+[01:05:24] INFO | [SAITSClassifier] epoch 21: val_macro_f1=0.9409
+[01:05:34] INFO | [SAITSClassifier] epoch 22: val_macro_f1=0.9405
+[01:05:45] INFO | [SAITSClassifier] epoch 23: val_macro_f1=0.9340
+[01:05:55] INFO | [SAITSClassifier] epoch 24: val_macro_f1=0.9396
+[01:06:04] INFO | [SAITSClassifier] epoch 25: val_macro_f1=0.9413
+[01:06:14] INFO | [SAITSClassifier] epoch 26: val_macro_f1=0.9416
+[01:06:24] INFO | [SAITSClassifier] epoch 27: val_macro_f1=0.9411
+[01:06:33] INFO | [SAITSClassifier] epoch 28: val_macro_f1=0.9441
+[01:06:43] INFO | [SAITSClassifier] epoch 29: val_macro_f1=0.9447
+[01:06:52] INFO | [SAITSClassifier] epoch 30: val_macro_f1=0.9413
+2026-11-22 01:06:54 [INFO]: Using the given device: cuda
+2026-11-22 01:06:54 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 01:06:54 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 01:06:54 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[01:07:04] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.9300
+[01:07:14] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.8608
+[01:07:24] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.8595
+[01:07:34] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9057
+[01:07:44] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.8959
+[01:07:54] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9069
+[01:08:04] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9297
+[01:08:14] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9402
+[01:08:25] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9273
+[01:08:36] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9018
+[01:08:46] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.8936
+[01:08:56] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9149
+[01:09:06] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9281
+[01:09:17] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9110
+[01:09:27] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9368
+[01:09:37] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9229
+[01:09:47] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9447
+[01:09:57] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9279
+[01:10:07] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.9410
+[01:10:17] INFO | [SAITSClassifier] epoch 19: val_macro_f1=0.9275
+[01:10:27] INFO | [SAITSClassifier] epoch 20: val_macro_f1=0.9352
+[01:10:37] INFO | [SAITSClassifier] epoch 21: val_macro_f1=0.9354
+[01:10:48] INFO | [SAITSClassifier] epoch 22: val_macro_f1=0.9309
+[01:10:58] INFO | [SAITSClassifier] epoch 23: val_macro_f1=0.9305
+[01:11:08] INFO | [SAITSClassifier] epoch 24: val_macro_f1=0.9352
+[01:11:18] INFO | [SAITSClassifier] epoch 25: val_macro_f1=0.9379
+[01:11:28] INFO | [SAITSClassifier] epoch 26: val_macro_f1=0.9392
+[01:11:30] INFO |   seed=42 -> test_macro_f1=0.9195 test_pr_auc=0.9487
+[01:11:30] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_50/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_50/seed42/predictions.npz
+[01:11:30] INFO |   seed=1 -> test_macro_f1=0.9224 test_pr_auc=0.9554
+[01:11:30] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_50/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_50/seed1/predictions.npz
+[01:11:30] INFO |   seed=2 -> test_macro_f1=0.9200 test_pr_auc=0.9514
+[01:11:30] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_50/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/point_50/seed2/predictions.npz
+[01:11:30] INFO | Deep Learning | subsequence_10 | model=saits | seeds=[42, 1, 2]
+2026-11-22 01:11:30 [INFO]: Using the given device: cuda
+2026-11-22 01:11:30 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 01:11:30 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 01:11:30 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[01:11:40] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.8924
+[01:11:50] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.9383
+[01:12:00] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.9400
+[01:12:10] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9521
+[01:12:20] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.9389
+[01:12:30] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9300
+[01:12:40] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9342
+[01:12:50] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9561
+[01:13:01] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9402
+[01:13:10] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9333
+[01:13:20] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9254
+[01:13:30] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9474
+[01:13:40] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9393
+[01:13:50] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9329
+[01:14:00] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9526
+[01:14:10] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9325
+[01:14:20] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9269
+[01:14:30] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9436
+2026-11-22 01:14:32 [INFO]: Using the given device: cuda
+2026-11-22 01:14:32 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 01:14:32 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 01:14:32 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[01:14:43] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.9029
+[01:14:53] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.8904
+[01:15:03] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.9081
+[01:15:13] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9269
+[01:15:23] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.9332
+[01:15:33] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9329
+[01:15:43] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9067
+[01:15:53] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9078
+[01:16:03] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9408
+[01:16:13] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9251
+[01:16:23] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9279
+[01:16:33] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9264
+[01:16:44] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9384
+[01:16:53] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9221
+[01:17:03] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9332
+[01:17:13] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9345
+[01:17:23] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9342
+[01:17:34] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9362
+[01:17:44] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.9459
+[01:17:54] INFO | [SAITSClassifier] epoch 19: val_macro_f1=0.9493
+[01:18:04] INFO | [SAITSClassifier] epoch 20: val_macro_f1=0.9443
+[01:18:14] INFO | [SAITSClassifier] epoch 21: val_macro_f1=0.9345
+[01:18:24] INFO | [SAITSClassifier] epoch 22: val_macro_f1=0.9339
+[01:18:34] INFO | [SAITSClassifier] epoch 23: val_macro_f1=0.9383
+[01:18:46] INFO | [SAITSClassifier] epoch 24: val_macro_f1=0.9431
+[01:18:56] INFO | [SAITSClassifier] epoch 25: val_macro_f1=0.9457
+[01:19:06] INFO | [SAITSClassifier] epoch 26: val_macro_f1=0.9302
+[01:19:16] INFO | [SAITSClassifier] epoch 27: val_macro_f1=0.9443
+[01:19:26] INFO | [SAITSClassifier] epoch 28: val_macro_f1=0.9461
+[01:19:36] INFO | [SAITSClassifier] epoch 29: val_macro_f1=0.9457
+2026-11-22 01:19:38 [INFO]: Using the given device: cuda
+2026-11-22 01:19:38 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 01:19:38 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 01:19:38 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[01:19:48] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.9361
+[01:19:58] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.8771
+[01:20:08] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.8370
+[01:20:18] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9173
+[01:20:28] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.9064
+[01:20:38] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9218
+[01:20:49] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9212
+[01:20:58] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9470
+[01:21:09] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9507
+[01:21:19] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9096
+[01:21:30] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9168
+[01:21:40] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9255
+[01:21:50] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9234
+[01:22:01] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9337
+[01:22:11] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9502
+[01:22:21] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9421
+[01:22:31] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9638
+[01:22:40] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9308
+[01:22:50] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.9566
+[01:23:00] INFO | [SAITSClassifier] epoch 19: val_macro_f1=0.9513
+[01:23:09] INFO | [SAITSClassifier] epoch 20: val_macro_f1=0.9462
+[01:23:19] INFO | [SAITSClassifier] epoch 21: val_macro_f1=0.9549
+[01:23:29] INFO | [SAITSClassifier] epoch 22: val_macro_f1=0.9459
+[01:23:38] INFO | [SAITSClassifier] epoch 23: val_macro_f1=0.9502
+[01:23:48] INFO | [SAITSClassifier] epoch 24: val_macro_f1=0.9504
+[01:23:57] INFO | [SAITSClassifier] epoch 25: val_macro_f1=0.9607
+[01:24:07] INFO | [SAITSClassifier] epoch 26: val_macro_f1=0.9581
+[01:24:09] INFO |   seed=42 -> test_macro_f1=0.9294 test_pr_auc=0.9547
+[01:24:09] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/subsequence_10/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/subsequence_10/seed42/predictions.npz
+[01:24:09] INFO |   seed=1 -> test_macro_f1=0.9382 test_pr_auc=0.9697
+[01:24:09] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/subsequence_10/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/subsequence_10/seed1/predictions.npz
+[01:24:09] INFO |   seed=2 -> test_macro_f1=0.9379 test_pr_auc=0.9648
+[01:24:09] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/subsequence_10/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/subsequence_10/seed2/predictions.npz
+[01:24:09] INFO | Deep Learning | subsequence_30 | model=saits | seeds=[42, 1, 2]
+2026-11-22 01:24:09 [INFO]: Using the given device: cuda
+2026-11-22 01:24:09 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 01:24:09 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 01:24:09 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[01:24:19] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.8651
+[01:24:29] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.9181
+[01:24:39] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.9166
+[01:24:48] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9329
+[01:24:58] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.9341
+[01:25:07] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.8792
+[01:25:17] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9278
+[01:25:27] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9184
+[01:25:37] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9099
+[01:25:48] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9021
+[01:25:58] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9053
+[01:26:08] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9246
+[01:26:18] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9332
+[01:26:28] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9209
+[01:26:38] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9272
+2026-11-22 01:26:40 [INFO]: Using the given device: cuda
+2026-11-22 01:26:40 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 01:26:40 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 01:26:40 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[01:26:52] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.8580
+[01:27:03] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.9018
+[01:27:13] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.8915
+[01:27:23] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.8925
+[01:27:33] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.8947
+[01:27:44] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.8941
+[01:27:53] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9041
+[01:28:03] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9140
+[01:28:13] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.8994
+[01:28:23] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9118
+[01:28:34] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.8955
+[01:28:44] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9071
+[01:28:54] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9185
+[01:29:05] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9058
+[01:29:14] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9095
+[01:29:24] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9078
+[01:29:34] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9143
+[01:29:43] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9219
+[01:29:53] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.9175
+[01:30:03] INFO | [SAITSClassifier] epoch 19: val_macro_f1=0.9169
+[01:30:12] INFO | [SAITSClassifier] epoch 20: val_macro_f1=0.9245
+[01:30:22] INFO | [SAITSClassifier] epoch 21: val_macro_f1=0.9165
+[01:30:31] INFO | [SAITSClassifier] epoch 22: val_macro_f1=0.9221
+[01:30:41] INFO | [SAITSClassifier] epoch 23: val_macro_f1=0.9202
+[01:30:50] INFO | [SAITSClassifier] epoch 24: val_macro_f1=0.9174
+[01:31:00] INFO | [SAITSClassifier] epoch 25: val_macro_f1=0.9207
+[01:31:10] INFO | [SAITSClassifier] epoch 26: val_macro_f1=0.9206
+[01:31:19] INFO | [SAITSClassifier] epoch 27: val_macro_f1=0.9179
+[01:31:29] INFO | [SAITSClassifier] epoch 28: val_macro_f1=0.9182
+[01:31:39] INFO | [SAITSClassifier] epoch 29: val_macro_f1=0.9225
+[01:31:48] INFO | [SAITSClassifier] epoch 30: val_macro_f1=0.9213
+2026-11-22 01:31:50 [INFO]: Using the given device: cuda
+2026-11-22 01:31:50 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 01:31:50 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 01:31:50 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[01:32:00] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.8841
+[01:32:09] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.8737
+[01:32:19] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.8254
+[01:32:28] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9208
+[01:32:38] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.8855
+[01:32:48] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.8927
+[01:32:57] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9251
+[01:33:07] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.8924
+[01:33:17] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.8866
+[01:33:26] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.8767
+[01:33:36] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.8528
+[01:33:45] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.8936
+[01:33:55] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.8960
+[01:34:05] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.8950
+[01:34:14] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9174
+[01:34:24] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9193
+[01:34:34] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9261
+[01:34:44] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9171
+[01:34:54] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.9272
+[01:35:03] INFO | [SAITSClassifier] epoch 19: val_macro_f1=0.9184
+[01:35:13] INFO | [SAITSClassifier] epoch 20: val_macro_f1=0.9150
+[01:35:22] INFO | [SAITSClassifier] epoch 21: val_macro_f1=0.9225
+[01:35:32] INFO | [SAITSClassifier] epoch 22: val_macro_f1=0.9067
+[01:35:41] INFO | [SAITSClassifier] epoch 23: val_macro_f1=0.9224
+[01:35:51] INFO | [SAITSClassifier] epoch 24: val_macro_f1=0.9185
+[01:36:01] INFO | [SAITSClassifier] epoch 25: val_macro_f1=0.9222
+[01:36:10] INFO | [SAITSClassifier] epoch 26: val_macro_f1=0.9266
+[01:36:20] INFO | [SAITSClassifier] epoch 27: val_macro_f1=0.9247
+[01:36:30] INFO | [SAITSClassifier] epoch 28: val_macro_f1=0.9191
+[01:36:32] INFO |   seed=42 -> test_macro_f1=0.9035 test_pr_auc=0.9334
+[01:36:32] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/subsequence_30/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/subsequence_30/seed42/predictions.npz
+[01:36:32] INFO |   seed=1 -> test_macro_f1=0.9101 test_pr_auc=0.9362
+[01:36:32] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/subsequence_30/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/subsequence_30/seed1/predictions.npz
+[01:36:32] INFO |   seed=2 -> test_macro_f1=0.9069 test_pr_auc=0.9392
+[01:36:32] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/subsequence_30/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/subsequence_30/seed2/predictions.npz
+[01:36:32] INFO | Deep Learning | subsequence_50 | model=saits | seeds=[42, 1, 2]
+2026-11-22 01:36:32 [INFO]: Using the given device: cuda
+2026-11-22 01:36:32 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 01:36:32 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 01:36:32 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[01:36:42] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.8704
+[01:36:51] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.8728
+[01:37:01] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.8716
+[01:37:11] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.8656
+[01:37:20] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.8681
+[01:37:30] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.8469
+[01:37:40] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.8872
+[01:37:50] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.8861
+[01:38:00] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.8924
+[01:38:09] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.8737
+[01:38:19] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.8927
+[01:38:28] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.8690
+[01:38:38] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.8924
+[01:38:48] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.8686
+[01:38:57] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.8928
+[01:39:07] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.8574
+[01:39:17] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.8646
+[01:39:28] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.8857
+[01:39:38] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.8649
+[01:39:48] INFO | [SAITSClassifier] epoch 19: val_macro_f1=0.8699
+[01:39:58] INFO | [SAITSClassifier] epoch 20: val_macro_f1=0.8767
+[01:40:07] INFO | [SAITSClassifier] epoch 21: val_macro_f1=0.8812
+[01:40:17] INFO | [SAITSClassifier] epoch 22: val_macro_f1=0.8846
+[01:40:27] INFO | [SAITSClassifier] epoch 23: val_macro_f1=0.8890
+[01:40:36] INFO | [SAITSClassifier] epoch 24: val_macro_f1=0.8908
+2026-11-22 01:40:38 [INFO]: Using the given device: cuda
+2026-11-22 01:40:38 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 01:40:38 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 01:40:38 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[01:40:47] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.8237
+[01:40:57] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.8661
+[01:41:06] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.8749
+[01:41:16] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.8752
+[01:41:25] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.8611
+[01:41:35] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.8616
+[01:41:44] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.8567
+[01:41:54] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.8559
+[01:42:04] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.8814
+[01:42:14] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.8785
+[01:42:23] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.8673
+[01:42:33] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.8565
+[01:42:43] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.8800
+[01:42:53] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.8640
+[01:43:03] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.8838
+[01:43:12] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.8853
+[01:43:22] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.8914
+[01:43:31] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.8758
+[01:43:41] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.8900
+[01:43:50] INFO | [SAITSClassifier] epoch 19: val_macro_f1=0.8933
+[01:44:00] INFO | [SAITSClassifier] epoch 20: val_macro_f1=0.8829
+[01:44:09] INFO | [SAITSClassifier] epoch 21: val_macro_f1=0.8871
+[01:44:19] INFO | [SAITSClassifier] epoch 22: val_macro_f1=0.8912
+[01:44:28] INFO | [SAITSClassifier] epoch 23: val_macro_f1=0.8806
+[01:44:38] INFO | [SAITSClassifier] epoch 24: val_macro_f1=0.8914
+[01:44:48] INFO | [SAITSClassifier] epoch 25: val_macro_f1=0.8852
+[01:44:57] INFO | [SAITSClassifier] epoch 26: val_macro_f1=0.8928
+[01:45:07] INFO | [SAITSClassifier] epoch 27: val_macro_f1=0.8918
+[01:45:17] INFO | [SAITSClassifier] epoch 28: val_macro_f1=0.8916
+[01:45:26] INFO | [SAITSClassifier] epoch 29: val_macro_f1=0.8946
+[01:45:36] INFO | [SAITSClassifier] epoch 30: val_macro_f1=0.8968
+[01:45:46] INFO | [SAITSClassifier] epoch 31: val_macro_f1=0.8940
+[01:45:56] INFO | [SAITSClassifier] epoch 32: val_macro_f1=0.8977
+[01:46:06] INFO | [SAITSClassifier] epoch 33: val_macro_f1=0.8998
+[01:46:15] INFO | [SAITSClassifier] epoch 34: val_macro_f1=0.8969
+[01:46:25] INFO | [SAITSClassifier] epoch 35: val_macro_f1=0.8988
+[01:46:35] INFO | [SAITSClassifier] epoch 36: val_macro_f1=0.8939
+[01:46:44] INFO | [SAITSClassifier] epoch 37: val_macro_f1=0.8938
+[01:46:54] INFO | [SAITSClassifier] epoch 38: val_macro_f1=0.8938
+[01:47:03] INFO | [SAITSClassifier] epoch 39: val_macro_f1=0.8977
+[01:47:13] INFO | [SAITSClassifier] epoch 40: val_macro_f1=0.8996
+[01:47:22] INFO | [SAITSClassifier] epoch 41: val_macro_f1=0.8969
+[01:47:32] INFO | [SAITSClassifier] epoch 42: val_macro_f1=0.8942
+[01:47:42] INFO | [SAITSClassifier] epoch 43: val_macro_f1=0.8975
+2026-11-22 01:47:43 [INFO]: Using the given device: cuda
+2026-11-22 01:47:43 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 01:47:43 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 01:47:43 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[01:47:53] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.8887
+[01:48:02] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.8617
+[01:48:12] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.8241
+[01:48:21] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.8620
+[01:48:31] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.8380
+[01:48:40] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.8850
+[01:48:50] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.8800
+[01:48:59] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.8985
+[01:49:09] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.8633
+[01:49:18] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.8691
+[01:49:28] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.8456
+[01:49:37] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.8621
+[01:49:47] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.8816
+[01:49:56] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.8729
+[01:50:06] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.8710
+[01:50:15] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.8863
+[01:50:25] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9030
+[01:50:34] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.8826
+[01:50:44] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.8976
+[01:50:53] INFO | [SAITSClassifier] epoch 19: val_macro_f1=0.8966
+[01:51:02] INFO | [SAITSClassifier] epoch 20: val_macro_f1=0.8979
+[01:51:12] INFO | [SAITSClassifier] epoch 21: val_macro_f1=0.9018
+[01:51:21] INFO | [SAITSClassifier] epoch 22: val_macro_f1=0.8927
+[01:51:31] INFO | [SAITSClassifier] epoch 23: val_macro_f1=0.8965
+[01:51:40] INFO | [SAITSClassifier] epoch 24: val_macro_f1=0.9011
+[01:51:50] INFO | [SAITSClassifier] epoch 25: val_macro_f1=0.8986
+[01:51:59] INFO | [SAITSClassifier] epoch 26: val_macro_f1=0.8996
+[01:52:01] INFO |   seed=42 -> test_macro_f1=0.8502 test_pr_auc=0.8925
+[01:52:01] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/subsequence_50/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/subsequence_50/seed42/predictions.npz
+[01:52:01] INFO |   seed=1 -> test_macro_f1=0.8732 test_pr_auc=0.8830
+[01:52:01] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/subsequence_50/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/subsequence_50/seed1/predictions.npz
+[01:52:01] INFO |   seed=2 -> test_macro_f1=0.8673 test_pr_auc=0.8931
+[01:52:01] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/subsequence_50/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/subsequence_50/seed2/predictions.npz
+[01:52:01] INFO | Deep Learning | block_10 | model=saits | seeds=[42, 1, 2]
+2026-11-22 01:52:01 [INFO]: Using the given device: cuda
+2026-11-22 01:52:01 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 01:52:01 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 01:52:01 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[01:52:11] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.8635
+[01:52:20] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.9470
+[01:52:30] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.9516
+[01:52:39] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9582
+[01:52:49] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.9481
+[01:52:58] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9335
+[01:53:08] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9422
+[01:53:17] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9591
+[01:53:27] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9544
+[01:53:37] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9405
+[01:53:47] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9379
+[01:53:56] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9466
+[01:54:06] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9504
+[01:54:16] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9504
+[01:54:26] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9510
+[01:54:35] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9327
+[01:54:45] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9451
+[01:54:55] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9579
+2026-11-22 01:54:56 [INFO]: Using the given device: cuda
+2026-11-22 01:54:56 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 01:54:56 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 01:54:56 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[01:55:06] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.9173
+[01:55:15] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.9087
+[01:55:25] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.9312
+[01:55:34] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9057
+[01:55:44] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.9388
+[01:55:53] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9228
+[01:56:03] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9447
+[01:56:12] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9237
+[01:56:22] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9429
+[01:56:31] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9478
+[01:56:41] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9266
+[01:56:50] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9320
+[01:57:00] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9459
+[01:57:09] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9320
+[01:57:18] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9459
+[01:57:28] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9340
+[01:57:37] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9433
+[01:57:47] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9380
+[01:57:57] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.9520
+[01:58:06] INFO | [SAITSClassifier] epoch 19: val_macro_f1=0.9587
+[01:58:16] INFO | [SAITSClassifier] epoch 20: val_macro_f1=0.9593
+[01:58:25] INFO | [SAITSClassifier] epoch 21: val_macro_f1=0.9491
+[01:58:35] INFO | [SAITSClassifier] epoch 22: val_macro_f1=0.9463
+[01:58:44] INFO | [SAITSClassifier] epoch 23: val_macro_f1=0.9496
+[01:58:54] INFO | [SAITSClassifier] epoch 24: val_macro_f1=0.9551
+[01:59:04] INFO | [SAITSClassifier] epoch 25: val_macro_f1=0.9527
+[01:59:13] INFO | [SAITSClassifier] epoch 26: val_macro_f1=0.9500
+[01:59:22] INFO | [SAITSClassifier] epoch 27: val_macro_f1=0.9522
+[01:59:32] INFO | [SAITSClassifier] epoch 28: val_macro_f1=0.9517
+[01:59:42] INFO | [SAITSClassifier] epoch 29: val_macro_f1=0.9579
+[01:59:51] INFO | [SAITSClassifier] epoch 30: val_macro_f1=0.9587
+2026-11-22 01:59:53 [INFO]: Using the given device: cuda
+2026-11-22 01:59:53 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 01:59:53 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 01:59:53 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[02:00:02] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.9346
+[02:00:12] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.8973
+[02:00:21] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.8806
+[02:00:31] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9271
+[02:00:40] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.8996
+[02:00:50] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9367
+[02:00:59] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9267
+[02:01:09] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9447
+[02:01:19] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9492
+[02:01:28] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9207
+[02:01:38] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9304
+[02:01:47] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9070
+[02:01:57] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9451
+[02:02:06] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9320
+[02:02:16] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9471
+[02:02:26] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9435
+[02:02:35] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9607
+[02:02:45] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9280
+[02:02:54] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.9492
+[02:03:04] INFO | [SAITSClassifier] epoch 19: val_macro_f1=0.9418
+[02:03:13] INFO | [SAITSClassifier] epoch 20: val_macro_f1=0.9412
+[02:03:23] INFO | [SAITSClassifier] epoch 21: val_macro_f1=0.9598
+[02:03:32] INFO | [SAITSClassifier] epoch 22: val_macro_f1=0.9435
+[02:03:42] INFO | [SAITSClassifier] epoch 23: val_macro_f1=0.9448
+[02:03:52] INFO | [SAITSClassifier] epoch 24: val_macro_f1=0.9522
+[02:04:01] INFO | [SAITSClassifier] epoch 25: val_macro_f1=0.9591
+[02:04:11] INFO | [SAITSClassifier] epoch 26: val_macro_f1=0.9574
+[02:04:12] INFO |   seed=42 -> test_macro_f1=0.9392 test_pr_auc=0.9660
+[02:04:12] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/block_10/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/block_10/seed42/predictions.npz
+[02:04:12] INFO |   seed=1 -> test_macro_f1=0.9408 test_pr_auc=0.9763
+[02:04:12] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/block_10/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/block_10/seed1/predictions.npz
+[02:04:12] INFO |   seed=2 -> test_macro_f1=0.9431 test_pr_auc=0.9718
+[02:04:12] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/block_10/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/block_10/seed2/predictions.npz
+[02:04:12] INFO | Deep Learning | block_30 | model=saits | seeds=[42, 1, 2]
+2026-11-22 02:04:12 [INFO]: Using the given device: cuda
+2026-11-22 02:04:12 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 02:04:12 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 02:04:12 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[02:04:22] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.8611
+[02:04:31] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.9051
+[02:04:41] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.9128
+[02:04:50] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.9440
+[02:05:00] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.8941
+[02:05:09] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9158
+[02:05:19] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9225
+[02:05:28] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9319
+[02:05:38] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9350
+[02:05:47] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9101
+[02:05:57] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9185
+[02:06:06] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9326
+[02:06:16] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9229
+[02:06:27] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9283
+2026-11-22 02:06:29 [INFO]: Using the given device: cuda
+2026-11-22 02:06:29 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 02:06:29 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 02:06:29 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[02:06:39] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.8835
+[02:06:49] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.8976
+[02:06:59] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.8960
+[02:07:09] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.8872
+[02:07:19] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.9094
+[02:07:35] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9150
+[02:07:50] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.9039
+[02:08:06] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.8883
+[02:08:23] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9283
+[02:08:41] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9160
+[02:08:59] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.8730
+[02:09:17] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.9251
+[02:09:35] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9097
+[02:09:54] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9166
+[02:10:13] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9286
+[02:10:31] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9112
+[02:10:42] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9239
+[02:10:52] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9241
+[02:11:03] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.9095
+[02:11:22] INFO | [SAITSClassifier] epoch 19: val_macro_f1=0.9256
+[02:11:41] INFO | [SAITSClassifier] epoch 20: val_macro_f1=0.9279
+[02:12:00] INFO | [SAITSClassifier] epoch 21: val_macro_f1=0.9315
+[02:12:15] INFO | [SAITSClassifier] epoch 22: val_macro_f1=0.9192
+[02:12:30] INFO | [SAITSClassifier] epoch 23: val_macro_f1=0.9272
+[02:12:45] INFO | [SAITSClassifier] epoch 24: val_macro_f1=0.9225
+[02:13:00] INFO | [SAITSClassifier] epoch 25: val_macro_f1=0.9305
+[02:13:15] INFO | [SAITSClassifier] epoch 26: val_macro_f1=0.9263
+[02:13:31] INFO | [SAITSClassifier] epoch 27: val_macro_f1=0.9333
+[02:13:46] INFO | [SAITSClassifier] epoch 28: val_macro_f1=0.9276
+[02:14:02] INFO | [SAITSClassifier] epoch 29: val_macro_f1=0.9272
+[02:14:18] INFO | [SAITSClassifier] epoch 30: val_macro_f1=0.9368
+[02:14:33] INFO | [SAITSClassifier] epoch 31: val_macro_f1=0.9320
+[02:14:49] INFO | [SAITSClassifier] epoch 32: val_macro_f1=0.9332
+[02:15:04] INFO | [SAITSClassifier] epoch 33: val_macro_f1=0.9295
+[02:15:20] INFO | [SAITSClassifier] epoch 34: val_macro_f1=0.9290
+[02:15:35] INFO | [SAITSClassifier] epoch 35: val_macro_f1=0.9325
+[02:15:50] INFO | [SAITSClassifier] epoch 36: val_macro_f1=0.9311
+[02:16:05] INFO | [SAITSClassifier] epoch 37: val_macro_f1=0.9350
+[02:16:21] INFO | [SAITSClassifier] epoch 38: val_macro_f1=0.9360
+[02:16:36] INFO | [SAITSClassifier] epoch 39: val_macro_f1=0.9333
+[02:16:52] INFO | [SAITSClassifier] epoch 40: val_macro_f1=0.9345
+2026-11-22 02:16:54 [INFO]: Using the given device: cuda
+2026-11-22 02:16:54 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 02:16:54 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 02:16:54 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[02:17:09] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.9101
+[02:17:24] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.8834
+[02:17:39] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.8158
+[02:17:55] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.8948
+[02:18:10] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.8848
+[02:18:27] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.9133
+[02:18:42] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.8997
+[02:18:59] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.9363
+[02:19:14] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.9124
+[02:19:29] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.9018
+[02:19:45] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.9014
+[02:20:01] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.8841
+[02:20:16] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9145
+[02:20:31] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.9218
+[02:20:47] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9234
+[02:21:02] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.9154
+[02:21:17] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.9328
+[02:21:32] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.9238
+[02:21:35] INFO |   seed=42 -> test_macro_f1=0.9176 test_pr_auc=0.9519
+[02:21:35] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/block_30/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/block_30/seed42/predictions.npz
+[02:21:35] INFO |   seed=1 -> test_macro_f1=0.9176 test_pr_auc=0.9556
+[02:21:35] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/block_30/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/block_30/seed1/predictions.npz
+[02:21:35] INFO |   seed=2 -> test_macro_f1=0.9164 test_pr_auc=0.9591
+[02:21:35] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/block_30/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/block_30/seed2/predictions.npz
+[02:21:35] INFO | Deep Learning | block_50 | model=saits | seeds=[42, 1, 2]
+2026-11-22 02:21:35 [INFO]: Using the given device: cuda
+2026-11-22 02:21:35 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 02:21:35 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 02:21:35 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[02:21:50] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.8169
+[02:22:06] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.8987
+[02:22:21] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.8822
+[02:22:36] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.8833
+[02:22:51] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.8680
+[02:23:06] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.8636
+[02:23:21] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.8646
+[02:23:36] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.8813
+[02:23:51] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.8806
+[02:24:07] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.8757
+[02:24:22] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.8731
+[02:24:37] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.8897
+2026-11-22 02:24:39 [INFO]: Using the given device: cuda
+2026-11-22 02:24:39 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 02:24:39 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 02:24:39 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[02:24:54] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.8237
+[02:25:10] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.8661
+[02:25:25] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.8601
+[02:25:40] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.8842
+[02:25:55] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.8532
+[02:26:10] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.8891
+[02:26:26] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.8552
+[02:26:41] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.8655
+[02:26:57] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.8866
+[02:27:12] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.8694
+[02:27:26] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.8547
+[02:27:41] INFO | [SAITSClassifier] epoch 11: val_macro_f1=0.8696
+[02:27:56] INFO | [SAITSClassifier] epoch 12: val_macro_f1=0.9025
+[02:28:11] INFO | [SAITSClassifier] epoch 13: val_macro_f1=0.8703
+[02:28:26] INFO | [SAITSClassifier] epoch 14: val_macro_f1=0.9044
+[02:28:41] INFO | [SAITSClassifier] epoch 15: val_macro_f1=0.8798
+[02:28:56] INFO | [SAITSClassifier] epoch 16: val_macro_f1=0.8987
+[02:29:11] INFO | [SAITSClassifier] epoch 17: val_macro_f1=0.8724
+[02:29:26] INFO | [SAITSClassifier] epoch 18: val_macro_f1=0.8688
+[02:29:41] INFO | [SAITSClassifier] epoch 19: val_macro_f1=0.8817
+[02:29:57] INFO | [SAITSClassifier] epoch 20: val_macro_f1=0.8965
+[02:30:12] INFO | [SAITSClassifier] epoch 21: val_macro_f1=0.8868
+[02:30:29] INFO | [SAITSClassifier] epoch 22: val_macro_f1=0.8721
+[02:30:46] INFO | [SAITSClassifier] epoch 23: val_macro_f1=0.8835
+[02:31:00] INFO | [SAITSClassifier] epoch 24: val_macro_f1=0.8837
+2026-11-22 02:31:02 [INFO]: Using the given device: cuda
+2026-11-22 02:31:02 [WARNING]: ‼️ saving_path not given. Model files and tensorboard file will not be saved.
+2026-11-22 02:31:02 [INFO]: Using customized WeightedCrossEntropy as the training loss function.
+2026-11-22 02:31:02 [INFO]: SAITSClassifier initialized with the given hyperparameters, the number of trainable parameters: 135,344
+[02:31:15] INFO | [SAITSClassifier] epoch 0: val_macro_f1=0.8957
+[02:31:34] INFO | [SAITSClassifier] epoch 1: val_macro_f1=0.8166
+[02:31:51] INFO | [SAITSClassifier] epoch 2: val_macro_f1=0.8250
+[02:32:03] INFO | [SAITSClassifier] epoch 3: val_macro_f1=0.8598
+[02:32:14] INFO | [SAITSClassifier] epoch 4: val_macro_f1=0.8744
+[02:32:30] INFO | [SAITSClassifier] epoch 5: val_macro_f1=0.8813
+[02:32:49] INFO | [SAITSClassifier] epoch 6: val_macro_f1=0.8833
+[02:33:08] INFO | [SAITSClassifier] epoch 7: val_macro_f1=0.8830
+[02:33:22] INFO | [SAITSClassifier] epoch 8: val_macro_f1=0.8846
+[02:33:33] INFO | [SAITSClassifier] epoch 9: val_macro_f1=0.8747
+[02:33:43] INFO | [SAITSClassifier] epoch 10: val_macro_f1=0.8750
+[02:33:45] INFO |   seed=42 -> test_macro_f1=0.8776 test_pr_auc=0.9247
+[02:33:45] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/block_50/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/block_50/seed42/predictions.npz
+[02:33:45] INFO |   seed=1 -> test_macro_f1=0.8884 test_pr_auc=0.9410
+[02:33:45] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/block_50/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/block_50/seed1/predictions.npz
+[02:33:45] INFO |   seed=2 -> test_macro_f1=0.8732 test_pr_auc=0.8895
+[02:33:45] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/block_50/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/saits/block_50/seed2/predictions.npz
