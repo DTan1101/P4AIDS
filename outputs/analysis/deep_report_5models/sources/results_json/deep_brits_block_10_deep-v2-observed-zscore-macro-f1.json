@@ -1,0 +1,274 @@
+[
+  {
+    "config": {
+      "kind": "block",
+      "rate": 0.1
+    },
+    "model_name": "brits",
+    "seed": 42,
+    "val_metrics": {
+      "macro_f1": 0.9463241851965382,
+      "balanced_accuracy": 0.985768534766396,
+      "per_class": {
+        "Rain": {
+          "precision": 0.9990221244346656,
+          "recall": 0.988031914893617,
+          "f1": 0.9934966267549991,
+          "support": 8272
+        },
+        "Snow": {
+          "precision": 0.828125,
+          "recall": 0.9835051546391752,
+          "f1": 0.8991517436380773,
+          "support": 485
+        }
+      },
+      "n_samples": 8757,
+      "pr_auc": 0.9850234868267294
+    },
+    "test_metrics": {
+      "macro_f1": 0.919135198415233,
+      "balanced_accuracy": 0.9748263786058395,
+      "per_class": {
+        "Rain": {
+          "precision": 0.9979309452993663,
+          "recall": 0.973876829883897,
+          "f1": 0.9857571693172383,
+          "support": 15848
+        },
+        "Snow": {
+          "precision": 0.7568995889606577,
+          "recall": 0.975775927327782,
+          "f1": 0.8525132275132276,
+          "support": 1321
+        }
+      },
+      "n_samples": 17169,
+      "pr_auc": 0.9604546934398551
+    },
+    "best_epoch": 3,
+    "history": {
+      "train_loss": [
+        1.040238062399833,
+        0.8088507639332962,
+        0.7855706690552611,
+        0.7716745044078158,
+        0.7626625326614138,
+        0.7556376240118566,
+        0.7519117492331209,
+        0.748844708492197,
+        0.7409910654255587,
+        0.7394155602366399,
+        0.7369271728562462,
+        0.7352949865178346,
+        0.731178194385822,
+        0.731077306014535
+      ],
+      "val_macro_f1": [
+        0.9235961698955972,
+        0.8997666855991002,
+        0.8970079687419512,
+        0.9463241851965382,
+        0.8990212894763394,
+        0.9163664088658373,
+        0.9282810641040897,
+        0.8997064499102843,
+        0.9337014876850143,
+        0.933068998748297,
+        0.928521385603501,
+        0.9033016433537957,
+        0.9306294122384564,
+        0.9336103118897412
+      ]
+    },
+    "protocol": "deep-v2-observed-zscore-macro-f1",
+    "checkpoint_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/brits/block_10/seed42/checkpoint.pt",
+    "prediction_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/brits/block_10/seed42/predictions.npz"
+  },
+  {
+    "config": {
+      "kind": "block",
+      "rate": 0.1
+    },
+    "model_name": "brits",
+    "seed": 1,
+    "val_metrics": {
+      "macro_f1": 0.9455130197563275,
+      "balanced_accuracy": 0.9866181279786237,
+      "per_class": {
+        "Rain": {
+          "precision": 0.9991439403204109,
+          "recall": 0.9876692456479691,
+          "f1": 0.9933734573530306,
+          "support": 8272
+        },
+        "Snow": {
+          "precision": 0.8241379310344827,
+          "recall": 0.9855670103092784,
+          "f1": 0.8976525821596244,
+          "support": 485
+        }
+      },
+      "n_samples": 8757,
+      "pr_auc": 0.9856293280278805
+    },
+    "test_metrics": {
+      "macro_f1": 0.9204281484230271,
+      "balanced_accuracy": 0.9764350323149404,
+      "per_class": {
+        "Rain": {
+          "precision": 0.9981894600711284,
+          "recall": 0.9740661282180717,
+          "f1": 0.985980263788203,
+          "support": 15848
+        },
+        "Snow": {
+          "precision": 0.7588028169014085,
+          "recall": 0.9788039364118092,
+          "f1": 0.8548760330578512,
+          "support": 1321
+        }
+      },
+      "n_samples": 17169,
+      "pr_auc": 0.95932718846543
+    },
+    "best_epoch": 8,
+    "history": {
+      "train_loss": [
+        1.0223603675580208,
+        0.8297140540636642,
+        0.7902266180728961,
+        0.7739464518548912,
+        0.7648105544985467,
+        0.7577778853143571,
+        0.7551656389556105,
+        0.7487252713330038,
+        0.7451939181654998,
+        0.7447568088073864,
+        0.7420747806255672,
+        0.7371579291757072,
+        0.7359824880963142,
+        0.7292717186072376,
+        0.7288866286665445,
+        0.727307855547887,
+        0.7270927286956409,
+        0.7232882156863752,
+        0.7219083549323341
+      ],
+      "val_macro_f1": [
+        0.8439592592835028,
+        0.9231800999878064,
+        0.9205367636891593,
+        0.9327265095627351,
+        0.921891390540885,
+        0.921223062753104,
+        0.9271432324736173,
+        0.9377167495634138,
+        0.9455130197563275,
+        0.9246454495547152,
+        0.9359750273099032,
+        0.9268474936104487,
+        0.9406908496711368,
+        0.935329448446757,
+        0.9314775441433323,
+        0.9336103118897412,
+        0.9415780418117238,
+        0.9357610438249633,
+        0.9452534458496352
+      ]
+    },
+    "protocol": "deep-v2-observed-zscore-macro-f1",
+    "checkpoint_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/brits/block_10/seed1/checkpoint.pt",
+    "prediction_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/brits/block_10/seed1/predictions.npz"
+  },
+  {
+    "config": {
+      "kind": "block",
+      "rate": 0.1
+    },
+    "model_name": "brits",
+    "seed": 2,
+    "val_metrics": {
+      "macro_f1": 0.9579546721565535,
+      "balanced_accuracy": 0.9815172037328761,
+      "per_class": {
+        "Rain": {
+          "precision": 0.9982966297603115,
+          "recall": 0.9919003868471954,
+          "f1": 0.9950882299436056,
+          "support": 8272
+        },
+        "Snow": {
+          "precision": 0.8754646840148699,
+          "recall": 0.9711340206185567,
+          "f1": 0.9208211143695014,
+          "support": 485
+        }
+      },
+      "n_samples": 8757,
+      "pr_auc": 0.9849351315399825
+    },
+    "test_metrics": {
+      "macro_f1": 0.9405396831553692,
+      "balanced_accuracy": 0.9711372583448896,
+      "per_class": {
+        "Rain": {
+          "precision": 0.9964851738241309,
+          "recall": 0.9839096415951539,
+          "f1": 0.9901574803149606,
+          "support": 15848
+        },
+        "Snow": {
+          "precision": 0.8323471400394478,
+          "recall": 0.9583648750946253,
+          "f1": 0.8909218859957776,
+          "support": 1321
+        }
+      },
+      "n_samples": 17169,
+      "pr_auc": 0.9635231769988433
+    },
+    "best_epoch": 5,
+    "history": {
+      "train_loss": [
+        1.02509275773204,
+        0.814638992342599,
+        0.792723610235124,
+        0.7758675258147574,
+        0.7654376402972258,
+        0.7598979457335763,
+        0.7551989481954235,
+        0.749923535808037,
+        0.7456258029322427,
+        0.7437877293202982,
+        0.735923910314109,
+        0.7342019373439351,
+        0.7327546517087182,
+        0.7318825499107211,
+        0.7273449097539552,
+        0.7263682923793779
+      ],
+      "val_macro_f1": [
+        0.8486989875254847,
+        0.9290686016041927,
+        0.9172976356157538,
+        0.9250600335059322,
+        0.9061961777653718,
+        0.9579546721565535,
+        0.9346764658072935,
+        0.9394703714399728,
+        0.950819848672271,
+        0.9333844694526745,
+        0.9474201815900385,
+        0.9216119087872452,
+        0.9405878391305665,
+        0.9220199951719378,
+        0.9439073649950998,
+        0.9533132348591546
+      ]
+    },
+    "protocol": "deep-v2-observed-zscore-macro-f1",
+    "checkpoint_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/brits/block_10/seed2/checkpoint.pt",
+    "prediction_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/brits/block_10/seed2/predictions.npz"
+  }
+]

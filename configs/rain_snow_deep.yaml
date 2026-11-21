@@ -22,3 +22,8 @@ deep:
   batch_size: 128
   lr: 0.001
   device: auto
+  deterministic: true
+  # Chỉ chứa tham số riêng của mô hình; ví dụ SAITS:
+  # pypots: {n_layers: 2, n_heads: 4, d_ffn: 128}
+  # BRITS/GRUD dùng hidden_size ở trên, hoặc rnn_hidden_size tại đây.
+  pypots: {}

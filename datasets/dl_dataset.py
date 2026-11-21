@@ -32,13 +32,26 @@ def compute_delta(mask: np.ndarray) -> np.ndarray:
     return delta
 
 
-def compute_channel_stats(X_filled: np.ndarray, train_idx: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
-    """Mean/std theo kênh, ước lượng **chỉ trên tập train** (chống rò rỉ, Mục 2.2)."""
-    train_values = X_filled[train_idx]
-    mean = train_values.mean(axis=(0, 1))
-    std = train_values.std(axis=(0, 1))
+def compute_channel_stats(X_observed: np.ndarray, train_idx: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
+    """Mean/std chỉ từ ô quan sát được của train; kênh rỗng dùng (0, 1)."""
+    values = X_observed[train_idx]
+    count = np.sum(~np.isnan(values), axis=(0, 1))
+    mean = np.nansum(values, axis=(0, 1)) / np.maximum(count, 1)
+    variance = np.nansum((values - mean) ** 2, axis=(0, 1)) / np.maximum(count, 1)
+    std = np.sqrt(variance)
     std = np.where(std < 1e-6, 1.0, std)
     return mean.astype(np.float32), std.astype(np.float32)
+
+
+def prepare_observed_arrays(X: np.ndarray, mask: np.ndarray, train_idx: np.ndarray):
+    """Chuẩn hoá chung cho DL, giữ NaN để PyPOTS tự xử lý thiếu."""
+    if X.ndim != 3 or mask.shape != X.shape or mask.dtype != bool:
+        raise ValueError("X/mask phải cùng shape (N, T, C), mask phải là bool.")
+    if len(train_idx) == 0 or not np.isfinite(X[mask]).all():
+        raise ValueError("Train không được rỗng và mọi ô quan sát phải hữu hạn.")
+    observed = np.where(mask, X, np.nan).astype(np.float32)
+    mean, std = compute_channel_stats(observed, train_idx)
+    return normalize(observed, mean, std), mean, std
 
 
 def normalize(X_filled: np.ndarray, mean: np.ndarray, std: np.ndarray) -> np.ndarray:
@@ -46,7 +59,7 @@ def normalize(X_filled: np.ndarray, mean: np.ndarray, std: np.ndarray) -> np.nda
 
 
 class WeatherWindowDataset(Dataset):
-    """Trả về ``(value, mask, delta, label)`` -- value đã forward-fill + chuẩn hoá."""
+    """Trả về ``(value, mask, delta, label)`` -- value đã chuẩn hoá + forward-fill."""
 
     def __init__(self, value: np.ndarray, mask: np.ndarray, delta: np.ndarray,
                  y: Optional[np.ndarray] = None) -> None:
@@ -66,12 +79,11 @@ class WeatherWindowDataset(Dataset):
 
 def prepare_dl_arrays(X: np.ndarray, mask: np.ndarray, train_idx: np.ndarray
                        ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-    """Pipeline đầy đủ: forward-fill -> chuẩn hoá (stats từ train) -> delta.
+    """Pipeline đầy đủ: chuẩn hoá ô quan sát (stats từ train) -> forward-fill -> delta.
 
     Trả về ``(value_norm, mask_float, delta, mean, std)``.
     """
-    filled = forward_fill(X, mask)
-    mean, std = compute_channel_stats(filled, train_idx)
-    value_norm = normalize(filled, mean, std)
+    observed, mean, std = prepare_observed_arrays(X, mask, train_idx)
+    value_norm = forward_fill(observed, mask)
     delta = compute_delta(mask)
     return value_norm, mask.astype(np.float32), delta, mean, std

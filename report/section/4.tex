@@ -93,55 +93,86 @@ thêm vào đặc trưng ROCKET trước khi phân loại.
 \subsubsection{Tiền xử lý riêng cho Deep Learning}
 \label{sec:tien-xu-ly-dl}
 
-Mỗi biến được chuẩn hóa (z-score, thống kê ước lượng trên tập huấn luyện), và với mỗi
-cửa sổ, hai kênh phụ được tạo thêm cho mỗi biến: kênh \emph{mask} (1 nếu quan trắc hợp
-lệ, 0 nếu thiếu) và kênh \emph{delta} ($\Delta t$, thời gian trôi qua từ lần quan trắc
-hợp lệ gần nhất của biến đó). Đầu vào mô hình do đó có 3 kênh cho mỗi biến gốc (giá trị,
-mask, delta).
+Mỗi biến được chuẩn hóa z-score bằng mean/std tính chỉ từ các ô quan sát được
+của tập train sau khi áp mặt nạ của từng case. Thống kê này được giữ nguyên khi
+biến đổi validation và test; kênh hoàn toàn thiếu trong train dùng mean bằng 0
+và std bằng 1. Với các GRU tự cài, chuẩn hóa được thực hiện trước forward-fill;
+phần đầu cửa sổ chưa có quan sát để điền được gán 0 trong không gian chuẩn hóa.
+BRITS và SAITS nhận dữ liệu đã chuẩn hóa nhưng vẫn giữ NaN tại vị trí thiếu.
+
+Mask biểu diễn trạng thái quan sát và $\Delta t$ biểu diễn số giờ từ quan sát
+hợp lệ trước đó. GRU-Fill chỉ nhận giá trị, còn GRU+mask/$\Delta t$ nối ba nhóm
+đầu vào thành 15 kênh. GRU-D dùng thêm cơ chế decay trong cell. Các mô hình
+PyPOTS tự xây dựng đầu vào phụ theo kiến trúc, không áp cùng biểu diễn 15 kênh
+cho tất cả mô hình.
 
 \subsubsection{Mô hình}
 \label{sec:mo-hinh-dl}
 
+Năm mô hình được đánh giá trong chiến dịch đã hoàn tất gồm:
 \begin{itemize}
-  \item \textbf{GRU-Fill:} GRU chuẩn trên dữ liệu đã được điền giá trị đơn giản (forward
-        fill), dùng làm baseline học sâu không khai thác mask/delta.
-  \item \textbf{GRU kèm mask và delta:} GRU-Fill mở rộng bằng cách nối thêm kênh mask và
-        delta vào đầu vào, không thay đổi kiến trúc cell.
-  \item \textbf{GRU-D} \cite{che2018grud}: cổng decay nhận trực tiếp mask và delta để
-        điều chỉnh suy giảm ảnh hưởng của giá trị quan trắc cũ.
-  \item \textbf{BRITS} \cite{cao2018brits}: imputation hai chiều dựa trên RNN, huấn
-        luyện đa mục tiêu (imputation + phân loại).
-  \item \textbf{SAITS} \cite{du2023saits}: self-attention với mục tiêu kép imputation và
-        phân loại.
-  \item \textbf{UniTS} \cite{gao2024units} (nếu đủ thời gian/tài nguyên): fine-tune từ
-        checkpoint pretrained cho tác vụ phân loại trên dữ liệu Szeged.
+  \item \textbf{GRU-Fill:} GRU chuẩn một lớp, hidden size 64, trên dữ liệu đã
+        forward-fill; hidden state cuối được đưa qua lớp tuyến tính để phân loại.
+  \item \textbf{GRU+mask/$\Delta t$:} giữ cấu trúc GRU và head như GRU-Fill,
+        bổ sung mask và delta vào đầu vào. Số tham số đầu vào tăng tương ứng;
+        ablation đánh giá việc bổ sung đồng thời hai nhóm thông tin này.
+  \item \textbf{GRU-D tự cài} \cite{che2018grud}: phiên bản đơn giản hóa,
+        học decay của giá trị và hidden state theo delta, dùng GRUCell lặp qua
+        24 bước và một vector giá trị trung tâm có thể học. Đây không phải
+        tuyên bố tái hiện nguyên bản toàn bộ implementation của bài báo.
+  \item \textbf{BRITS} \cite{cao2018brits}: mô hình hai chiều từ
+        \texttt{PyPOTS 2.0}, hidden size 64, giữ các thành phần loss tái tạo,
+        nhất quán và phân loại của thư viện.
+  \item \textbf{SAITS} \cite{du2023saits}: classifier từ \texttt{PyPOTS 2.0},
+        hai khối attention, mỗi khối có hai lớp, $d_{\mathrm{model}}=64$,
+        4 head, $d_k=d_v=16$ và $d_{\mathrm{ffn}}=128$.
+        Trong implementation phân loại được sử dụng, head nhận chuỗi tái tạo
+        từ encoder và loss huấn luyện là weighted cross-entropy; không cộng
+        thêm loss imputation riêng như một số thiết lập SAITS khác.
 \end{itemize}
+
+Adapter của dự án sửa BRITS để tạo validation dataset từ đúng \texttt{val\_set},
+đồng thời chọn checkpoint của các mô hình PyPOTS bằng prediction cuối cùng
+trên toàn validation, thay vì trung bình metric theo batch hoặc theo hai chiều.
+Mô hình \texttt{grud\_pypots} không thuộc bộ so sánh năm mô hình này.
 
 \subsubsection{Kỹ thuật huấn luyện}
 \label{sec:ky-thuat-huan-luyen-dl}
 
+Các siêu tham số được cố định trước lượt benchmark, không thực hiện tìm kiếm
+siêu tham số trong chiến dịch DL này. Bảng~\ref{tab:dl-hyperparameters} nêu cấu
+hình đã chạy; phần phụ lục trình bày lại cấu hình để thuận tiện tái lập.
+
 \begin{itemize}
-  \item \textbf{Loss có trọng số lớp:} cross-entropy với trọng số tỷ lệ nghịch với tần
-        suất lớp, để giảm thiên lệch do mất cân bằng Rain/Snow.
-  \item \textbf{Early stopping:} dừng huấn luyện khi Macro F1 trên tập validation không
-        cải thiện sau $k$ epoch liên tiếp (\TODO{xác định $k$ cụ thể}).
-  \item \textbf{Scheduler:} giảm learning rate theo kế hoạch (\TODO{xác định loại
-        scheduler -- cosine annealing hoặc reduce-on-plateau -- và tham số cụ thể}).
-  \item \textbf{Nhiều seed:} mỗi mô hình được huấn luyện lại với \TODO{số lượng} seed
-        khác nhau để báo cáo trung bình và độ lệch chuẩn của mỗi chỉ số.
+  \item \textbf{Loss phân loại:} cross-entropy với trọng số
+        $w_c=N_{\mathrm{train}}/(2n_c)$, trong đó $n_c$ là số mẫu lớp $c$
+        trong train. BRITS vẫn giữ các loss phụ đặc trưng của kiến trúc.
+  \item \textbf{Optimizer:} Adam, learning rate khởi tạo 0.001,
+        batch size 64, tối đa 50 epoch.
+  \item \textbf{Early stopping:} chọn checkpoint có Macro F1 validation cao
+        nhất, dừng sau 10 epoch liên tiếp không cải thiện; nếu hòa điểm giữ
+        epoch sớm hơn. Test được đánh giá sau khi khôi phục checkpoint đó.
+  \item \textbf{Scheduler:} ReduceLROnPlateau theo validation Macro F1,
+        hệ số giảm 0.5 và patience 3.
+  \item \textbf{Nhiều seed:} lặp lại với ba seed $42,1,2$ trên cùng mask
+        seed 123. Báo mean và độ lệch chuẩn mẫu giữa các seed mô hình.
+  \item \textbf{Tái lập:} bật deterministic của PyTorch; lưu cấu hình,
+        môi trường, checksum đầu vào, checkpoint, prediction và history.
+        Cấu hình phần cứng/thư viện khác nhau vẫn có thể cho kết quả khác.
 \end{itemize}
 
 \subsubsection{Fine-tuning}
 \label{sec:fine-tuning}
 
-\TODO{Nếu sử dụng UniTS: mô tả checkpoint pretrained được dùng, chiến lược fine-tuning
-(toàn phần hoặc chỉ fine-tune head phân loại), và số epoch/learning rate fine-tuning.}
+Chiến dịch này huấn luyện năm mô hình từ đầu. UniTS \cite{gao2024units} mới là
+hướng mở rộng; chưa tải checkpoint pretrained, fine-tune hoặc có kết quả UniTS.
 
 \subsection{Giải thích mô hình}
 \label{sec:giai-thich-mo-hinh}
 
-Đóng góp của từng đặc trưng đến quyết định phân loại được phân tích bằng SHAP
+Đóng góp của từng đặc trưng đến quyết định phân loại dự kiến được phân tích bằng SHAP
 \cite{lundberg2017shap} cho các mô hình dạng cây (XGBoost), và bằng Integrated Gradients
 \cite{sundararajan2017integratedgradients} cho các mô hình học sâu, nhằm kiểm tra xem các
 mô hình có thực sự khai thác thông tin mask/$\Delta t$ khi dữ liệu bị thiếu hay không.
-Kết quả giải thích mô hình được trình bày ở Mục~\ref{sec:giai-thich-mo-hinh-ket-qua}.
+Phân tích SHAP/Integrated Gradients chưa được thực hiện trong bộ kết quả DL hiện có
+(Mục~\ref{sec:giai-thich-mo-hinh-ket-qua}).

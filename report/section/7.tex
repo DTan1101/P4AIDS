@@ -4,9 +4,19 @@
 \subsection{Tóm tắt kết quả}
 \label{sec:tom-tat-ket-qua}
 
-\TODO{Tóm tắt lại phát hiện chính từ Mục~\ref{sec:ket-qua-chinh} và~\ref{sec:thao-luan}:
-họ phương pháp nào giữ hiệu năng tốt nhất khi tỷ lệ thiếu dữ liệu tăng, và mức độ cải
-thiện cụ thể so với các baseline ở Mục~\ref{sec:baseline}.}
+Đã hoàn tất 150 lượt huấn luyện của năm mô hình DL trên cùng bộ chia thời
+gian và mặt nạ thiếu dữ liệu. SAITS có mean Macro F1 cao nhất trên chín case
+thiếu (0.91418), BRITS đạt 0.91073 nhưng đứng đầu riêng tại point 50\% và
+subsequence 50\%. Kết quả cho thấy ưu thế kiến trúc phụ thuộc cấu trúc thiếu,
+không có mô hình đứng đầu mọi điều kiện.
+
+Bổ sung mask/$\Delta t$ cải thiện GRU-Fill ở bảy trong chín case; GRU-D chỉ
+nhỉnh hơn GRU+mask/$\Delta t$ khoảng 0.00072 mean Macro F1 nhưng mất khoảng
+11.56 lần thời gian pipeline. SAITS chạy nhanh hơn BRITS khoảng 9.95 lần
+trong chiến dịch, đồng thời có mean Macro F1 cao hơn. Cả năm mô hình đều có
+điểm thấp nhất ở subsequence 50\%. Chưa có kết quả để kết luận ưu thế của
+DL so với Classic ML hoặc ROCKET, và chưa kiểm định ý nghĩa thống kê của
+các chênh lệch giữa mô hình.
 
 \subsection{Hạn chế}
 \label{sec:han-che}
@@ -21,6 +31,14 @@ thiện cụ thể so với các baseline ở Mục~\ref{sec:baseline}.}
         được sinh tổng hợp, có thể không phản ánh đúng phân bố mất dữ liệu thực tế của
         một cảm biến cụ thể (ví dụ tương quan giữa các biến khi cùng một trạm gặp sự cố
         nguồn điện).
+  \item \textbf{Phạm vi thực nghiệm:} một split thời gian cố định và một mask seed;
+        ba seed chỉ đo biến động huấn luyện, chưa đo biến động bộ mask hoặc vùng khí hậu.
+  \item \textbf{Phụ thuộc dữ liệu:} các cửa sổ chồng lấn và cùng tập test được dùng
+        cho nhiều case; chưa thực hiện kiểm định có xét phụ thuộc này.
+  \item \textbf{Điều kiện train/test:} mô hình được train lại cho từng kiểu/tỷ lệ
+        thiếu; chưa kiểm chứng chuyển kiểu thiếu hoặc train đầy đủ rồi test thiếu.
+  \item \textbf{Chi phí:} mới đo thời gian pipeline; chưa đo inference, tải phần
+        cứng, RAM/VRAM đỉnh hoặc năng lượng, chưa thể kết luận khả năng chạy Edge.
 \end{itemize}
 
 \subsection{Hướng phát triển}

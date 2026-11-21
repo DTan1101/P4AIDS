@@ -1,0 +1,268 @@
+[
+  {
+    "config": {
+      "kind": "block",
+      "rate": 0.1
+    },
+    "model_name": "gru_d",
+    "seed": 42,
+    "val_metrics": {
+      "macro_f1": 0.9543044243398053,
+      "balanced_accuracy": 0.9829746106602325,
+      "per_class": {
+        "Rain": {
+          "precision": 0.9985378335567199,
+          "recall": 0.9906914893617021,
+          "f1": 0.9945991868438618,
+          "support": 8272
+        },
+        "Snow": {
+          "precision": 0.86,
+          "recall": 0.9752577319587629,
+          "f1": 0.9140096618357488,
+          "support": 485
+        }
+      },
+      "n_samples": 8757,
+      "pr_auc": 0.9864171255405465
+    },
+    "test_metrics": {
+      "macro_f1": 0.9313097658982998,
+      "balanced_accuracy": 0.9768772060922442,
+      "per_class": {
+        "Rain": {
+          "precision": 0.9978769943386516,
+          "recall": 0.9787354871277133,
+          "f1": 0.9882135575942915,
+          "support": 15848
+        },
+        "Snow": {
+          "precision": 0.7926153846153846,
+          "recall": 0.9750189250567751,
+          "f1": 0.8744059742023083,
+          "support": 1321
+        }
+      },
+      "n_samples": 17169,
+      "pr_auc": 0.9663676434936384
+    },
+    "best_epoch": 6,
+    "history": {
+      "train_loss": [
+        0.13124937605805964,
+        0.08763098742737929,
+        0.08416239079269014,
+        0.08090973159337257,
+        0.07781524639409365,
+        0.07542778077505487,
+        0.07254156572512357,
+        0.07168932819724022,
+        0.07075818365435566,
+        0.06842041909661126,
+        0.06766516587143118,
+        0.06257640131439074,
+        0.06200539286860931,
+        0.06063205279509926,
+        0.05947125840559053,
+        0.056590571084068376,
+        0.05613209281634368
+      ],
+      "val_macro_f1": [
+        0.9051423856286978,
+        0.9320651053135615,
+        0.8960163505160219,
+        0.9228938546783314,
+        0.9185073935599819,
+        0.943711171490079,
+        0.9543044243398053,
+        0.9390495942009713,
+        0.9347742337947561,
+        0.9223006925995465,
+        0.9261376711943747,
+        0.9333844694526745,
+        0.9366270108521713,
+        0.9311289697265084,
+        0.9375019282347687,
+        0.943711171490079,
+        0.9260608462382636
+      ]
+    },
+    "protocol": "deep-v2-observed-zscore-macro-f1",
+    "checkpoint_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_d/block_10/seed42/checkpoint.pt",
+    "prediction_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_d/block_10/seed42/predictions.npz"
+  },
+  {
+    "config": {
+      "kind": "block",
+      "rate": 0.1
+    },
+    "model_name": "gru_d",
+    "seed": 1,
+    "val_metrics": {
+      "macro_f1": 0.9505549513707028,
+      "balanced_accuracy": 0.9824910516660352,
+      "per_class": {
+        "Rain": {
+          "precision": 0.9985364068788877,
+          "recall": 0.9897243713733076,
+          "f1": 0.9941108615141764,
+          "support": 8272
+        },
+        "Snow": {
+          "precision": 0.8476702508960573,
+          "recall": 0.9752577319587629,
+          "f1": 0.9069990412272292,
+          "support": 485
+        }
+      },
+      "n_samples": 8757,
+      "pr_auc": 0.9844721084755084
+    },
+    "test_metrics": {
+      "macro_f1": 0.9277602086739027,
+      "balanced_accuracy": 0.9728082472359482,
+      "per_class": {
+        "Rain": {
+          "precision": 0.9972338372467031,
+          "recall": 0.9781675921251893,
+          "f1": 0.9876087025770076,
+          "support": 15848
+        },
+        "Snow": {
+          "precision": 0.7869458128078818,
+          "recall": 0.967448902346707,
+          "f1": 0.867911714770798,
+          "support": 1321
+        }
+      },
+      "n_samples": 17169,
+      "pr_auc": 0.9585526505177037
+    },
+    "best_epoch": 5,
+    "history": {
+      "train_loss": [
+        0.13280447034948478,
+        0.08988387640699913,
+        0.08332525892764912,
+        0.08132919167753068,
+        0.07774548600100468,
+        0.07613643015975556,
+        0.07496496439268703,
+        0.07234329325656418,
+        0.07197510598594842,
+        0.0703591587007863,
+        0.06644864620016186,
+        0.06591331571428312,
+        0.06458809370167709,
+        0.06334647667117131,
+        0.06103211220266303,
+        0.060087278286603006
+      ],
+      "val_macro_f1": [
+        0.8678086617236684,
+        0.8990212894763394,
+        0.9276171240950695,
+        0.8865069010444228,
+        0.9258120103105714,
+        0.9505549513707028,
+        0.9317515314404559,
+        0.9232784842728666,
+        0.9204055875409989,
+        0.9155690989199405,
+        0.9342450735741334,
+        0.9461124210532182,
+        0.9301101443153905,
+        0.9451937974433554,
+        0.9397261216840669,
+        0.9367359109738611
+      ]
+    },
+    "protocol": "deep-v2-observed-zscore-macro-f1",
+    "checkpoint_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_d/block_10/seed1/checkpoint.pt",
+    "prediction_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_d/block_10/seed1/predictions.npz"
+  },
+  {
+    "config": {
+      "kind": "block",
+      "rate": 0.1
+    },
+    "model_name": "gru_d",
+    "seed": 2,
+    "val_metrics": {
+      "macro_f1": 0.9538020471843613,
+      "balanced_accuracy": 0.9771517128955712,
+      "per_class": {
+        "Rain": {
+          "precision": 0.9978099525489719,
+          "recall": 0.9914168278529981,
+          "f1": 0.9946031168516161,
+          "support": 8272
+        },
+        "Snow": {
+          "precision": 0.8680297397769516,
+          "recall": 0.9628865979381444,
+          "f1": 0.9130009775171065,
+          "support": 485
+        }
+      },
+      "n_samples": 8757,
+      "pr_auc": 0.9824767075435921
+    },
+    "test_metrics": {
+      "macro_f1": 0.9256794261771089,
+      "balanced_accuracy": 0.9666576754336522,
+      "per_class": {
+        "Rain": {
+          "precision": 0.9961466829362277,
+          "recall": 0.9787354871277133,
+          "f1": 0.98736433368344,
+          "support": 15848
+        },
+        "Snow": {
+          "precision": 0.7891113892365457,
+          "recall": 0.9545798637395913,
+          "f1": 0.8639945186707777,
+          "support": 1321
+        }
+      },
+      "n_samples": 17169,
+      "pr_auc": 0.9524947807294153
+    },
+    "best_epoch": 2,
+    "history": {
+      "train_loss": [
+        0.13014522457361094,
+        0.08728365470815078,
+        0.08288539716607853,
+        0.08094235256580035,
+        0.07770464647444061,
+        0.07575961023386789,
+        0.0734954282909458,
+        0.06932876321536995,
+        0.06808339849715102,
+        0.06713778461545455,
+        0.06614876269104857,
+        0.06345553724594952,
+        0.06299016796305275
+      ],
+      "val_macro_f1": [
+        0.8731361176643542,
+        0.9360764036741894,
+        0.9538020471843613,
+        0.9408582543155848,
+        0.901794198564176,
+        0.8949201746967883,
+        0.9263078896324886,
+        0.9448678641924942,
+        0.9341327767821012,
+        0.9242315465800359,
+        0.942714909038576,
+        0.9194495046170919,
+        0.94072238413557
+      ]
+    },
+    "protocol": "deep-v2-observed-zscore-macro-f1",
+    "checkpoint_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_d/block_10/seed2/checkpoint.pt",
+    "prediction_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_d/block_10/seed2/predictions.npz"
+  }
+]

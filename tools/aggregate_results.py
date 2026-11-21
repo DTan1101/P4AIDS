@@ -14,13 +14,14 @@ LƯU Ý QUAN TRỌNG: McNemar's test (Mục 6.5) cần dự đoán theo từng m
 chỉ số tổng hợp) của hai mô hình trên CÙNG tập test. Các file .json ở đây chỉ lưu
 chỉ số tổng hợp (để file nhẹ), nên script này KHÔNG tự chạy McNemar. Khi cần, gọi
 ``evaluation.stats_tests.mcnemar_test(y_true, pred_a, pred_b)`` trực tiếp sau khi
-có hai mảng dự đoán theo từng mẫu từ ``tools/run_*.py`` (có thể nạp lại mô hình
-đã lưu hoặc chạy lại inference).
+có hai mảng dự đoán theo từng mẫu. Nhánh deep lưu chúng trong predictions.npz;
+cần đối chiếu test_idx và test_y_true trước khi chạy kiểm định.
 """
 
 from __future__ import annotations
 
 import csv
+from collections import defaultdict
 import glob
 import json
 import logging
@@ -38,12 +39,16 @@ from evaluation.stats_tests import critical_difference_diagram, friedman_test  #
 from utils.utils import ensure_dir, setup_logger  # noqa: E402
 
 RESULTS_DIR = "outputs/results"
-SUMMARY_COLUMNS = ("branch", "model", "kind", "rate", "split", "macro_f1", "pr_auc", "balanced_accuracy")
+METRICS = ("macro_f1", "pr_auc", "balanced_accuracy")
+GROUP_COLUMNS = ("branch", "model", "kind", "rate", "split", "protocol")
+SUMMARY_COLUMNS = (*GROUP_COLUMNS, "seed", *METRICS)
+MEAN_COLUMNS = (*GROUP_COLUMNS, "n_seeds", *METRICS, *(f"{m}_std" for m in METRICS))
 
 
 def _row(branch: str, model: str, kind: str, rate: float, split: str, metrics: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "branch": branch, "model": model, "kind": kind, "rate": rate, "split": split,
+        "seed": None, "protocol": "legacy",
         "macro_f1": metrics.get("macro_f1"), "pr_auc": metrics.get("pr_auc"),
         "balanced_accuracy": metrics.get("balanced_accuracy"),
     }
@@ -102,26 +107,50 @@ def load_deep(results_dir: str) -> List[Dict[str, Any]]:
             for split in ("val", "test"):
                 metrics_key = f"{split}_metrics"
                 if metrics_key in run:
-                    rows.append(_row("deep", run["model_name"], kind, rate, split, run[metrics_key]))
+                    row = _row("deep", run["model_name"], kind, rate, split, run[metrics_key])
+                    row.update(seed=run["seed"], protocol=run.get("protocol", "legacy"))
+                    rows.append(row)
     return rows
 
 
-def write_csv(rows: List[Dict[str, Any]], path: str) -> None:
+def aggregate_seeds(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Mean và sample std giữa seed, giữ riêng mỗi phiên bản giao thức."""
+    groups = defaultdict(list)
+    for row in rows:
+        groups[tuple(row[c] for c in GROUP_COLUMNS)].append(row)
+    summary = []
+    for key, runs in groups.items():
+        seeds = [r["seed"] for r in runs]
+        if len(set(seeds)) != len(seeds):
+            raise ValueError(f"Trùng seed trong nhóm {key}: {seeds}")
+        result = dict(zip(GROUP_COLUMNS, key))
+        result["n_seeds"] = len(runs)
+        for metric in METRICS:
+            values = [r[metric] for r in runs if r[metric] is not None]
+            # Không báo trung bình từ một phần seed khi metric bị thiếu.
+            complete = len(values) == len(runs)
+            result[metric] = float(np.mean(values)) if complete else None
+            result[f"{metric}_std"] = (float(np.std(values, ddof=1)) if len(values) > 1 else 0.0) if complete else None
+        summary.append(result)
+    return summary
+
+
+def write_csv(rows: List[Dict[str, Any]], path: str, columns=SUMMARY_COLUMNS) -> None:
     ensure_dir(os.path.dirname(path))
     with open(path, "w", newline="", encoding="utf-8") as fp:
-        writer = csv.DictWriter(fp, fieldnames=list(SUMMARY_COLUMNS))
+        writer = csv.DictWriter(fp, fieldnames=list(columns))
         writer.writeheader()
         for row in rows:
-            writer.writerow({k: row.get(k) for k in SUMMARY_COLUMNS})
+            writer.writerow({k: row.get(k) for k in columns})
 
 
-def write_markdown(rows: List[Dict[str, Any]], path: str) -> None:
+def write_markdown(rows: List[Dict[str, Any]], path: str, columns=SUMMARY_COLUMNS) -> None:
     ensure_dir(os.path.dirname(path))
-    header = "| " + " | ".join(SUMMARY_COLUMNS) + " |"
-    sep = "| " + " | ".join("---" for _ in SUMMARY_COLUMNS) + " |"
+    header = "| " + " | ".join(columns) + " |"
+    sep = "| " + " | ".join("---" for _ in columns) + " |"
     lines = [header, sep]
     for row in rows:
-        values = [str(row.get(c, "")) for c in SUMMARY_COLUMNS]
+        values = [str(row.get(c, "")) for c in columns]
         lines.append("| " + " | ".join(values) + " |")
     with open(path, "w", encoding="utf-8") as fp:
         fp.write("\n".join(lines) + "\n")
@@ -129,10 +158,21 @@ def write_markdown(rows: List[Dict[str, Any]], path: str) -> None:
 
 def build_cd_diagram(rows: List[Dict[str, Any]], save_path: str) -> None:
     """Macro F1 trên test, mỗi (kind, rate) là một đơn vị so sánh lặp lại (Mục 6.5)."""
-    test_rows = [r for r in rows if r["split"] == "test" and r["macro_f1"] is not None]
+    deep_protocols = {r["protocol"] for r in rows if r["branch"] == "deep"}
+    if len(deep_protocols) > 1:
+        logging.getLogger("p4aids").warning("Bỏ qua CD: kết quả deep trộn nhiều giao thức %s.", deep_protocols)
+        return
+    deep_seeds = defaultdict(set)
+    for row in rows:
+        if row["branch"] == "deep" and row["split"] == "test":
+            deep_seeds[(row["model"], row["kind"], row["rate"])].add(row["seed"])
+    if len({frozenset(seeds) for seeds in deep_seeds.values()}) > 1:
+        logging.getLogger("p4aids").warning("Bỏ qua CD: các cấu hình deep không dùng cùng bộ seed.")
+        return
+    test_rows = [r for r in aggregate_seeds(rows) if r["split"] == "test" and r["macro_f1"] is not None]
     models = sorted({r["model"] for r in test_rows})
     configs = sorted({(r["kind"], r["rate"]) for r in test_rows})
-    if len(models) < 2 or len(configs) < 2:
+    if not 3 <= len(models) <= 10 or len(configs) < 2:
         logging.getLogger("p4aids").warning(
             "Không đủ mô hình/cấu hình để chạy Friedman/CD (models=%d, configs=%d).",
             len(models), len(configs),
@@ -156,21 +196,25 @@ def build_cd_diagram(rows: List[Dict[str, Any]], save_path: str) -> None:
     critical_difference_diagram(models, score_matrix, save_path)
 
 
-def main() -> int:
+def main(results_dir: str = None) -> int:
+    results_dir = results_dir or RESULTS_DIR
     setup_logger()
     logger = logging.getLogger("p4aids")
 
-    rows = (load_baselines(RESULTS_DIR) + load_classic(RESULTS_DIR) +
-            load_rocket(RESULTS_DIR) + load_deep(RESULTS_DIR))
+    rows = (load_baselines(results_dir) + load_classic(results_dir) +
+            load_rocket(results_dir) + load_deep(results_dir))
     if not rows:
-        logger.warning("Không tìm thấy kết quả nào trong '%s'. Chạy tools/run_*.py trước.", RESULTS_DIR)
+        logger.warning("Không tìm thấy kết quả nào trong '%s'. Chạy tools/run_*.py trước.", results_dir)
         return 1
 
-    write_csv(rows, os.path.join(RESULTS_DIR, "summary.csv"))
-    write_markdown(rows, os.path.join(RESULTS_DIR, "summary.md"))
-    logger.info("Đã ghi %d dòng kết quả vào '%s/summary.{csv,md}'.", len(rows), RESULTS_DIR)
+    means = aggregate_seeds(rows)
+    write_csv(means, os.path.join(results_dir, "summary_mean.csv"), MEAN_COLUMNS)
+    write_markdown(means, os.path.join(results_dir, "summary_mean.md"), MEAN_COLUMNS)
+    write_csv(rows, os.path.join(results_dir, "summary.csv"))
+    write_markdown(rows, os.path.join(results_dir, "summary.md"))
+    logger.info("Đã ghi %d dòng kết quả vào '%s/summary.{csv,md}'.", len(rows), results_dir)
 
-    build_cd_diagram(rows, os.path.join(RESULTS_DIR, "critical_difference.png"))
+    build_cd_diagram(rows, os.path.join(results_dir, "critical_difference.png"))
     return 0
 
 

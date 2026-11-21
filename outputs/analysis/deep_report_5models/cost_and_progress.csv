@@ -1,0 +1,6 @@
+model,status,completed_runs,completed_cases,pipeline_seconds,epoch_interval_median_seconds,epoch_interval_mean_seconds,epochs_completed_runs
+gru_fill,complete,30,10,1033.224892929,2.0,1.8695652173913044,536
+gru_mask_delta,complete,30,10,1227.2297128909995,2.0,1.8527508090614886,648
+gru_d,complete,30,10,14188.734989107,18.0,19.91292517006803,765
+brits,complete,30,10,75358.443427759,84.0,87.65233415233415,844
+saits,complete,30,10,7570.104581112013,10.0,10.548387096774194,712

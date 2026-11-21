@@ -1,0 +1,636 @@
+[22:39:13] INFO | Deep Learning | point_00 | model=gru_fill | seeds=[42, 1, 2]
+[22:39:16] INFO | [point_00|gru_fill] epoch 0: loss=0.1301 val_macro_f1=0.8892
+[22:39:18] INFO | [point_00|gru_fill] epoch 1: loss=0.0876 val_macro_f1=0.8622
+[22:39:21] INFO | [point_00|gru_fill] epoch 2: loss=0.0798 val_macro_f1=0.9191
+[22:39:22] INFO | [point_00|gru_fill] epoch 3: loss=0.0763 val_macro_f1=0.9405
+[22:39:24] INFO | [point_00|gru_fill] epoch 4: loss=0.0745 val_macro_f1=0.9591
+[22:39:26] INFO | [point_00|gru_fill] epoch 5: loss=0.0716 val_macro_f1=0.9270
+[22:39:28] INFO | [point_00|gru_fill] epoch 6: loss=0.0693 val_macro_f1=0.9423
+[22:39:30] INFO | [point_00|gru_fill] epoch 7: loss=0.0681 val_macro_f1=0.9363
+[22:39:32] INFO | [point_00|gru_fill] epoch 8: loss=0.0659 val_macro_f1=0.9351
+[22:39:34] INFO | [point_00|gru_fill] epoch 9: loss=0.0619 val_macro_f1=0.9311
+[22:39:36] INFO | [point_00|gru_fill] epoch 10: loss=0.0613 val_macro_f1=0.9563
+[22:39:38] INFO | [point_00|gru_fill] epoch 11: loss=0.0604 val_macro_f1=0.9595
+[22:39:41] INFO | [point_00|gru_fill] epoch 12: loss=0.0605 val_macro_f1=0.9465
+[22:39:43] INFO | [point_00|gru_fill] epoch 13: loss=0.0593 val_macro_f1=0.9575
+[22:39:45] INFO | [point_00|gru_fill] epoch 14: loss=0.0590 val_macro_f1=0.9441
+[22:39:47] INFO | [point_00|gru_fill] epoch 15: loss=0.0585 val_macro_f1=0.9500
+[22:39:49] INFO | [point_00|gru_fill] epoch 16: loss=0.0562 val_macro_f1=0.9540
+[22:39:51] INFO | [point_00|gru_fill] epoch 17: loss=0.0560 val_macro_f1=0.9483
+[22:39:53] INFO | [point_00|gru_fill] epoch 18: loss=0.0553 val_macro_f1=0.9513
+[22:39:55] INFO | [point_00|gru_fill] epoch 19: loss=0.0549 val_macro_f1=0.9573
+[22:39:57] INFO | [point_00|gru_fill] epoch 20: loss=0.0535 val_macro_f1=0.9483
+[22:39:59] INFO | [point_00|gru_fill] epoch 21: loss=0.0534 val_macro_f1=0.9468
+[22:39:59] INFO | Early stopping tại epoch 21 (patience=10).
+[22:40:02] INFO | [point_00|gru_fill] epoch 0: loss=0.1315 val_macro_f1=0.8921
+[22:40:03] INFO | [point_00|gru_fill] epoch 1: loss=0.0869 val_macro_f1=0.9612
+[22:40:05] INFO | [point_00|gru_fill] epoch 2: loss=0.0791 val_macro_f1=0.8887
+[22:40:07] INFO | [point_00|gru_fill] epoch 3: loss=0.0763 val_macro_f1=0.9479
+[22:40:09] INFO | [point_00|gru_fill] epoch 4: loss=0.0740 val_macro_f1=0.9215
+[22:40:11] INFO | [point_00|gru_fill] epoch 5: loss=0.0724 val_macro_f1=0.9212
+[22:40:13] INFO | [point_00|gru_fill] epoch 6: loss=0.0685 val_macro_f1=0.9308
+[22:40:15] INFO | [point_00|gru_fill] epoch 7: loss=0.0674 val_macro_f1=0.9205
+[22:40:17] INFO | [point_00|gru_fill] epoch 8: loss=0.0664 val_macro_f1=0.9591
+[22:40:19] INFO | [point_00|gru_fill] epoch 9: loss=0.0652 val_macro_f1=0.9469
+[22:40:21] INFO | [point_00|gru_fill] epoch 10: loss=0.0626 val_macro_f1=0.9542
+[22:40:23] INFO | [point_00|gru_fill] epoch 11: loss=0.0625 val_macro_f1=0.9505
+[22:40:23] INFO | Early stopping tại epoch 11 (patience=10).
+[22:40:25] INFO | [point_00|gru_fill] epoch 0: loss=0.1295 val_macro_f1=0.9154
+[22:40:27] INFO | [point_00|gru_fill] epoch 1: loss=0.0877 val_macro_f1=0.8895
+[22:40:29] INFO | [point_00|gru_fill] epoch 2: loss=0.0796 val_macro_f1=0.9302
+[22:40:30] INFO | [point_00|gru_fill] epoch 3: loss=0.0768 val_macro_f1=0.9310
+[22:40:32] INFO | [point_00|gru_fill] epoch 4: loss=0.0736 val_macro_f1=0.9295
+[22:40:34] INFO | [point_00|gru_fill] epoch 5: loss=0.0719 val_macro_f1=0.9356
+[22:40:35] INFO | [point_00|gru_fill] epoch 6: loss=0.0709 val_macro_f1=0.9085
+[22:40:37] INFO | [point_00|gru_fill] epoch 7: loss=0.0688 val_macro_f1=0.9564
+[22:40:38] INFO | [point_00|gru_fill] epoch 8: loss=0.0682 val_macro_f1=0.9494
+[22:40:40] INFO | [point_00|gru_fill] epoch 9: loss=0.0669 val_macro_f1=0.9350
+[22:40:42] INFO | [point_00|gru_fill] epoch 10: loss=0.0647 val_macro_f1=0.9324
+[22:40:43] INFO | [point_00|gru_fill] epoch 11: loss=0.0645 val_macro_f1=0.9614
+[22:40:45] INFO | [point_00|gru_fill] epoch 12: loss=0.0639 val_macro_f1=0.9579
+[22:40:47] INFO | [point_00|gru_fill] epoch 13: loss=0.0620 val_macro_f1=0.9649
+[22:40:48] INFO | [point_00|gru_fill] epoch 14: loss=0.0618 val_macro_f1=0.9625
+[22:40:50] INFO | [point_00|gru_fill] epoch 15: loss=0.0607 val_macro_f1=0.9540
+[22:40:51] INFO | [point_00|gru_fill] epoch 16: loss=0.0601 val_macro_f1=0.9633
+[22:40:53] INFO | [point_00|gru_fill] epoch 17: loss=0.0591 val_macro_f1=0.9286
+[22:40:55] INFO | [point_00|gru_fill] epoch 18: loss=0.0559 val_macro_f1=0.9379
+[22:40:56] INFO | [point_00|gru_fill] epoch 19: loss=0.0545 val_macro_f1=0.9349
+[22:40:58] INFO | [point_00|gru_fill] epoch 20: loss=0.0532 val_macro_f1=0.9405
+[22:40:59] INFO | [point_00|gru_fill] epoch 21: loss=0.0533 val_macro_f1=0.9617
+[22:41:01] INFO | [point_00|gru_fill] epoch 22: loss=0.0505 val_macro_f1=0.9443
+[22:41:03] INFO | [point_00|gru_fill] epoch 23: loss=0.0497 val_macro_f1=0.9454
+[22:41:03] INFO | Early stopping tại epoch 23 (patience=10).
+[22:41:03] INFO |   seed=42 -> test_macro_f1=0.9331 test_pr_auc=0.9705
+[22:41:03] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_00/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_00/seed42/predictions.npz
+[22:41:03] INFO |   seed=1 -> test_macro_f1=0.9323 test_pr_auc=0.9510
+[22:41:03] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_00/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_00/seed1/predictions.npz
+[22:41:03] INFO |   seed=2 -> test_macro_f1=0.9372 test_pr_auc=0.9711
+[22:41:03] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_00/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_00/seed2/predictions.npz
+[22:41:03] INFO | Deep Learning | point_10 | model=gru_fill | seeds=[42, 1, 2]
+[22:41:05] INFO | [point_10|gru_fill] epoch 0: loss=0.1321 val_macro_f1=0.8958
+[22:41:07] INFO | [point_10|gru_fill] epoch 1: loss=0.0902 val_macro_f1=0.8618
+[22:41:08] INFO | [point_10|gru_fill] epoch 2: loss=0.0831 val_macro_f1=0.9254
+[22:41:10] INFO | [point_10|gru_fill] epoch 3: loss=0.0796 val_macro_f1=0.9337
+[22:41:11] INFO | [point_10|gru_fill] epoch 4: loss=0.0779 val_macro_f1=0.9560
+[22:41:13] INFO | [point_10|gru_fill] epoch 5: loss=0.0750 val_macro_f1=0.9321
+[22:41:15] INFO | [point_10|gru_fill] epoch 6: loss=0.0726 val_macro_f1=0.9343
+[22:41:16] INFO | [point_10|gru_fill] epoch 7: loss=0.0713 val_macro_f1=0.9288
+[22:41:18] INFO | [point_10|gru_fill] epoch 8: loss=0.0690 val_macro_f1=0.9309
+[22:41:20] INFO | [point_10|gru_fill] epoch 9: loss=0.0649 val_macro_f1=0.9300
+[22:41:21] INFO | [point_10|gru_fill] epoch 10: loss=0.0643 val_macro_f1=0.9564
+[22:41:23] INFO | [point_10|gru_fill] epoch 11: loss=0.0634 val_macro_f1=0.9584
+[22:41:25] INFO | [point_10|gru_fill] epoch 12: loss=0.0632 val_macro_f1=0.9399
+[22:41:27] INFO | [point_10|gru_fill] epoch 13: loss=0.0619 val_macro_f1=0.9511
+[22:41:28] INFO | [point_10|gru_fill] epoch 14: loss=0.0616 val_macro_f1=0.9339
+[22:41:30] INFO | [point_10|gru_fill] epoch 15: loss=0.0611 val_macro_f1=0.9445
+[22:41:32] INFO | [point_10|gru_fill] epoch 16: loss=0.0584 val_macro_f1=0.9522
+[22:41:34] INFO | [point_10|gru_fill] epoch 17: loss=0.0579 val_macro_f1=0.9472
+[22:41:35] INFO | [point_10|gru_fill] epoch 18: loss=0.0575 val_macro_f1=0.9477
+[22:41:37] INFO | [point_10|gru_fill] epoch 19: loss=0.0568 val_macro_f1=0.9520
+[22:41:39] INFO | [point_10|gru_fill] epoch 20: loss=0.0554 val_macro_f1=0.9457
+[22:41:41] INFO | [point_10|gru_fill] epoch 21: loss=0.0553 val_macro_f1=0.9429
+[22:41:41] INFO | Early stopping tại epoch 21 (patience=10).
+[22:41:43] INFO | [point_10|gru_fill] epoch 0: loss=0.1329 val_macro_f1=0.8792
+[22:41:45] INFO | [point_10|gru_fill] epoch 1: loss=0.0895 val_macro_f1=0.9587
+[22:41:47] INFO | [point_10|gru_fill] epoch 2: loss=0.0826 val_macro_f1=0.8814
+[22:41:48] INFO | [point_10|gru_fill] epoch 3: loss=0.0797 val_macro_f1=0.9444
+[22:41:50] INFO | [point_10|gru_fill] epoch 4: loss=0.0775 val_macro_f1=0.9207
+[22:41:52] INFO | [point_10|gru_fill] epoch 5: loss=0.0761 val_macro_f1=0.9172
+[22:41:54] INFO | [point_10|gru_fill] epoch 6: loss=0.0723 val_macro_f1=0.9249
+[22:41:55] INFO | [point_10|gru_fill] epoch 7: loss=0.0711 val_macro_f1=0.9208
+[22:41:57] INFO | [point_10|gru_fill] epoch 8: loss=0.0699 val_macro_f1=0.9491
+[22:41:59] INFO | [point_10|gru_fill] epoch 9: loss=0.0686 val_macro_f1=0.9419
+[22:42:01] INFO | [point_10|gru_fill] epoch 10: loss=0.0659 val_macro_f1=0.9479
+[22:42:03] INFO | [point_10|gru_fill] epoch 11: loss=0.0660 val_macro_f1=0.9492
+[22:42:03] INFO | Early stopping tại epoch 11 (patience=10).
+[22:42:05] INFO | [point_10|gru_fill] epoch 0: loss=0.1317 val_macro_f1=0.9150
+[22:42:07] INFO | [point_10|gru_fill] epoch 1: loss=0.0901 val_macro_f1=0.8937
+[22:42:09] INFO | [point_10|gru_fill] epoch 2: loss=0.0828 val_macro_f1=0.9326
+[22:42:10] INFO | [point_10|gru_fill] epoch 3: loss=0.0801 val_macro_f1=0.9160
+[22:42:12] INFO | [point_10|gru_fill] epoch 4: loss=0.0768 val_macro_f1=0.9284
+[22:42:14] INFO | [point_10|gru_fill] epoch 5: loss=0.0754 val_macro_f1=0.9320
+[22:42:15] INFO | [point_10|gru_fill] epoch 6: loss=0.0743 val_macro_f1=0.9048
+[22:42:17] INFO | [point_10|gru_fill] epoch 7: loss=0.0696 val_macro_f1=0.9468
+[22:42:18] INFO | [point_10|gru_fill] epoch 8: loss=0.0695 val_macro_f1=0.9317
+[22:42:20] INFO | [point_10|gru_fill] epoch 9: loss=0.0679 val_macro_f1=0.9382
+[22:42:22] INFO | [point_10|gru_fill] epoch 10: loss=0.0666 val_macro_f1=0.9338
+[22:42:23] INFO | [point_10|gru_fill] epoch 11: loss=0.0667 val_macro_f1=0.9499
+[22:42:25] INFO | [point_10|gru_fill] epoch 12: loss=0.0662 val_macro_f1=0.9602
+[22:42:27] INFO | [point_10|gru_fill] epoch 13: loss=0.0649 val_macro_f1=0.9515
+[22:42:28] INFO | [point_10|gru_fill] epoch 14: loss=0.0647 val_macro_f1=0.9564
+[22:42:30] INFO | [point_10|gru_fill] epoch 15: loss=0.0639 val_macro_f1=0.9472
+[22:42:32] INFO | [point_10|gru_fill] epoch 16: loss=0.0633 val_macro_f1=0.9630
+[22:42:33] INFO | [point_10|gru_fill] epoch 17: loss=0.0629 val_macro_f1=0.9331
+[22:42:35] INFO | [point_10|gru_fill] epoch 18: loss=0.0625 val_macro_f1=0.9295
+[22:42:37] INFO | [point_10|gru_fill] epoch 19: loss=0.0618 val_macro_f1=0.9291
+[22:42:38] INFO | [point_10|gru_fill] epoch 20: loss=0.0608 val_macro_f1=0.9354
+[22:42:40] INFO | [point_10|gru_fill] epoch 21: loss=0.0592 val_macro_f1=0.9542
+[22:42:42] INFO | [point_10|gru_fill] epoch 22: loss=0.0583 val_macro_f1=0.9373
+[22:42:44] INFO | [point_10|gru_fill] epoch 23: loss=0.0582 val_macro_f1=0.9384
+[22:42:46] INFO | [point_10|gru_fill] epoch 24: loss=0.0578 val_macro_f1=0.9462
+[22:42:47] INFO | [point_10|gru_fill] epoch 25: loss=0.0561 val_macro_f1=0.9498
+[22:42:49] INFO | [point_10|gru_fill] epoch 26: loss=0.0559 val_macro_f1=0.9476
+[22:42:49] INFO | Early stopping tại epoch 26 (patience=10).
+[22:42:49] INFO |   seed=42 -> test_macro_f1=0.9301 test_pr_auc=0.9675
+[22:42:49] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_10/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_10/seed42/predictions.npz
+[22:42:49] INFO |   seed=1 -> test_macro_f1=0.9321 test_pr_auc=0.9476
+[22:42:49] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_10/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_10/seed1/predictions.npz
+[22:42:49] INFO |   seed=2 -> test_macro_f1=0.9340 test_pr_auc=0.9673
+[22:42:49] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_10/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_10/seed2/predictions.npz
+[22:42:49] INFO | Deep Learning | point_30 | model=gru_fill | seeds=[42, 1, 2]
+[22:42:51] INFO | [point_30|gru_fill] epoch 0: loss=0.1385 val_macro_f1=0.8844
+[22:42:53] INFO | [point_30|gru_fill] epoch 1: loss=0.0976 val_macro_f1=0.8587
+[22:42:55] INFO | [point_30|gru_fill] epoch 2: loss=0.0896 val_macro_f1=0.8938
+[22:42:57] INFO | [point_30|gru_fill] epoch 3: loss=0.0864 val_macro_f1=0.9249
+[22:42:58] INFO | [point_30|gru_fill] epoch 4: loss=0.0840 val_macro_f1=0.9467
+[22:43:00] INFO | [point_30|gru_fill] epoch 5: loss=0.0804 val_macro_f1=0.9293
+[22:43:02] INFO | [point_30|gru_fill] epoch 6: loss=0.0782 val_macro_f1=0.9389
+[22:43:03] INFO | [point_30|gru_fill] epoch 7: loss=0.0771 val_macro_f1=0.9272
+[22:43:05] INFO | [point_30|gru_fill] epoch 8: loss=0.0750 val_macro_f1=0.9217
+[22:43:07] INFO | [point_30|gru_fill] epoch 9: loss=0.0713 val_macro_f1=0.9222
+[22:43:09] INFO | [point_30|gru_fill] epoch 10: loss=0.0709 val_macro_f1=0.9434
+[22:43:10] INFO | [point_30|gru_fill] epoch 11: loss=0.0699 val_macro_f1=0.9457
+[22:43:12] INFO | [point_30|gru_fill] epoch 12: loss=0.0696 val_macro_f1=0.9247
+[22:43:14] INFO | [point_30|gru_fill] epoch 13: loss=0.0669 val_macro_f1=0.9405
+[22:43:15] INFO | [point_30|gru_fill] epoch 14: loss=0.0665 val_macro_f1=0.9371
+[22:43:15] INFO | Early stopping tại epoch 14 (patience=10).
+[22:43:18] INFO | [point_30|gru_fill] epoch 0: loss=0.1387 val_macro_f1=0.8837
+[22:43:20] INFO | [point_30|gru_fill] epoch 1: loss=0.0963 val_macro_f1=0.9472
+[22:43:21] INFO | [point_30|gru_fill] epoch 2: loss=0.0892 val_macro_f1=0.8797
+[22:43:23] INFO | [point_30|gru_fill] epoch 3: loss=0.0867 val_macro_f1=0.9288
+[22:43:25] INFO | [point_30|gru_fill] epoch 4: loss=0.0843 val_macro_f1=0.9178
+[22:43:26] INFO | [point_30|gru_fill] epoch 5: loss=0.0819 val_macro_f1=0.9026
+[22:43:28] INFO | [point_30|gru_fill] epoch 6: loss=0.0774 val_macro_f1=0.9224
+[22:43:30] INFO | [point_30|gru_fill] epoch 7: loss=0.0764 val_macro_f1=0.9186
+[22:43:31] INFO | [point_30|gru_fill] epoch 8: loss=0.0751 val_macro_f1=0.9418
+[22:43:33] INFO | [point_30|gru_fill] epoch 9: loss=0.0740 val_macro_f1=0.9260
+[22:43:35] INFO | [point_30|gru_fill] epoch 10: loss=0.0713 val_macro_f1=0.9379
+[22:43:36] INFO | [point_30|gru_fill] epoch 11: loss=0.0716 val_macro_f1=0.9372
+[22:43:36] INFO | Early stopping tại epoch 11 (patience=10).
+[22:43:39] INFO | [point_30|gru_fill] epoch 0: loss=0.1382 val_macro_f1=0.8940
+[22:43:41] INFO | [point_30|gru_fill] epoch 1: loss=0.0972 val_macro_f1=0.8662
+[22:43:42] INFO | [point_30|gru_fill] epoch 2: loss=0.0900 val_macro_f1=0.9289
+[22:43:44] INFO | [point_30|gru_fill] epoch 3: loss=0.0870 val_macro_f1=0.9163
+[22:43:46] INFO | [point_30|gru_fill] epoch 4: loss=0.0836 val_macro_f1=0.9310
+[22:43:47] INFO | [point_30|gru_fill] epoch 5: loss=0.0817 val_macro_f1=0.9088
+[22:43:49] INFO | [point_30|gru_fill] epoch 6: loss=0.0802 val_macro_f1=0.9006
+[22:43:51] INFO | [point_30|gru_fill] epoch 7: loss=0.0787 val_macro_f1=0.9485
+[22:43:53] INFO | [point_30|gru_fill] epoch 8: loss=0.0776 val_macro_f1=0.9189
+[22:43:54] INFO | [point_30|gru_fill] epoch 9: loss=0.0762 val_macro_f1=0.9288
+[22:43:56] INFO | [point_30|gru_fill] epoch 10: loss=0.0744 val_macro_f1=0.9248
+[22:43:58] INFO | [point_30|gru_fill] epoch 11: loss=0.0735 val_macro_f1=0.9492
+[22:44:00] INFO | [point_30|gru_fill] epoch 12: loss=0.0727 val_macro_f1=0.9514
+[22:44:02] INFO | [point_30|gru_fill] epoch 13: loss=0.0715 val_macro_f1=0.9432
+[22:44:03] INFO | [point_30|gru_fill] epoch 14: loss=0.0710 val_macro_f1=0.9413
+[22:44:05] INFO | [point_30|gru_fill] epoch 15: loss=0.0692 val_macro_f1=0.9302
+[22:44:07] INFO | [point_30|gru_fill] epoch 16: loss=0.0687 val_macro_f1=0.9505
+[22:44:08] INFO | [point_30|gru_fill] epoch 17: loss=0.0646 val_macro_f1=0.9327
+[22:44:10] INFO | [point_30|gru_fill] epoch 18: loss=0.0638 val_macro_f1=0.9293
+[22:44:12] INFO | [point_30|gru_fill] epoch 19: loss=0.0625 val_macro_f1=0.9259
+[22:44:13] INFO | [point_30|gru_fill] epoch 20: loss=0.0616 val_macro_f1=0.9309
+[22:44:15] INFO | [point_30|gru_fill] epoch 21: loss=0.0594 val_macro_f1=0.9354
+[22:44:17] INFO | [point_30|gru_fill] epoch 22: loss=0.0585 val_macro_f1=0.9364
+[22:44:17] INFO | Early stopping tại epoch 22 (patience=10).
+[22:44:17] INFO |   seed=42 -> test_macro_f1=0.9243 test_pr_auc=0.9600
+[22:44:17] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_30/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_30/seed42/predictions.npz
+[22:44:17] INFO |   seed=1 -> test_macro_f1=0.9237 test_pr_auc=0.9434
+[22:44:17] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_30/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_30/seed1/predictions.npz
+[22:44:17] INFO |   seed=2 -> test_macro_f1=0.9264 test_pr_auc=0.9597
+[22:44:17] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_30/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_30/seed2/predictions.npz
+[22:44:17] INFO | Deep Learning | point_50 | model=gru_fill | seeds=[42, 1, 2]
+[22:44:20] INFO | [point_50|gru_fill] epoch 0: loss=0.1472 val_macro_f1=0.8664
+[22:44:22] INFO | [point_50|gru_fill] epoch 1: loss=0.1078 val_macro_f1=0.8467
+[22:44:23] INFO | [point_50|gru_fill] epoch 2: loss=0.1000 val_macro_f1=0.8911
+[22:44:25] INFO | [point_50|gru_fill] epoch 3: loss=0.0956 val_macro_f1=0.8860
+[22:44:27] INFO | [point_50|gru_fill] epoch 4: loss=0.0941 val_macro_f1=0.9299
+[22:44:29] INFO | [point_50|gru_fill] epoch 5: loss=0.0911 val_macro_f1=0.9141
+[22:44:30] INFO | [point_50|gru_fill] epoch 6: loss=0.0887 val_macro_f1=0.9108
+[22:44:32] INFO | [point_50|gru_fill] epoch 7: loss=0.0883 val_macro_f1=0.9090
+[22:44:34] INFO | [point_50|gru_fill] epoch 8: loss=0.0862 val_macro_f1=0.9049
+[22:44:36] INFO | [point_50|gru_fill] epoch 9: loss=0.0826 val_macro_f1=0.9048
+[22:44:38] INFO | [point_50|gru_fill] epoch 10: loss=0.0814 val_macro_f1=0.9210
+[22:44:40] INFO | [point_50|gru_fill] epoch 11: loss=0.0805 val_macro_f1=0.9319
+[22:44:41] INFO | [point_50|gru_fill] epoch 12: loss=0.0802 val_macro_f1=0.9189
+[22:44:43] INFO | [point_50|gru_fill] epoch 13: loss=0.0789 val_macro_f1=0.9241
+[22:44:45] INFO | [point_50|gru_fill] epoch 14: loss=0.0784 val_macro_f1=0.9152
+[22:44:47] INFO | [point_50|gru_fill] epoch 15: loss=0.0778 val_macro_f1=0.9206
+[22:44:49] INFO | [point_50|gru_fill] epoch 16: loss=0.0750 val_macro_f1=0.9285
+[22:44:51] INFO | [point_50|gru_fill] epoch 17: loss=0.0745 val_macro_f1=0.9229
+[22:44:53] INFO | [point_50|gru_fill] epoch 18: loss=0.0736 val_macro_f1=0.9232
+[22:44:55] INFO | [point_50|gru_fill] epoch 19: loss=0.0731 val_macro_f1=0.9236
+[22:44:57] INFO | [point_50|gru_fill] epoch 20: loss=0.0716 val_macro_f1=0.9250
+[22:44:59] INFO | [point_50|gru_fill] epoch 21: loss=0.0714 val_macro_f1=0.9213
+[22:44:59] INFO | Early stopping tại epoch 21 (patience=10).
+[22:45:03] INFO | [point_50|gru_fill] epoch 0: loss=0.1469 val_macro_f1=0.8800
+[22:45:05] INFO | [point_50|gru_fill] epoch 1: loss=0.1068 val_macro_f1=0.9348
+[22:45:08] INFO | [point_50|gru_fill] epoch 2: loss=0.0998 val_macro_f1=0.8788
+[22:45:10] INFO | [point_50|gru_fill] epoch 3: loss=0.0970 val_macro_f1=0.9035
+[22:45:12] INFO | [point_50|gru_fill] epoch 4: loss=0.0940 val_macro_f1=0.8995
+[22:45:14] INFO | [point_50|gru_fill] epoch 5: loss=0.0918 val_macro_f1=0.9020
+[22:45:16] INFO | [point_50|gru_fill] epoch 6: loss=0.0875 val_macro_f1=0.9070
+[22:45:18] INFO | [point_50|gru_fill] epoch 7: loss=0.0859 val_macro_f1=0.8996
+[22:45:20] INFO | [point_50|gru_fill] epoch 8: loss=0.0851 val_macro_f1=0.9306
+[22:45:22] INFO | [point_50|gru_fill] epoch 9: loss=0.0846 val_macro_f1=0.9200
+[22:45:24] INFO | [point_50|gru_fill] epoch 10: loss=0.0822 val_macro_f1=0.9229
+[22:45:26] INFO | [point_50|gru_fill] epoch 11: loss=0.0820 val_macro_f1=0.9239
+[22:45:26] INFO | Early stopping tại epoch 11 (patience=10).
+[22:45:29] INFO | [point_50|gru_fill] epoch 0: loss=0.1469 val_macro_f1=0.8785
+[22:45:31] INFO | [point_50|gru_fill] epoch 1: loss=0.1069 val_macro_f1=0.8724
+[22:45:32] INFO | [point_50|gru_fill] epoch 2: loss=0.0991 val_macro_f1=0.9173
+[22:45:34] INFO | [point_50|gru_fill] epoch 3: loss=0.0964 val_macro_f1=0.9117
+[22:45:36] INFO | [point_50|gru_fill] epoch 4: loss=0.0934 val_macro_f1=0.9234
+[22:45:38] INFO | [point_50|gru_fill] epoch 5: loss=0.0921 val_macro_f1=0.8963
+[22:45:40] INFO | [point_50|gru_fill] epoch 6: loss=0.0906 val_macro_f1=0.9019
+[22:45:42] INFO | [point_50|gru_fill] epoch 7: loss=0.0891 val_macro_f1=0.9268
+[22:45:44] INFO | [point_50|gru_fill] epoch 8: loss=0.0884 val_macro_f1=0.9026
+[22:45:46] INFO | [point_50|gru_fill] epoch 9: loss=0.0863 val_macro_f1=0.9119
+[22:45:48] INFO | [point_50|gru_fill] epoch 10: loss=0.0851 val_macro_f1=0.9032
+[22:45:50] INFO | [point_50|gru_fill] epoch 11: loss=0.0841 val_macro_f1=0.9397
+[22:45:52] INFO | [point_50|gru_fill] epoch 12: loss=0.0827 val_macro_f1=0.9365
+[22:45:55] INFO | [point_50|gru_fill] epoch 13: loss=0.0815 val_macro_f1=0.9304
+[22:45:57] INFO | [point_50|gru_fill] epoch 14: loss=0.0800 val_macro_f1=0.9210
+[22:45:58] INFO | [point_50|gru_fill] epoch 15: loss=0.0785 val_macro_f1=0.9162
+[22:46:00] INFO | [point_50|gru_fill] epoch 16: loss=0.0746 val_macro_f1=0.9372
+[22:46:02] INFO | [point_50|gru_fill] epoch 17: loss=0.0731 val_macro_f1=0.9162
+[22:46:04] INFO | [point_50|gru_fill] epoch 18: loss=0.0729 val_macro_f1=0.9058
+[22:46:05] INFO | [point_50|gru_fill] epoch 19: loss=0.0713 val_macro_f1=0.9189
+[22:46:07] INFO | [point_50|gru_fill] epoch 20: loss=0.0682 val_macro_f1=0.9281
+[22:46:09] INFO | [point_50|gru_fill] epoch 21: loss=0.0676 val_macro_f1=0.9314
+[22:46:09] INFO | Early stopping tại epoch 21 (patience=10).
+[22:46:09] INFO |   seed=42 -> test_macro_f1=0.9040 test_pr_auc=0.9450
+[22:46:09] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_50/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_50/seed42/predictions.npz
+[22:46:09] INFO |   seed=1 -> test_macro_f1=0.8951 test_pr_auc=0.9032
+[22:46:09] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_50/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_50/seed1/predictions.npz
+[22:46:09] INFO |   seed=2 -> test_macro_f1=0.9092 test_pr_auc=0.9432
+[22:46:09] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_50/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/point_50/seed2/predictions.npz
+[22:46:09] INFO | Deep Learning | subsequence_10 | model=gru_fill | seeds=[42, 1, 2]
+[22:46:12] INFO | [subsequence_10|gru_fill] epoch 0: loss=0.1412 val_macro_f1=0.8522
+[22:46:14] INFO | [subsequence_10|gru_fill] epoch 1: loss=0.1007 val_macro_f1=0.8583
+[22:46:16] INFO | [subsequence_10|gru_fill] epoch 2: loss=0.0930 val_macro_f1=0.9033
+[22:46:18] INFO | [subsequence_10|gru_fill] epoch 3: loss=0.0888 val_macro_f1=0.9129
+[22:46:20] INFO | [subsequence_10|gru_fill] epoch 4: loss=0.0870 val_macro_f1=0.9510
+[22:46:22] INFO | [subsequence_10|gru_fill] epoch 5: loss=0.0849 val_macro_f1=0.9162
+[22:46:24] INFO | [subsequence_10|gru_fill] epoch 6: loss=0.0827 val_macro_f1=0.9302
+[22:46:26] INFO | [subsequence_10|gru_fill] epoch 7: loss=0.0814 val_macro_f1=0.9129
+[22:46:28] INFO | [subsequence_10|gru_fill] epoch 8: loss=0.0790 val_macro_f1=0.9154
+[22:46:30] INFO | [subsequence_10|gru_fill] epoch 9: loss=0.0750 val_macro_f1=0.9225
+[22:46:32] INFO | [subsequence_10|gru_fill] epoch 10: loss=0.0738 val_macro_f1=0.9354
+[22:46:34] INFO | [subsequence_10|gru_fill] epoch 11: loss=0.0728 val_macro_f1=0.9408
+[22:46:35] INFO | [subsequence_10|gru_fill] epoch 12: loss=0.0724 val_macro_f1=0.9395
+[22:46:37] INFO | [subsequence_10|gru_fill] epoch 13: loss=0.0696 val_macro_f1=0.9382
+[22:46:39] INFO | [subsequence_10|gru_fill] epoch 14: loss=0.0690 val_macro_f1=0.9340
+[22:46:39] INFO | Early stopping tại epoch 14 (patience=10).
+[22:46:43] INFO | [subsequence_10|gru_fill] epoch 0: loss=0.1404 val_macro_f1=0.8823
+[22:46:44] INFO | [subsequence_10|gru_fill] epoch 1: loss=0.0995 val_macro_f1=0.9499
+[22:46:46] INFO | [subsequence_10|gru_fill] epoch 2: loss=0.0922 val_macro_f1=0.8984
+[22:46:48] INFO | [subsequence_10|gru_fill] epoch 3: loss=0.0898 val_macro_f1=0.9406
+[22:46:50] INFO | [subsequence_10|gru_fill] epoch 4: loss=0.0875 val_macro_f1=0.9172
+[22:46:52] INFO | [subsequence_10|gru_fill] epoch 5: loss=0.0857 val_macro_f1=0.9034
+[22:46:54] INFO | [subsequence_10|gru_fill] epoch 6: loss=0.0817 val_macro_f1=0.9151
+[22:46:56] INFO | [subsequence_10|gru_fill] epoch 7: loss=0.0804 val_macro_f1=0.9118
+[22:46:58] INFO | [subsequence_10|gru_fill] epoch 8: loss=0.0798 val_macro_f1=0.9367
+[22:46:59] INFO | [subsequence_10|gru_fill] epoch 9: loss=0.0785 val_macro_f1=0.9343
+[22:47:01] INFO | [subsequence_10|gru_fill] epoch 10: loss=0.0757 val_macro_f1=0.9326
+[22:47:03] INFO | [subsequence_10|gru_fill] epoch 11: loss=0.0757 val_macro_f1=0.9228
+[22:47:03] INFO | Early stopping tại epoch 11 (patience=10).
+[22:47:06] INFO | [subsequence_10|gru_fill] epoch 0: loss=0.1420 val_macro_f1=0.8802
+[22:47:08] INFO | [subsequence_10|gru_fill] epoch 1: loss=0.1008 val_macro_f1=0.8849
+[22:47:10] INFO | [subsequence_10|gru_fill] epoch 2: loss=0.0931 val_macro_f1=0.9090
+[22:47:12] INFO | [subsequence_10|gru_fill] epoch 3: loss=0.0903 val_macro_f1=0.9176
+[22:47:14] INFO | [subsequence_10|gru_fill] epoch 4: loss=0.0869 val_macro_f1=0.9129
+[22:47:15] INFO | [subsequence_10|gru_fill] epoch 5: loss=0.0851 val_macro_f1=0.9142
+[22:47:17] INFO | [subsequence_10|gru_fill] epoch 6: loss=0.0833 val_macro_f1=0.8856
+[22:47:19] INFO | [subsequence_10|gru_fill] epoch 7: loss=0.0815 val_macro_f1=0.9481
+[22:47:21] INFO | [subsequence_10|gru_fill] epoch 8: loss=0.0805 val_macro_f1=0.9176
+[22:47:24] INFO | [subsequence_10|gru_fill] epoch 9: loss=0.0794 val_macro_f1=0.9263
+[22:47:26] INFO | [subsequence_10|gru_fill] epoch 10: loss=0.0776 val_macro_f1=0.9210
+[22:47:27] INFO | [subsequence_10|gru_fill] epoch 11: loss=0.0766 val_macro_f1=0.9482
+[22:47:30] INFO | [subsequence_10|gru_fill] epoch 12: loss=0.0736 val_macro_f1=0.9291
+[22:47:32] INFO | [subsequence_10|gru_fill] epoch 13: loss=0.0713 val_macro_f1=0.9338
+[22:47:34] INFO | [subsequence_10|gru_fill] epoch 14: loss=0.0707 val_macro_f1=0.9458
+[22:47:36] INFO | [subsequence_10|gru_fill] epoch 15: loss=0.0697 val_macro_f1=0.9363
+[22:47:38] INFO | [subsequence_10|gru_fill] epoch 16: loss=0.0678 val_macro_f1=0.9443
+[22:47:40] INFO | [subsequence_10|gru_fill] epoch 17: loss=0.0665 val_macro_f1=0.9391
+[22:47:42] INFO | [subsequence_10|gru_fill] epoch 18: loss=0.0667 val_macro_f1=0.9299
+[22:47:44] INFO | [subsequence_10|gru_fill] epoch 19: loss=0.0660 val_macro_f1=0.9251
+[22:47:46] INFO | [subsequence_10|gru_fill] epoch 20: loss=0.0643 val_macro_f1=0.9423
+[22:47:48] INFO | [subsequence_10|gru_fill] epoch 21: loss=0.0643 val_macro_f1=0.9436
+[22:47:48] INFO | Early stopping tại epoch 21 (patience=10).
+[22:47:49] INFO |   seed=42 -> test_macro_f1=0.9187 test_pr_auc=0.9436
+[22:47:49] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_10/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_10/seed42/predictions.npz
+[22:47:49] INFO |   seed=1 -> test_macro_f1=0.9153 test_pr_auc=0.9225
+[22:47:49] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_10/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_10/seed1/predictions.npz
+[22:47:49] INFO |   seed=2 -> test_macro_f1=0.9208 test_pr_auc=0.9444
+[22:47:49] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_10/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_10/seed2/predictions.npz
+[22:47:49] INFO | Deep Learning | subsequence_30 | model=gru_fill | seeds=[42, 1, 2]
+[22:47:51] INFO | [subsequence_30|gru_fill] epoch 0: loss=0.1687 val_macro_f1=0.8518
+[22:47:53] INFO | [subsequence_30|gru_fill] epoch 1: loss=0.1304 val_macro_f1=0.8489
+[22:47:55] INFO | [subsequence_30|gru_fill] epoch 2: loss=0.1207 val_macro_f1=0.8797
+[22:47:57] INFO | [subsequence_30|gru_fill] epoch 3: loss=0.1165 val_macro_f1=0.8590
+[22:47:59] INFO | [subsequence_30|gru_fill] epoch 4: loss=0.1138 val_macro_f1=0.9095
+[22:48:00] INFO | [subsequence_30|gru_fill] epoch 5: loss=0.1105 val_macro_f1=0.8822
+[22:48:02] INFO | [subsequence_30|gru_fill] epoch 6: loss=0.1082 val_macro_f1=0.8952
+[22:48:04] INFO | [subsequence_30|gru_fill] epoch 7: loss=0.1061 val_macro_f1=0.9016
+[22:48:06] INFO | [subsequence_30|gru_fill] epoch 8: loss=0.1041 val_macro_f1=0.8898
+[22:48:08] INFO | [subsequence_30|gru_fill] epoch 9: loss=0.0985 val_macro_f1=0.8868
+[22:48:10] INFO | [subsequence_30|gru_fill] epoch 10: loss=0.0967 val_macro_f1=0.9062
+[22:48:12] INFO | [subsequence_30|gru_fill] epoch 11: loss=0.0960 val_macro_f1=0.9012
+[22:48:14] INFO | [subsequence_30|gru_fill] epoch 12: loss=0.0947 val_macro_f1=0.8955
+[22:48:16] INFO | [subsequence_30|gru_fill] epoch 13: loss=0.0913 val_macro_f1=0.9025
+[22:48:18] INFO | [subsequence_30|gru_fill] epoch 14: loss=0.0909 val_macro_f1=0.9065
+[22:48:18] INFO | Early stopping tại epoch 14 (patience=10).
+[22:48:21] INFO | [subsequence_30|gru_fill] epoch 0: loss=0.1691 val_macro_f1=0.8383
+[22:48:23] INFO | [subsequence_30|gru_fill] epoch 1: loss=0.1318 val_macro_f1=0.9214
+[22:48:24] INFO | [subsequence_30|gru_fill] epoch 2: loss=0.1231 val_macro_f1=0.8593
+[22:48:26] INFO | [subsequence_30|gru_fill] epoch 3: loss=0.1176 val_macro_f1=0.9023
+[22:48:28] INFO | [subsequence_30|gru_fill] epoch 4: loss=0.1137 val_macro_f1=0.8932
+[22:48:30] INFO | [subsequence_30|gru_fill] epoch 5: loss=0.1116 val_macro_f1=0.8780
+[22:48:32] INFO | [subsequence_30|gru_fill] epoch 6: loss=0.1046 val_macro_f1=0.9007
+[22:48:34] INFO | [subsequence_30|gru_fill] epoch 7: loss=0.1028 val_macro_f1=0.8861
+[22:48:35] INFO | [subsequence_30|gru_fill] epoch 8: loss=0.1014 val_macro_f1=0.8961
+[22:48:37] INFO | [subsequence_30|gru_fill] epoch 9: loss=0.1003 val_macro_f1=0.8979
+[22:48:39] INFO | [subsequence_30|gru_fill] epoch 10: loss=0.0974 val_macro_f1=0.9051
+[22:48:41] INFO | [subsequence_30|gru_fill] epoch 11: loss=0.0968 val_macro_f1=0.8933
+[22:48:41] INFO | Early stopping tại epoch 11 (patience=10).
+[22:48:44] INFO | [subsequence_30|gru_fill] epoch 0: loss=0.1700 val_macro_f1=0.8459
+[22:48:45] INFO | [subsequence_30|gru_fill] epoch 1: loss=0.1322 val_macro_f1=0.8657
+[22:48:47] INFO | [subsequence_30|gru_fill] epoch 2: loss=0.1233 val_macro_f1=0.8731
+[22:48:49] INFO | [subsequence_30|gru_fill] epoch 3: loss=0.1191 val_macro_f1=0.8959
+[22:48:51] INFO | [subsequence_30|gru_fill] epoch 4: loss=0.1144 val_macro_f1=0.8747
+[22:48:53] INFO | [subsequence_30|gru_fill] epoch 5: loss=0.1116 val_macro_f1=0.8885
+[22:48:55] INFO | [subsequence_30|gru_fill] epoch 6: loss=0.1082 val_macro_f1=0.8527
+[22:48:57] INFO | [subsequence_30|gru_fill] epoch 7: loss=0.1065 val_macro_f1=0.8955
+[22:48:59] INFO | [subsequence_30|gru_fill] epoch 8: loss=0.1012 val_macro_f1=0.8853
+[22:49:01] INFO | [subsequence_30|gru_fill] epoch 9: loss=0.0993 val_macro_f1=0.8939
+[22:49:03] INFO | [subsequence_30|gru_fill] epoch 10: loss=0.0976 val_macro_f1=0.8937
+[22:49:05] INFO | [subsequence_30|gru_fill] epoch 11: loss=0.0974 val_macro_f1=0.8943
+[22:49:07] INFO | [subsequence_30|gru_fill] epoch 12: loss=0.0939 val_macro_f1=0.8989
+[22:49:09] INFO | [subsequence_30|gru_fill] epoch 13: loss=0.0923 val_macro_f1=0.9027
+[22:49:11] INFO | [subsequence_30|gru_fill] epoch 14: loss=0.0924 val_macro_f1=0.9167
+[22:49:13] INFO | [subsequence_30|gru_fill] epoch 15: loss=0.0909 val_macro_f1=0.8940
+[22:49:15] INFO | [subsequence_30|gru_fill] epoch 16: loss=0.0915 val_macro_f1=0.9040
+[22:49:17] INFO | [subsequence_30|gru_fill] epoch 17: loss=0.0901 val_macro_f1=0.8974
+[22:49:19] INFO | [subsequence_30|gru_fill] epoch 18: loss=0.0901 val_macro_f1=0.8978
+[22:49:21] INFO | [subsequence_30|gru_fill] epoch 19: loss=0.0878 val_macro_f1=0.8945
+[22:49:23] INFO | [subsequence_30|gru_fill] epoch 20: loss=0.0874 val_macro_f1=0.9020
+[22:49:25] INFO | [subsequence_30|gru_fill] epoch 21: loss=0.0874 val_macro_f1=0.8999
+[22:49:27] INFO | [subsequence_30|gru_fill] epoch 22: loss=0.0869 val_macro_f1=0.9027
+[22:49:28] INFO | [subsequence_30|gru_fill] epoch 23: loss=0.0855 val_macro_f1=0.9011
+[22:49:30] INFO | [subsequence_30|gru_fill] epoch 24: loss=0.0858 val_macro_f1=0.9036
+[22:49:30] INFO | Early stopping tại epoch 24 (patience=10).
+[22:49:31] INFO |   seed=42 -> test_macro_f1=0.8743 test_pr_auc=0.8941
+[22:49:31] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_30/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_30/seed42/predictions.npz
+[22:49:31] INFO |   seed=1 -> test_macro_f1=0.8867 test_pr_auc=0.8720
+[22:49:31] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_30/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_30/seed1/predictions.npz
+[22:49:31] INFO |   seed=2 -> test_macro_f1=0.8779 test_pr_auc=0.9071
+[22:49:31] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_30/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_30/seed2/predictions.npz
+[22:49:31] INFO | Deep Learning | subsequence_50 | model=gru_fill | seeds=[42, 1, 2]
+[22:49:33] INFO | [subsequence_50|gru_fill] epoch 0: loss=0.2098 val_macro_f1=0.8080
+[22:49:35] INFO | [subsequence_50|gru_fill] epoch 1: loss=0.1702 val_macro_f1=0.8418
+[22:49:36] INFO | [subsequence_50|gru_fill] epoch 2: loss=0.1577 val_macro_f1=0.8088
+[22:49:38] INFO | [subsequence_50|gru_fill] epoch 3: loss=0.1481 val_macro_f1=0.8576
+[22:49:40] INFO | [subsequence_50|gru_fill] epoch 4: loss=0.1417 val_macro_f1=0.8747
+[22:49:42] INFO | [subsequence_50|gru_fill] epoch 5: loss=0.1368 val_macro_f1=0.8559
+[22:49:44] INFO | [subsequence_50|gru_fill] epoch 6: loss=0.1329 val_macro_f1=0.8578
+[22:49:45] INFO | [subsequence_50|gru_fill] epoch 7: loss=0.1298 val_macro_f1=0.8703
+[22:49:47] INFO | [subsequence_50|gru_fill] epoch 8: loss=0.1264 val_macro_f1=0.8702
+[22:49:49] INFO | [subsequence_50|gru_fill] epoch 9: loss=0.1206 val_macro_f1=0.8545
+[22:49:51] INFO | [subsequence_50|gru_fill] epoch 10: loss=0.1189 val_macro_f1=0.8796
+[22:49:53] INFO | [subsequence_50|gru_fill] epoch 11: loss=0.1164 val_macro_f1=0.8786
+[22:49:55] INFO | [subsequence_50|gru_fill] epoch 12: loss=0.1150 val_macro_f1=0.8622
+[22:49:57] INFO | [subsequence_50|gru_fill] epoch 13: loss=0.1146 val_macro_f1=0.8750
+[22:49:59] INFO | [subsequence_50|gru_fill] epoch 14: loss=0.1124 val_macro_f1=0.8776
+[22:50:01] INFO | [subsequence_50|gru_fill] epoch 15: loss=0.1083 val_macro_f1=0.8691
+[22:50:03] INFO | [subsequence_50|gru_fill] epoch 16: loss=0.1078 val_macro_f1=0.8714
+[22:50:05] INFO | [subsequence_50|gru_fill] epoch 17: loss=0.1068 val_macro_f1=0.8762
+[22:50:07] INFO | [subsequence_50|gru_fill] epoch 18: loss=0.1059 val_macro_f1=0.8783
+[22:50:09] INFO | [subsequence_50|gru_fill] epoch 19: loss=0.1038 val_macro_f1=0.8728
+[22:50:11] INFO | [subsequence_50|gru_fill] epoch 20: loss=0.1027 val_macro_f1=0.8787
+[22:50:11] INFO | Early stopping tại epoch 20 (patience=10).
+[22:50:13] INFO | [subsequence_50|gru_fill] epoch 0: loss=0.2103 val_macro_f1=0.8237
+[22:50:15] INFO | [subsequence_50|gru_fill] epoch 1: loss=0.1726 val_macro_f1=0.8867
+[22:50:17] INFO | [subsequence_50|gru_fill] epoch 2: loss=0.1563 val_macro_f1=0.8280
+[22:50:19] INFO | [subsequence_50|gru_fill] epoch 3: loss=0.1482 val_macro_f1=0.8673
+[22:50:21] INFO | [subsequence_50|gru_fill] epoch 4: loss=0.1401 val_macro_f1=0.8552
+[22:50:23] INFO | [subsequence_50|gru_fill] epoch 5: loss=0.1370 val_macro_f1=0.8402
+[22:50:25] INFO | [subsequence_50|gru_fill] epoch 6: loss=0.1286 val_macro_f1=0.8588
+[22:50:27] INFO | [subsequence_50|gru_fill] epoch 7: loss=0.1265 val_macro_f1=0.8635
+[22:50:29] INFO | [subsequence_50|gru_fill] epoch 8: loss=0.1248 val_macro_f1=0.8716
+[22:50:31] INFO | [subsequence_50|gru_fill] epoch 9: loss=0.1230 val_macro_f1=0.8685
+[22:50:33] INFO | [subsequence_50|gru_fill] epoch 10: loss=0.1190 val_macro_f1=0.8777
+[22:50:35] INFO | [subsequence_50|gru_fill] epoch 11: loss=0.1185 val_macro_f1=0.8734
+[22:50:35] INFO | Early stopping tại epoch 11 (patience=10).
+[22:50:37] INFO | [subsequence_50|gru_fill] epoch 0: loss=0.2107 val_macro_f1=0.8089
+[22:50:39] INFO | [subsequence_50|gru_fill] epoch 1: loss=0.1704 val_macro_f1=0.8276
+[22:50:41] INFO | [subsequence_50|gru_fill] epoch 2: loss=0.1550 val_macro_f1=0.8469
+[22:50:43] INFO | [subsequence_50|gru_fill] epoch 3: loss=0.1467 val_macro_f1=0.8538
+[22:50:45] INFO | [subsequence_50|gru_fill] epoch 4: loss=0.1406 val_macro_f1=0.8414
+[22:50:47] INFO | [subsequence_50|gru_fill] epoch 5: loss=0.1377 val_macro_f1=0.8439
+[22:50:49] INFO | [subsequence_50|gru_fill] epoch 6: loss=0.1332 val_macro_f1=0.8228
+[22:50:51] INFO | [subsequence_50|gru_fill] epoch 7: loss=0.1320 val_macro_f1=0.8632
+[22:50:53] INFO | [subsequence_50|gru_fill] epoch 8: loss=0.1301 val_macro_f1=0.8467
+[22:50:55] INFO | [subsequence_50|gru_fill] epoch 9: loss=0.1261 val_macro_f1=0.8565
+[22:50:57] INFO | [subsequence_50|gru_fill] epoch 10: loss=0.1242 val_macro_f1=0.8551
+[22:50:59] INFO | [subsequence_50|gru_fill] epoch 11: loss=0.1217 val_macro_f1=0.8697
+[22:51:01] INFO | [subsequence_50|gru_fill] epoch 12: loss=0.1202 val_macro_f1=0.8774
+[22:51:03] INFO | [subsequence_50|gru_fill] epoch 13: loss=0.1180 val_macro_f1=0.8632
+[22:51:05] INFO | [subsequence_50|gru_fill] epoch 14: loss=0.1159 val_macro_f1=0.8751
+[22:51:07] INFO | [subsequence_50|gru_fill] epoch 15: loss=0.1134 val_macro_f1=0.8702
+[22:51:09] INFO | [subsequence_50|gru_fill] epoch 16: loss=0.1122 val_macro_f1=0.8690
+[22:51:11] INFO | [subsequence_50|gru_fill] epoch 17: loss=0.1046 val_macro_f1=0.8680
+[22:51:13] INFO | [subsequence_50|gru_fill] epoch 18: loss=0.1035 val_macro_f1=0.8658
+[22:51:15] INFO | [subsequence_50|gru_fill] epoch 19: loss=0.1011 val_macro_f1=0.8611
+[22:51:18] INFO | [subsequence_50|gru_fill] epoch 20: loss=0.0993 val_macro_f1=0.8727
+[22:51:20] INFO | [subsequence_50|gru_fill] epoch 21: loss=0.0953 val_macro_f1=0.8705
+[22:51:23] INFO | [subsequence_50|gru_fill] epoch 22: loss=0.0942 val_macro_f1=0.8651
+[22:51:23] INFO | Early stopping tại epoch 22 (patience=10).
+[22:51:23] INFO |   seed=42 -> test_macro_f1=0.8323 test_pr_auc=0.8657
+[22:51:23] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_50/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_50/seed42/predictions.npz
+[22:51:23] INFO |   seed=1 -> test_macro_f1=0.8500 test_pr_auc=0.8198
+[22:51:23] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_50/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_50/seed1/predictions.npz
+[22:51:23] INFO |   seed=2 -> test_macro_f1=0.8308 test_pr_auc=0.8586
+[22:51:23] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_50/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/subsequence_50/seed2/predictions.npz
+[22:51:23] INFO | Deep Learning | block_10 | model=gru_fill | seeds=[42, 1, 2]
+[22:51:26] INFO | [block_10|gru_fill] epoch 0: loss=0.1298 val_macro_f1=0.8867
+[22:51:28] INFO | [block_10|gru_fill] epoch 1: loss=0.0881 val_macro_f1=0.8673
+[22:51:31] INFO | [block_10|gru_fill] epoch 2: loss=0.0809 val_macro_f1=0.9238
+[22:51:33] INFO | [block_10|gru_fill] epoch 3: loss=0.0772 val_macro_f1=0.9324
+[22:51:35] INFO | [block_10|gru_fill] epoch 4: loss=0.0754 val_macro_f1=0.9628
+[22:51:37] INFO | [block_10|gru_fill] epoch 5: loss=0.0734 val_macro_f1=0.9290
+[22:51:39] INFO | [block_10|gru_fill] epoch 6: loss=0.0716 val_macro_f1=0.9401
+[22:51:41] INFO | [block_10|gru_fill] epoch 7: loss=0.0705 val_macro_f1=0.9353
+[22:51:42] INFO | [block_10|gru_fill] epoch 8: loss=0.0684 val_macro_f1=0.9314
+[22:51:44] INFO | [block_10|gru_fill] epoch 9: loss=0.0645 val_macro_f1=0.9300
+[22:51:46] INFO | [block_10|gru_fill] epoch 10: loss=0.0636 val_macro_f1=0.9493
+[22:51:48] INFO | [block_10|gru_fill] epoch 11: loss=0.0624 val_macro_f1=0.9487
+[22:51:50] INFO | [block_10|gru_fill] epoch 12: loss=0.0628 val_macro_f1=0.9441
+[22:51:52] INFO | [block_10|gru_fill] epoch 13: loss=0.0595 val_macro_f1=0.9495
+[22:51:54] INFO | [block_10|gru_fill] epoch 14: loss=0.0594 val_macro_f1=0.9397
+[22:51:54] INFO | Early stopping tại epoch 14 (patience=10).
+[22:51:57] INFO | [block_10|gru_fill] epoch 0: loss=0.1306 val_macro_f1=0.8887
+[22:51:59] INFO | [block_10|gru_fill] epoch 1: loss=0.0879 val_macro_f1=0.9571
+[22:52:01] INFO | [block_10|gru_fill] epoch 2: loss=0.0804 val_macro_f1=0.8860
+[22:52:03] INFO | [block_10|gru_fill] epoch 3: loss=0.0774 val_macro_f1=0.9448
+[22:52:05] INFO | [block_10|gru_fill] epoch 4: loss=0.0755 val_macro_f1=0.9255
+[22:52:07] INFO | [block_10|gru_fill] epoch 5: loss=0.0743 val_macro_f1=0.9236
+[22:52:09] INFO | [block_10|gru_fill] epoch 6: loss=0.0707 val_macro_f1=0.9284
+[22:52:10] INFO | [block_10|gru_fill] epoch 7: loss=0.0700 val_macro_f1=0.9085
+[22:52:12] INFO | [block_10|gru_fill] epoch 8: loss=0.0696 val_macro_f1=0.9521
+[22:52:14] INFO | [block_10|gru_fill] epoch 9: loss=0.0685 val_macro_f1=0.9476
+[22:52:16] INFO | [block_10|gru_fill] epoch 10: loss=0.0661 val_macro_f1=0.9509
+[22:52:19] INFO | [block_10|gru_fill] epoch 11: loss=0.0666 val_macro_f1=0.9456
+[22:52:19] INFO | Early stopping tại epoch 11 (patience=10).
+[22:52:21] INFO | [block_10|gru_fill] epoch 0: loss=0.1308 val_macro_f1=0.9125
+[22:52:23] INFO | [block_10|gru_fill] epoch 1: loss=0.0897 val_macro_f1=0.8928
+[22:52:25] INFO | [block_10|gru_fill] epoch 2: loss=0.0810 val_macro_f1=0.9290
+[22:52:27] INFO | [block_10|gru_fill] epoch 3: loss=0.0787 val_macro_f1=0.9248
+[22:52:29] INFO | [block_10|gru_fill] epoch 4: loss=0.0756 val_macro_f1=0.9334
+[22:52:30] INFO | [block_10|gru_fill] epoch 5: loss=0.0741 val_macro_f1=0.9343
+[22:52:32] INFO | [block_10|gru_fill] epoch 6: loss=0.0733 val_macro_f1=0.9107
+[22:52:34] INFO | [block_10|gru_fill] epoch 7: loss=0.0712 val_macro_f1=0.9598
+[22:52:36] INFO | [block_10|gru_fill] epoch 8: loss=0.0704 val_macro_f1=0.9473
+[22:52:38] INFO | [block_10|gru_fill] epoch 9: loss=0.0689 val_macro_f1=0.9342
+[22:52:40] INFO | [block_10|gru_fill] epoch 10: loss=0.0671 val_macro_f1=0.9301
+[22:52:41] INFO | [block_10|gru_fill] epoch 11: loss=0.0664 val_macro_f1=0.9588
+[22:52:43] INFO | [block_10|gru_fill] epoch 12: loss=0.0629 val_macro_f1=0.9569
+[22:52:45] INFO | [block_10|gru_fill] epoch 13: loss=0.0609 val_macro_f1=0.9482
+[22:52:47] INFO | [block_10|gru_fill] epoch 14: loss=0.0607 val_macro_f1=0.9551
+[22:52:49] INFO | [block_10|gru_fill] epoch 15: loss=0.0596 val_macro_f1=0.9473
+[22:52:51] INFO | [block_10|gru_fill] epoch 16: loss=0.0578 val_macro_f1=0.9592
+[22:52:53] INFO | [block_10|gru_fill] epoch 17: loss=0.0571 val_macro_f1=0.9457
+[22:52:53] INFO | Early stopping tại epoch 17 (patience=10).
+[22:52:53] INFO |   seed=42 -> test_macro_f1=0.9316 test_pr_auc=0.9637
+[22:52:53] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/block_10/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/block_10/seed42/predictions.npz
+[22:52:53] INFO |   seed=1 -> test_macro_f1=0.9274 test_pr_auc=0.9463
+[22:52:53] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/block_10/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/block_10/seed1/predictions.npz
+[22:52:53] INFO |   seed=2 -> test_macro_f1=0.9326 test_pr_auc=0.9650
+[22:52:53] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/block_10/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/block_10/seed2/predictions.npz
+[22:52:53] INFO | Deep Learning | block_30 | model=gru_fill | seeds=[42, 1, 2]
+[22:52:56] INFO | [block_30|gru_fill] epoch 0: loss=0.1832 val_macro_f1=0.8730
+[22:52:57] INFO | [block_30|gru_fill] epoch 1: loss=0.1268 val_macro_f1=0.8400
+[22:52:59] INFO | [block_30|gru_fill] epoch 2: loss=0.1135 val_macro_f1=0.8902
+[22:53:01] INFO | [block_30|gru_fill] epoch 3: loss=0.1082 val_macro_f1=0.8919
+[22:53:03] INFO | [block_30|gru_fill] epoch 4: loss=0.1049 val_macro_f1=0.9225
+[22:53:05] INFO | [block_30|gru_fill] epoch 5: loss=0.1030 val_macro_f1=0.8987
+[22:53:06] INFO | [block_30|gru_fill] epoch 6: loss=0.0998 val_macro_f1=0.8970
+[22:53:08] INFO | [block_30|gru_fill] epoch 7: loss=0.0985 val_macro_f1=0.8966
+[22:53:10] INFO | [block_30|gru_fill] epoch 8: loss=0.0954 val_macro_f1=0.8864
+[22:53:12] INFO | [block_30|gru_fill] epoch 9: loss=0.0908 val_macro_f1=0.8978
+[22:53:14] INFO | [block_30|gru_fill] epoch 10: loss=0.0893 val_macro_f1=0.9134
+[22:53:16] INFO | [block_30|gru_fill] epoch 11: loss=0.0874 val_macro_f1=0.9146
+[22:53:17] INFO | [block_30|gru_fill] epoch 12: loss=0.0870 val_macro_f1=0.9075
+[22:53:19] INFO | [block_30|gru_fill] epoch 13: loss=0.0830 val_macro_f1=0.9071
+[22:53:21] INFO | [block_30|gru_fill] epoch 14: loss=0.0826 val_macro_f1=0.9050
+[22:53:21] INFO | Early stopping tại epoch 14 (patience=10).
+[22:53:24] INFO | [block_30|gru_fill] epoch 0: loss=0.1825 val_macro_f1=0.8651
+[22:53:26] INFO | [block_30|gru_fill] epoch 1: loss=0.1247 val_macro_f1=0.9266
+[22:53:28] INFO | [block_30|gru_fill] epoch 2: loss=0.1131 val_macro_f1=0.8702
+[22:53:30] INFO | [block_30|gru_fill] epoch 3: loss=0.1086 val_macro_f1=0.8974
+[22:53:32] INFO | [block_30|gru_fill] epoch 4: loss=0.1054 val_macro_f1=0.8884
+[22:53:34] INFO | [block_30|gru_fill] epoch 5: loss=0.1028 val_macro_f1=0.8736
+[22:53:36] INFO | [block_30|gru_fill] epoch 6: loss=0.0980 val_macro_f1=0.8875
+[22:53:38] INFO | [block_30|gru_fill] epoch 7: loss=0.0965 val_macro_f1=0.8917
+[22:53:40] INFO | [block_30|gru_fill] epoch 8: loss=0.0948 val_macro_f1=0.9045
+[22:53:41] INFO | [block_30|gru_fill] epoch 9: loss=0.0928 val_macro_f1=0.9004
+[22:53:43] INFO | [block_30|gru_fill] epoch 10: loss=0.0894 val_macro_f1=0.8977
+[22:53:45] INFO | [block_30|gru_fill] epoch 11: loss=0.0895 val_macro_f1=0.8999
+[22:53:45] INFO | Early stopping tại epoch 11 (patience=10).
+[22:53:48] INFO | [block_30|gru_fill] epoch 0: loss=0.1848 val_macro_f1=0.8815
+[22:53:50] INFO | [block_30|gru_fill] epoch 1: loss=0.1254 val_macro_f1=0.8821
+[22:53:52] INFO | [block_30|gru_fill] epoch 2: loss=0.1127 val_macro_f1=0.8968
+[22:53:54] INFO | [block_30|gru_fill] epoch 3: loss=0.1094 val_macro_f1=0.8848
+[22:53:56] INFO | [block_30|gru_fill] epoch 4: loss=0.1056 val_macro_f1=0.8853
+[22:53:58] INFO | [block_30|gru_fill] epoch 5: loss=0.1034 val_macro_f1=0.8828
+[22:54:00] INFO | [block_30|gru_fill] epoch 6: loss=0.1014 val_macro_f1=0.8825
+[22:54:02] INFO | [block_30|gru_fill] epoch 7: loss=0.0965 val_macro_f1=0.9129
+[22:54:04] INFO | [block_30|gru_fill] epoch 8: loss=0.0965 val_macro_f1=0.8941
+[22:54:06] INFO | [block_30|gru_fill] epoch 9: loss=0.0944 val_macro_f1=0.8986
+[22:54:08] INFO | [block_30|gru_fill] epoch 10: loss=0.0927 val_macro_f1=0.8848
+[22:54:09] INFO | [block_30|gru_fill] epoch 11: loss=0.0931 val_macro_f1=0.9156
+[22:54:11] INFO | [block_30|gru_fill] epoch 12: loss=0.0915 val_macro_f1=0.9113
+[22:54:13] INFO | [block_30|gru_fill] epoch 13: loss=0.0894 val_macro_f1=0.9037
+[22:54:14] INFO | [block_30|gru_fill] epoch 14: loss=0.0883 val_macro_f1=0.9129
+[22:54:16] INFO | [block_30|gru_fill] epoch 15: loss=0.0877 val_macro_f1=0.9084
+[22:54:19] INFO | [block_30|gru_fill] epoch 16: loss=0.0848 val_macro_f1=0.9034
+[22:54:21] INFO | [block_30|gru_fill] epoch 17: loss=0.0831 val_macro_f1=0.9034
+[22:54:23] INFO | [block_30|gru_fill] epoch 18: loss=0.0829 val_macro_f1=0.8912
+[22:54:25] INFO | [block_30|gru_fill] epoch 19: loss=0.0819 val_macro_f1=0.9008
+[22:54:27] INFO | [block_30|gru_fill] epoch 20: loss=0.0792 val_macro_f1=0.9080
+[22:54:29] INFO | [block_30|gru_fill] epoch 21: loss=0.0795 val_macro_f1=0.9109
+[22:54:29] INFO | Early stopping tại epoch 21 (patience=10).
+[22:54:29] INFO |   seed=42 -> test_macro_f1=0.9015 test_pr_auc=0.9251
+[22:54:29] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/block_30/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/block_30/seed42/predictions.npz
+[22:54:29] INFO |   seed=1 -> test_macro_f1=0.8936 test_pr_auc=0.8939
+[22:54:29] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/block_30/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/block_30/seed1/predictions.npz
+[22:54:29] INFO |   seed=2 -> test_macro_f1=0.8964 test_pr_auc=0.9360
+[22:54:29] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/block_30/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/block_30/seed2/predictions.npz
+[22:54:29] INFO | Deep Learning | block_50 | model=gru_fill | seeds=[42, 1, 2]
+[22:54:32] INFO | [block_50|gru_fill] epoch 0: loss=0.2161 val_macro_f1=0.8315
+[22:54:34] INFO | [block_50|gru_fill] epoch 1: loss=0.1529 val_macro_f1=0.8478
+[22:54:36] INFO | [block_50|gru_fill] epoch 2: loss=0.1408 val_macro_f1=0.8460
+[22:54:37] INFO | [block_50|gru_fill] epoch 3: loss=0.1350 val_macro_f1=0.8502
+[22:54:39] INFO | [block_50|gru_fill] epoch 4: loss=0.1314 val_macro_f1=0.9105
+[22:54:41] INFO | [block_50|gru_fill] epoch 5: loss=0.1276 val_macro_f1=0.8601
+[22:54:43] INFO | [block_50|gru_fill] epoch 6: loss=0.1248 val_macro_f1=0.8327
+[22:54:45] INFO | [block_50|gru_fill] epoch 7: loss=0.1214 val_macro_f1=0.8443
+[22:54:47] INFO | [block_50|gru_fill] epoch 8: loss=0.1185 val_macro_f1=0.8703
+[22:54:49] INFO | [block_50|gru_fill] epoch 9: loss=0.1139 val_macro_f1=0.8533
+[22:54:50] INFO | [block_50|gru_fill] epoch 10: loss=0.1120 val_macro_f1=0.8689
+[22:54:52] INFO | [block_50|gru_fill] epoch 11: loss=0.1101 val_macro_f1=0.8889
+[22:54:54] INFO | [block_50|gru_fill] epoch 12: loss=0.1099 val_macro_f1=0.8578
+[22:54:55] INFO | [block_50|gru_fill] epoch 13: loss=0.1061 val_macro_f1=0.8743
+[22:54:57] INFO | [block_50|gru_fill] epoch 14: loss=0.1055 val_macro_f1=0.8710
+[22:54:57] INFO | Early stopping tại epoch 14 (patience=10).
+[22:55:00] INFO | [block_50|gru_fill] epoch 0: loss=0.2167 val_macro_f1=0.8243
+[22:55:02] INFO | [block_50|gru_fill] epoch 1: loss=0.1531 val_macro_f1=0.8751
+[22:55:04] INFO | [block_50|gru_fill] epoch 2: loss=0.1416 val_macro_f1=0.8320
+[22:55:06] INFO | [block_50|gru_fill] epoch 3: loss=0.1369 val_macro_f1=0.8622
+[22:55:07] INFO | [block_50|gru_fill] epoch 4: loss=0.1329 val_macro_f1=0.8616
+[22:55:09] INFO | [block_50|gru_fill] epoch 5: loss=0.1298 val_macro_f1=0.8603
+[22:55:11] INFO | [block_50|gru_fill] epoch 6: loss=0.1223 val_macro_f1=0.8506
+[22:55:13] INFO | [block_50|gru_fill] epoch 7: loss=0.1212 val_macro_f1=0.8572
+[22:55:14] INFO | [block_50|gru_fill] epoch 8: loss=0.1199 val_macro_f1=0.8726
+[22:55:16] INFO | [block_50|gru_fill] epoch 9: loss=0.1175 val_macro_f1=0.8800
+[22:55:18] INFO | [block_50|gru_fill] epoch 10: loss=0.1161 val_macro_f1=0.8826
+[22:55:19] INFO | [block_50|gru_fill] epoch 11: loss=0.1157 val_macro_f1=0.8559
+[22:55:21] INFO | [block_50|gru_fill] epoch 12: loss=0.1132 val_macro_f1=0.8484
+[22:55:23] INFO | [block_50|gru_fill] epoch 13: loss=0.1123 val_macro_f1=0.8600
+[22:55:25] INFO | [block_50|gru_fill] epoch 14: loss=0.1116 val_macro_f1=0.8623
+[22:55:27] INFO | [block_50|gru_fill] epoch 15: loss=0.1085 val_macro_f1=0.8608
+[22:55:29] INFO | [block_50|gru_fill] epoch 16: loss=0.1076 val_macro_f1=0.8657
+[22:55:31] INFO | [block_50|gru_fill] epoch 17: loss=0.1072 val_macro_f1=0.8701
+[22:55:32] INFO | [block_50|gru_fill] epoch 18: loss=0.1064 val_macro_f1=0.8568
+[22:55:34] INFO | [block_50|gru_fill] epoch 19: loss=0.1054 val_macro_f1=0.8574
+[22:55:36] INFO | [block_50|gru_fill] epoch 20: loss=0.1039 val_macro_f1=0.8629
+[22:55:36] INFO | Early stopping tại epoch 20 (patience=10).
+[22:55:39] INFO | [block_50|gru_fill] epoch 0: loss=0.2199 val_macro_f1=0.8445
+[22:55:40] INFO | [block_50|gru_fill] epoch 1: loss=0.1542 val_macro_f1=0.8287
+[22:55:42] INFO | [block_50|gru_fill] epoch 2: loss=0.1406 val_macro_f1=0.8504
+[22:55:44] INFO | [block_50|gru_fill] epoch 3: loss=0.1352 val_macro_f1=0.8512
+[22:55:46] INFO | [block_50|gru_fill] epoch 4: loss=0.1306 val_macro_f1=0.8767
+[22:55:48] INFO | [block_50|gru_fill] epoch 5: loss=0.1274 val_macro_f1=0.8440
+[22:55:50] INFO | [block_50|gru_fill] epoch 6: loss=0.1251 val_macro_f1=0.8552
+[22:55:52] INFO | [block_50|gru_fill] epoch 7: loss=0.1221 val_macro_f1=0.8844
+[22:55:53] INFO | [block_50|gru_fill] epoch 8: loss=0.1203 val_macro_f1=0.8754
+[22:55:55] INFO | [block_50|gru_fill] epoch 9: loss=0.1182 val_macro_f1=0.8736
+[22:55:57] INFO | [block_50|gru_fill] epoch 10: loss=0.1153 val_macro_f1=0.8695
+[22:55:59] INFO | [block_50|gru_fill] epoch 11: loss=0.1138 val_macro_f1=0.8848
+[22:56:01] INFO | [block_50|gru_fill] epoch 12: loss=0.1115 val_macro_f1=0.8683
+[22:56:03] INFO | [block_50|gru_fill] epoch 13: loss=0.1105 val_macro_f1=0.8936
+[22:56:05] INFO | [block_50|gru_fill] epoch 14: loss=0.1090 val_macro_f1=0.8868
+[22:56:07] INFO | [block_50|gru_fill] epoch 15: loss=0.1069 val_macro_f1=0.8743
+[22:56:09] INFO | [block_50|gru_fill] epoch 16: loss=0.1065 val_macro_f1=0.8749
+[22:56:11] INFO | [block_50|gru_fill] epoch 17: loss=0.1045 val_macro_f1=0.8561
+[22:56:13] INFO | [block_50|gru_fill] epoch 18: loss=0.0989 val_macro_f1=0.8567
+[22:56:15] INFO | [block_50|gru_fill] epoch 19: loss=0.0974 val_macro_f1=0.8697
+[22:56:17] INFO | [block_50|gru_fill] epoch 20: loss=0.0956 val_macro_f1=0.8602
+[22:56:19] INFO | [block_50|gru_fill] epoch 21: loss=0.0948 val_macro_f1=0.8641
+[22:56:21] INFO | [block_50|gru_fill] epoch 22: loss=0.0911 val_macro_f1=0.8772
+[22:56:23] INFO | [block_50|gru_fill] epoch 23: loss=0.0900 val_macro_f1=0.8736
+[22:56:23] INFO | Early stopping tại epoch 23 (patience=10).
+[22:56:23] INFO |   seed=42 -> test_macro_f1=0.8804 test_pr_auc=0.8903
+[22:56:23] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/block_50/seed42/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/block_50/seed42/predictions.npz
+[22:56:23] INFO |   seed=1 -> test_macro_f1=0.8561 test_pr_auc=0.9114
+[22:56:23] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/block_50/seed1/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/block_50/seed1/predictions.npz
+[22:56:23] INFO |   seed=2 -> test_macro_f1=0.8658 test_pr_auc=0.9066
+[22:56:23] INFO |   checkpoint=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/block_50/seed2/checkpoint.pt predictions=/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep/artifacts/deep-v2-observed-zscore-macro-f1/gru_fill/block_50/seed2/predictions.npz

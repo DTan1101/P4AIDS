@@ -4,11 +4,25 @@
 \subsection{Giao thức chia dữ liệu}
 \label{sec:giao-thuc-chia-du-lieu}
 
-Dữ liệu được chia theo thời gian để mô phỏng kịch bản dự báo thực tế, tránh rò rỉ thông
-tin tương lai vào quá trình chọn mô hình: \TODO{xác định cụ thể các fold rolling-origin
-dùng cho validation (ví dụ huấn luyện tăng dần theo năm, validate trên năm kế tiếp) và
-xác nhận tập test cuối cùng, cố định, là giai đoạn 2015--2016, không được dùng cho bất kỳ
-quyết định chọn mô hình hay siêu tham số nào.}
+Dữ liệu được chia theo năm của thời điểm nhãn $t+1$: train 2006--2013,
+validation năm 2014 và test 2015--2016 (Bảng~\ref{tab:dl-split}). Không có chỉ số
+cửa sổ trùng nhau giữa ba tập. Các cửa sổ đầu validation/test vẫn có thể dùng
+quan sát quá khứ của năm trước, phù hợp với dự báo liên tục; chưa áp dụng
+khoảng loại trừ giữa các tập để làm cửa sổ độc lập hoàn toàn.
+
+\input{generated/deep_split.tex}
+
+Chiến dịch DL dùng một validation cố định, \emph{chưa thực hiện rolling-origin}.
+Mean/std và trọng số lớp chỉ được ước lượng từ train. Checkpoint được chọn
+bằng Macro F1 trên validation; test không tham gia cập nhật trọng số hay chọn
+epoch. Kết quả test được dùng để mô tả benchmark, không dùng để tuning tiếp.
+
+Mỗi mô hình được huấn luyện lại trên mười điều kiện: không ẩn thêm, và ba kiểu
+point/subsequence/block tại ba tỷ lệ 10/30/50\%. Mọi mô hình dùng cùng cache
+mask seed 123; với mỗi điều kiện, ba seed mô hình $42,1,2$ tạo thành ba lượt
+độc lập về khởi tạo và quá trình huấn luyện. Tổng cộng có 150 lượt hoàn chỉnh.
+Train, validation và test trong một lượt đều dùng cùng kiểu/tỷ lệ thiếu.
+Thiết lập này chưa đánh giá train đầy đủ rồi test thiếu hoặc chuyển kiểu thiếu.
 
 \subsection{Baseline}
 \label{sec:baseline}
@@ -28,23 +42,47 @@ quyết định chọn mô hình hay siêu tham số nào.}
 \subsection{Metrics}
 \label{sec:metrics}
 
-\TODO{Lấy định nghĩa và lý do chọn từng chỉ số từ tài liệu metrics của nhóm (ví dụ vì sao
-chọn Macro F1 thay vì Accuracy do mất cân bằng lớp, và vì sao bổ sung PR-AUC để đánh giá
-độ nhạy với ngưỡng quyết định). Liệt kê đầy đủ: Macro F1, Precision/Recall theo lớp,
-PR-AUC, và bất kỳ chỉ số phụ nào khác (ví dụ Balanced Accuracy, Cohen's Kappa).}
+Snow là lớp dương ($y=1$), Rain là lớp âm ($y=0$). Với mỗi lớp, báo cáo
+precision, recall và $F1=2PR/(P+R)$. Macro F1 là trung bình F1 của hai lớp,
+được dùng để tránh việc lớp Rain chiếm đa số che khuất sai số của lớp Snow.
+Balanced accuracy là trung bình recall của hai lớp. Các bảng precision/recall
+trong phần kết quả ghi rõ lớp Snow để tránh nhầm với trung bình macro.
+
+Chỉ số được ký hiệu PR-AUC trong báo cáo được tính bằng
+\texttt{average\_precision\_score} của scikit-learn cho Snow, tức average precision
+$\mathrm{AP}=\sum_n (R_n-R_{n-1})P_n$; không phải phép tích phân hình thang
+trực tiếp trên đường precision--recall. Điểm số đầu vào là xác suất Snow.
+
+Các bảng theo case báo mean và sample std ($ddof=1$) giữa ba seed. Với bảng
+tổng hợp chín case thiếu, trước hết lấy trung bình không trọng số giữa chín
+case \emph{trong mỗi seed}, sau đó tính mean/std giữa ba trung bình đó. Không
+xem ba prediction trên cùng tập test như ba tập dữ liệu mới độc lập; std
+không phải khoảng tin cậy và chỉ phản ánh biến động seed dưới một mask cố định.
 
 \subsection{Kiểm định thống kê}
 \label{sec:kiem-dinh-thong-ke}
 
-Sự khác biệt hiệu năng giữa từng cặp mô hình trên cùng tập test được kiểm định bằng
-McNemar's test \cite{mcnemar1947}, phù hợp để so sánh hai bộ phân loại trên cùng một tập
-dữ liệu. Để so sánh đồng thời nhiều mô hình trên nhiều cấu hình thiếu dữ liệu, kiểm định
-Friedman kèm biểu đồ critical difference (CD) \cite{demsar2006statistical} được dùng để
-xếp hạng và xác định nhóm mô hình không khác biệt có ý nghĩa thống kê.
+McNemar \cite{mcnemar1947} và Friedman/CD \cite{demsar2006statistical} là các
+phương án kiểm định dự kiến. Trong phân tích năm mô hình hiện tại chưa thực
+hiện kiểm định hoặc hiệu chỉnh so sánh nhiều cặp, nên chỉ báo thứ hạng và
+chênh lệch mô tả. Các cửa sổ chồng lấn, cùng tập test và các mask có liên hệ
+khiến giả định độc lập cần được xem xét trước khi suy diễn ý nghĩa thống kê.
 
 \subsection{Môi trường chạy}
 \label{sec:moi-truong-chay}
 
-\TODO{Ghi lại phần cứng (CPU/GPU, RAM), phiên bản Python và các thư viện chính (XGBoost,
-sktime/aeon cho MiniRocket/MultiRocket, PyTorch cho GRU-D/BRITS/SAITS/UniTS, Optuna), và
-danh sách seed cố định dùng cho khả năng tái lập kết quả.}
+Thực nghiệm chạy tuần tự trên NVIDIA GeForce RTX 3050 6GB Laptop GPU,
+máy có RAM 16GB theo cấu hình máy thực hiện. Manifest ghi 16 CPU logic,
+10 luồng PyTorch và 10 luồng inter-op; không xác định được tên CPU cụ thể từ
+chuỗi \texttt{x86\_64}. Môi trường dùng Python 3.13.12, PyTorch 2.10.0+cu130,
+CUDA runtime 13.0, PyPOTS 2.0, NumPy 2.2.6 và scikit-learn 1.9.0.
+Đây là thông tin cấu hình, không phải số đo tải CPU/GPU hoặc RAM/VRAM sử dụng.
+
+\input{generated/deep_hyperparameters.tex}
+
+Cấu hình và artifact được lưu trong chiến dịch \texttt{deep\_report}.
+Giao thức sử dụng là \texttt{deep-v2-observed-}\allowbreak\texttt{zscore-macro-f1}. Năm mô hình đều hoàn tất 30 lượt.
+Trạng thái \texttt{interrupted} ở cấp manifest do job \texttt{grud\_pypots}
+thứ sáu bị dừng; không có nghĩa 150 lượt của năm mô hình được phân tích bị thiếu.
+Chương kết quả sử dụng snapshot ngày 22/11/2026, đã đối chiếu 150 prediction
+archive với chỉ số mẫu/nhãn và các metrics trong JSON, cùng checksum data/mask.

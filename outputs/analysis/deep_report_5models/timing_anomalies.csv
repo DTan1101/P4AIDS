@@ -1,0 +1,2 @@
+model,interval_seconds,median_seconds,before,after
+gru_d,1121,18,[23:53:36] INFO | [point_30|gru_d] epoch 2: loss=0.0930 val_macro_f1=0.8713,[00:12:17] INFO | [point_30|gru_d] epoch 3: loss=0.0904 val_macro_f1=0.9219

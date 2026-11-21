@@ -1,0 +1,812 @@
+{
+  "protocol": "deep-v2-observed-zscore-macro-f1",
+  "n_runs": 180,
+  "cases": [
+    {
+      "kind": "point",
+      "rate": 0.0
+    },
+    {
+      "kind": "point",
+      "rate": 0.1
+    },
+    {
+      "kind": "point",
+      "rate": 0.3
+    },
+    {
+      "kind": "point",
+      "rate": 0.5
+    },
+    {
+      "kind": "subsequence",
+      "rate": 0.1
+    },
+    {
+      "kind": "subsequence",
+      "rate": 0.3
+    },
+    {
+      "kind": "subsequence",
+      "rate": 0.5
+    },
+    {
+      "kind": "block",
+      "rate": 0.1
+    },
+    {
+      "kind": "block",
+      "rate": 0.3
+    },
+    {
+      "kind": "block",
+      "rate": 0.5
+    }
+  ],
+  "seeds": [
+    42,
+    1,
+    2
+  ],
+  "jobs": [
+    {
+      "model": "gru_fill",
+      "config": {
+        "experiment": {
+          "name": "deep",
+          "output_dir": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep",
+          "seed": 42,
+          "seeds": [
+            42,
+            1,
+            2
+          ]
+        },
+        "data": {
+          "prepared_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/data/windows.npz"
+        },
+        "missing": {
+          "cache_dir": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/masks",
+          "seed": 123
+        },
+        "deep": {
+          "model": "gru_fill",
+          "hidden_size": 64,
+          "epochs": 50,
+          "patience": 10,
+          "batch_size": 64,
+          "lr": 0.001,
+          "device": "cuda",
+          "deterministic": true,
+          "pypots": {}
+        }
+      },
+      "command": [
+        "/home/khanhnguyen2712/miniconda3/bin/python",
+        "tools/run_deep.py",
+        "--config",
+        "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/configs/gru_fill.yaml"
+      ],
+      "status": "complete",
+      "log": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/logs/gru_fill.log",
+      "returncode": 0,
+      "pipeline_seconds": 1033.224892929
+    },
+    {
+      "model": "gru_mask_delta",
+      "config": {
+        "experiment": {
+          "name": "deep",
+          "output_dir": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep",
+          "seed": 42,
+          "seeds": [
+            42,
+            1,
+            2
+          ]
+        },
+        "data": {
+          "prepared_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/data/windows.npz"
+        },
+        "missing": {
+          "cache_dir": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/masks",
+          "seed": 123
+        },
+        "deep": {
+          "model": "gru_mask_delta",
+          "hidden_size": 64,
+          "epochs": 50,
+          "patience": 10,
+          "batch_size": 64,
+          "lr": 0.001,
+          "device": "cuda",
+          "deterministic": true,
+          "pypots": {}
+        }
+      },
+      "command": [
+        "/home/khanhnguyen2712/miniconda3/bin/python",
+        "tools/run_deep.py",
+        "--config",
+        "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/configs/gru_mask_delta.yaml"
+      ],
+      "status": "complete",
+      "log": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/logs/gru_mask_delta.log",
+      "returncode": 0,
+      "pipeline_seconds": 1227.2297128909995
+    },
+    {
+      "model": "gru_d",
+      "config": {
+        "experiment": {
+          "name": "deep",
+          "output_dir": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep",
+          "seed": 42,
+          "seeds": [
+            42,
+            1,
+            2
+          ]
+        },
+        "data": {
+          "prepared_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/data/windows.npz"
+        },
+        "missing": {
+          "cache_dir": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/masks",
+          "seed": 123
+        },
+        "deep": {
+          "model": "gru_d",
+          "hidden_size": 64,
+          "epochs": 50,
+          "patience": 10,
+          "batch_size": 64,
+          "lr": 0.001,
+          "device": "cuda",
+          "deterministic": true,
+          "pypots": {}
+        }
+      },
+      "command": [
+        "/home/khanhnguyen2712/miniconda3/bin/python",
+        "tools/run_deep.py",
+        "--config",
+        "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/configs/gru_d.yaml"
+      ],
+      "status": "complete",
+      "log": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/logs/gru_d.log",
+      "returncode": 0,
+      "pipeline_seconds": 14188.734989107
+    },
+    {
+      "model": "brits",
+      "config": {
+        "experiment": {
+          "name": "deep",
+          "output_dir": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep",
+          "seed": 42,
+          "seeds": [
+            42,
+            1,
+            2
+          ]
+        },
+        "data": {
+          "prepared_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/data/windows.npz"
+        },
+        "missing": {
+          "cache_dir": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/masks",
+          "seed": 123
+        },
+        "deep": {
+          "model": "brits",
+          "hidden_size": 64,
+          "epochs": 50,
+          "patience": 10,
+          "batch_size": 64,
+          "lr": 0.001,
+          "device": "cuda",
+          "deterministic": true,
+          "pypots": {}
+        }
+      },
+      "command": [
+        "/home/khanhnguyen2712/miniconda3/bin/python",
+        "tools/run_deep.py",
+        "--config",
+        "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/configs/brits.yaml"
+      ],
+      "status": "complete",
+      "log": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/logs/brits.log",
+      "returncode": 0,
+      "pipeline_seconds": 75358.443427759
+    },
+    {
+      "model": "saits",
+      "config": {
+        "experiment": {
+          "name": "deep",
+          "output_dir": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep",
+          "seed": 42,
+          "seeds": [
+            42,
+            1,
+            2
+          ]
+        },
+        "data": {
+          "prepared_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/data/windows.npz"
+        },
+        "missing": {
+          "cache_dir": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/masks",
+          "seed": 123
+        },
+        "deep": {
+          "model": "saits",
+          "hidden_size": 64,
+          "epochs": 50,
+          "patience": 10,
+          "batch_size": 64,
+          "lr": 0.001,
+          "device": "cuda",
+          "deterministic": true,
+          "pypots": {}
+        }
+      },
+      "command": [
+        "/home/khanhnguyen2712/miniconda3/bin/python",
+        "tools/run_deep.py",
+        "--config",
+        "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/configs/saits.yaml"
+      ],
+      "status": "complete",
+      "log": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/logs/saits.log",
+      "returncode": 0,
+      "pipeline_seconds": 7570.104581112013
+    },
+    {
+      "model": "grud_pypots",
+      "config": {
+        "experiment": {
+          "name": "deep",
+          "output_dir": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/results/deep",
+          "seed": 42,
+          "seeds": [
+            42,
+            1,
+            2
+          ]
+        },
+        "data": {
+          "prepared_path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/data/windows.npz"
+        },
+        "missing": {
+          "cache_dir": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/masks",
+          "seed": 123
+        },
+        "deep": {
+          "model": "grud_pypots",
+          "hidden_size": 64,
+          "epochs": 50,
+          "patience": 10,
+          "batch_size": 64,
+          "lr": 0.001,
+          "device": "cuda",
+          "deterministic": true,
+          "pypots": {}
+        }
+      },
+      "command": [
+        "/home/khanhnguyen2712/miniconda3/bin/python",
+        "tools/run_deep.py",
+        "--config",
+        "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/configs/grud_pypots.yaml"
+      ],
+      "status": "interrupted",
+      "log": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/experiments/deep_report/logs/grud_pypots.log"
+    }
+  ],
+  "provenance": {
+    "git_commit": "72249472c30f3cfe5b7bc24362f7cea8bbf0a146",
+    "git_status": "",
+    "sources": {
+      "datasets/__init__.py": "32983398489a66436118fec560bcbcec61658eb75e29e7f5735eee2c8502ee91",
+      "datasets/cache.py": "363c0ea6a91cb156e0664576067cdef222f66a4b1a9cf90133c8fff10a0ce384",
+      "datasets/dl_dataset.py": "352ab0a6af2cf249cdf109f26b3778cd86f0cd9e01bae4aeadbdd52785539c0b",
+      "datasets/features.py": "2bbfbdfb0a031aca5529d49f7bc7a4348ae92c24f921d56315369e47e1dbd6a8",
+      "datasets/missingness.py": "41100a2ba627c644fcf8426c938b6334f3cd4aee1da8a6aba7f81275fdcb5f84",
+      "datasets/splits.py": "450b758a44e5e1801b7cd671cdc23db2d20983d720aec4cae7cea913c44d1563",
+      "datasets/szeged.py": "e6c46d67997dfea83464451d8095eb5c0041864f65ff0371d78f7b23a2160c93",
+      "datasets/windows.py": "c01232e19a9544c4d8ba7316ecf5b983df8e8d933cfd7f6378072faec6980f28",
+      "models/__init__.py": "f68f8c7dd125ef54a902920f4acd2b6d19b0df8866b3770b6a91af9905892b67",
+      "models/classic.py": "db4431fc6b5024cdd91e002d2da8c75dd39f66531933ee8246e239cbd63a55d3",
+      "models/deep.py": "74282d1d8c0833ceef7c99f3ee9385bbda4bea341826c57ac29dea68efaa34c2",
+      "models/deep_pypots.py": "9926139046dcc64a95b123501141ff6fea43eb6b7acc628fb8ec4176b4f1d5e3",
+      "models/rocket.py": "0fd3b3a9de0c8d071178c7644f73c983e4bb3f179bd8c92d5105f339f154f9bc",
+      "models/units_stub.py": "fa1efea6de08f1f942431f54a0f784be4a4d38e7c1514d5907f44c016f372b3f",
+      "trainers/__init__.py": "66075a18a02d282a70d12df868d21015ca79843f927c897c57a82f20f4b5752c",
+      "trainers/classic_trainer.py": "a6f64adfe008894853f8cddf0236aacf4b9f82247ea7ebbb2c30a5780c26b2f7",
+      "trainers/deep_trainer.py": "5d78b47da2e5e014798f80f6123fa86831bb6f40bfe534388100d4e15bbd772f",
+      "trainers/rocket_trainer.py": "26a53b2c84a1296f7b3eff86427060d0c9a351bdcbb5e1a5f2017319da39d0f0",
+      "tools/__init__.py": "e17c7db6793794ae411a5226c70c82cda9a7159593010ade5aaf2a86b40b0207",
+      "tools/aggregate_results.py": "384875d322cf0b4d702f8297248de8c33043fbe42b05213bb4a7ceb57e977538",
+      "tools/build_masks.py": "a7ee60277607c6bc8b85e082f645a106a81523f14a546c7542dcd3a05db7641e",
+      "tools/prepare_data.py": "77eb66682676d0805559192e2c1eaec6c6494a7ead0af59d707ea76357a7c394",
+      "tools/run_baselines.py": "dc44a798c22f2d58383fd33384c640def45e89f8a03d9006c8944ccb1738b470",
+      "tools/run_classic.py": "63f1aabb112a2a350c06589240748d0517d5dc7757bb0be882720ef8eec0ae81",
+      "tools/run_deep.py": "6a3e6468898890f7081428b356e15f3494bc957b40020cb3c34a4425b16d1aec",
+      "tools/run_deep_experiments.py": "ec8c7d35d99f970a376381b33984dd30daac24850fb0795ca449c5c73e55b1cf",
+      "tools/run_rocket.py": "b5ae0230faf9053a66b0c2db74c710126cde23c34a0aa5d398800a006b42ca77",
+      "options/__init__.py": "97dfc9fc5af8b7f93d09e210417e751460e25363afb0f79b64c480e5dfc1c276",
+      "options/experiment_options.py": "067ef0e4fefad5dcf56865dfb2db99ba39bd23e5f852efd1e5d91a7a3095cc83",
+      "utils/__init__.py": "c231119faa5ec94ed2e477e710d090c14e874b514dd133cb2cb063cb8876bbc5",
+      "utils/metrics.py": "f8e85d35031701967b67fbfed4113d209c71b578f35efaae3890741e0f2b96dc",
+      "utils/utils.py": "e1805dd1dfab210f51090be5ebab8fa13c151af783ef33836338b59e922d00f5",
+      "evaluation/__init__.py": "51825bc26e23a18da0405ee541577e55bf001264cffc0f1b1c4b4af302f8ef19",
+      "evaluation/baselines.py": "942f2aa75b0350071b2f065a067bf8b2eef5ed02d146761a20d93e2f322ea8ed",
+      "evaluation/explain.py": "22e6465806c908173461807c9402bac2ccc73279ebc24f7ef4c5f1581debc7ac",
+      "evaluation/metrics.py": "fb7cf987efd1dfdf9455378e4ff39b61a792dca3b7be81a2d7854a1bb18178a3",
+      "evaluation/stats_tests.py": "5be9128ba65f577e305f168b9a144069bdc49db801d3f39922a0c527e95daac1",
+      "configs/rain_snow_classic.yaml": "e72f34ccba105e36d067b0769ad0d14ce813cddd050f2602a74b342f916fdbf2",
+      "configs/rain_snow_data.yaml": "d21cc49da169c736f3325f37b4ba97f12a625a9ed5db03ed566868a2adc90b59",
+      "configs/rain_snow_deep.yaml": "821364a41fe84fd10727ddbbc155c360eb284d52d0ee2ff63c468808695ce3d2",
+      "configs/rain_snow_missing.yaml": "88bdca4b080ef296536a93a4d262c4ce9ab84e2581b200aca0e6517ba0c91ee2",
+      "configs/rain_snow_rocket.yaml": "e34b97f48cba8acd8add06104146662d8c2751cfdb3c34f69e9e70fa9c29586b",
+      "requirements.txt": "8ef71869f226ff2fa12f33f2cb3810336db62ce0a69e711a2a22e1ce9629f94b"
+    },
+    "data": {
+      "path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/data/windows.npz",
+      "sha256": "36af1c0c0702cd96818ae617cc04176d56d8fb0f2b14428c487b60e0499fb135",
+      "shape": [
+        95888,
+        24,
+        5
+      ]
+    },
+    "masks": [
+      {
+        "path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/masks/mask_point_10_seed123_n95888.npz",
+        "sha256": "7bfc07063be3c3db044fbdc8fadc23f90ee5b01359965949fdb99a6bd8ba730f"
+      },
+      {
+        "path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/masks/mask_point_30_seed123_n95888.npz",
+        "sha256": "7bb594d601f4af8b6c6497e65ab1bbe2fca1c39b395435d8a6c6947372a6f199"
+      },
+      {
+        "path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/masks/mask_point_50_seed123_n95888.npz",
+        "sha256": "785a84f6b11d97b92ad4a75f9dd101639424752ccc93da936d8c6705604bdec2"
+      },
+      {
+        "path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/masks/mask_subsequence_10_seed123_n95888.npz",
+        "sha256": "062f14d8a093edfef9194f2ee4a90ba12a3639b2bb636829d66eed669d7093b8"
+      },
+      {
+        "path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/masks/mask_subsequence_30_seed123_n95888.npz",
+        "sha256": "bf943200a74515d72ded6167df9df0bad3188dc68dd5b3b769710e991f440ba5"
+      },
+      {
+        "path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/masks/mask_subsequence_50_seed123_n95888.npz",
+        "sha256": "c929ad4c89f80a18f9303bd87a380356a20a2efc6ca4987498f35b87ec65b09e"
+      },
+      {
+        "path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/masks/mask_block_10_seed123_n95888.npz",
+        "sha256": "071571cfab0479718f3a80f5d689e93c5078c108f7c40b1523334a4edeb08dad"
+      },
+      {
+        "path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/masks/mask_block_30_seed123_n95888.npz",
+        "sha256": "a7327f15bdc4e07e59045ed46a5435950899a826947f3dac4806d294b59d5a5f"
+      },
+      {
+        "path": "/home/khanhnguyen2712/Documents/projects/P4AIDS/outputs/masks/mask_block_50_seed123_n95888.npz",
+        "sha256": "117d24dfae2a2455755912bfb3aa1d486d05c6321b12352054b5127546efabe4"
+      }
+    ]
+  },
+  "status": "interrupted",
+  "environment": {
+    "python": "3.13.12 | packaged by Anaconda, Inc. | (main, Feb 24 2026, 16:13:31) [GCC 14.3.0]",
+    "executable": "/home/khanhnguyen2712/miniconda3/bin/python",
+    "platform": "Linux-7.0.0-43-generic-x86_64-with-glibc2.39",
+    "cpu": "x86_64",
+    "cpu_count": 16,
+    "torch_threads": 10,
+    "torch_interop_threads": 10,
+    "runtime_env": {
+      "OMP_NUM_THREADS": null,
+      "MKL_NUM_THREADS": null,
+      "CUBLAS_WORKSPACE_CONFIG": null,
+      "CUDA_VISIBLE_DEVICES": null
+    },
+    "cuda": "13.0",
+    "cuda_available": true,
+    "gpus": [
+      "NVIDIA GeForce RTX 3050 6GB Laptop GPU"
+    ],
+    "packages": {
+      "absl-py": "2.5.1",
+      "addict": "2.4.0",
+      "aeon": "1.6.0",
+      "ai4ts": "0.0.3",
+      "aiohappyeyeballs": "2.6.1",
+      "aiohttp": "3.13.5",
+      "aiosignal": "1.4.0",
+      "alembic": "1.20.1",
+      "aliyun-python-sdk-core": "2.16.0",
+      "aliyun-python-sdk-kms": "2.16.5",
+      "anaconda-anon-usage": "0.7.5",
+      "anaconda-auth": "0.13.0",
+      "anaconda-cli-base": "0.8.1",
+      "annotated-doc": "0.0.4",
+      "annotated-types": "0.6.0",
+      "anthropic": "0.96.0",
+      "antlr4-python3-runtime": "4.9.3",
+      "anyascii": "0.3.3",
+      "anyio": "4.10.0",
+      "apache-tvm-ffi": "0.1.10",
+      "archspec": "0.2.5",
+      "argbind": "0.3.9",
+      "astor": "0.8.1",
+      "astroid": "4.0.3",
+      "asttokens": "3.0.1",
+      "attrs": "26.1.0",
+      "audioop-lts": "0.2.2",
+      "audioread": "3.1.0",
+      "benchpots": "1",
+      "black": "26.3.1",
+      "blake3": "1.0.8",
+      "blockbuster": "1.5.26",
+      "boltons": "25.0.0",
+      "brotli": "1.2.0",
+      "brotlicffi": "1.2.0.0",
+      "cachetools": "7.0.6",
+      "cbor2": "5.9.0",
+      "certifi": "2026.6.17",
+      "cffi": "2.0.0",
+      "charset-normalizer": "3.4.4",
+      "click": "8.5.1",
+      "cloudpickle": "3.1.2",
+      "colorlog": "6.12.0",
+      "comm": "0.2.3",
+      "compressed-tensors": "0.15.0.1",
+      "conda": "26.1.1",
+      "conda-anaconda-telemetry": "0.3.0",
+      "conda-anaconda-tos": "0.2.2",
+      "conda-content-trust": "0.2.0",
+      "conda-libmamba-solver": "25.11.0",
+      "conda-package-handling": "2.4.0",
+      "conda_package_streaming": "0.12.0",
+      "contourpy": "1.3.3",
+      "contractions": "0.1.73",
+      "crcmod": "1.7",
+      "croniter": "6.2.2",
+      "cryptography": "46.0.5",
+      "cuda-bindings": "13.0.3",
+      "cuda-pathfinder": "1.5.3",
+      "cuda-python": "13.0.3",
+      "cycler": "0.12.1",
+      "datasets": "3.6.0",
+      "debugpy": "1.8.21",
+      "decorator": "5.3.1",
+      "deprecated": "3.0.1",
+      "depyf": "0.20.0",
+      "dill": "0.3.8",
+      "diskcache": "5.6.3",
+      "distro": "1.9.0",
+      "dnspython": "2.8.0",
+      "docstring_parser": "0.18.0",
+      "editdistance": "0.8.1",
+      "einops": "0.8.2",
+      "elementpath": "5.1.4",
+      "email-validator": "2.3.0",
+      "executing": "2.2.1",
+      "fastapi": "0.136.0",
+      "fastapi-cli": "0.0.24",
+      "fastapi-cloud-cli": "0.17.0",
+      "fastar": "0.11.0",
+      "filelock": "3.29.0",
+      "flashinfer-cubin": "0.6.6",
+      "flashinfer-python": "0.6.6",
+      "fonttools": "4.63.0",
+      "forbiddenfruit": "0.1.4",
+      "formulaic": "1.2.2",
+      "frozendict": "2.4.6",
+      "frozenlist": "1.8.0",
+      "fsspec": "2025.3.0",
+      "funasr": "1.3.10",
+      "gguf": "0.18.0",
+      "googleapis-common-protos": "1.74.0",
+      "gradio": "6.19.0",
+      "gradio_client": "2.5.0",
+      "greenlet": "3.5.0",
+      "groovy": "0.1.2",
+      "grpcio": "1.80.0",
+      "grpcio-health-checking": "1.80.0",
+      "grpcio-tools": "1.80.0",
+      "h11": "0.16.0",
+      "h5py": "3.16.0",
+      "hf-gradio": "0.4.1",
+      "hf-xet": "1.8.0",
+      "httpcore": "1.0.9",
+      "httpcore2": "2.16.2",
+      "httptools": "0.7.1",
+      "httpx": "0.28.1",
+      "httpx-sse": "0.4.3",
+      "httpx2": "2.16.2",
+      "huggingface_hub": "0.36.2",
+      "hydra-core": "1.3.3",
+      "idna": "3.20",
+      "ijson": "3.5.0",
+      "imbalanced-learn": "0.14.2",
+      "importlib_metadata": "8.7.1",
+      "inflect": "7.5.0",
+      "iniconfig": "2.3.0",
+      "interegular": "0.3.3",
+      "interface_meta": "2.0.1",
+      "ipykernel": "7.3.0",
+      "ipython": "9.14.1",
+      "ipython_pygments_lexers": "1.1.1",
+      "isort": "7.0.0",
+      "jaconv": "0.5.0",
+      "jamo": "0.4.1",
+      "jaraco.classes": "3.4.0",
+      "jaraco.context": "6.1.0",
+      "jaraco.functools": "4.4.0",
+      "jedi": "0.20.0",
+      "jeepney": "0.7.1",
+      "jieba": "0.42.1",
+      "jinja2": "3.1.6",
+      "jiter": "0.14.0",
+      "jmespath": "0.10.0",
+      "joblib": "1.5.3",
+      "jsonpatch": "1.33",
+      "jsonpointer": "3.0.0",
+      "jsonschema": "4.26.0",
+      "jsonschema-specifications": "2025.9.1",
+      "jsonschema_rs": "0.44.1",
+      "jupyter_client": "8.9.1",
+      "jupyter_core": "5.9.1",
+      "kaldifst": "1.8.0",
+      "kaldiio": "2.18.1",
+      "keyring": "25.7.0",
+      "kiwisolver": "1.5.0",
+      "langchain-core": "1.4.0",
+      "langchain-protocol": "0.0.15",
+      "langgraph": "1.2.2",
+      "langgraph-api": "0.9.0",
+      "langgraph-checkpoint": "4.1.1",
+      "langgraph-prebuilt": "1.1.0",
+      "langgraph-runtime-inmem": "0.29.0",
+      "langgraph-sdk": "0.3.15",
+      "langsmith": "0.8.5",
+      "lark": "1.2.2",
+      "lazy-loader": "0.5",
+      "libmambapy": "2.3.2",
+      "librosa": "0.11.0",
+      "llguidance": "1.3.0",
+      "llvmlite": "0.44.0",
+      "lm-format-enforcer": "0.11.3",
+      "loguru": "0.7.3",
+      "lxml": "6.1.3",
+      "mako": "1.4.3",
+      "markdown": "3.11.3",
+      "markdown-it-py": "4.0.0",
+      "markupsafe": "3.0.3",
+      "matplotlib": "3.11.0",
+      "matplotlib-inline": "0.2.2",
+      "mccabe": "0.7.0",
+      "mcp": "1.27.0",
+      "mdurl": "0.1.2",
+      "menuinst": "2.4.2",
+      "mistral_common": "1.11.0",
+      "model-hosting-container-standards": "0.1.14",
+      "modelscope": "1.37.1",
+      "more-itertools": "10.8.0",
+      "mpmath": "1.3.0",
+      "msgpack": "1.1.1",
+      "msgspec": "0.21.1",
+      "multidict": "6.7.1",
+      "multiprocess": "0.70.16",
+      "mypy": "1.17.1",
+      "mypy_extensions": "1.1.0",
+      "narwhals": "2.22.1",
+      "nest-asyncio2": "1.7.2",
+      "networkx": "3.6.1",
+      "ninja": "1.13.0",
+      "nonlinear_benchmarks": "1.0.1",
+      "numba": "0.61.2",
+      "numpy": "2.2.6",
+      "nvidia-cublas": "13.1.0.3",
+      "nvidia-cuda-cupti": "13.0.85",
+      "nvidia-cuda-nvrtc": "13.0.88",
+      "nvidia-cuda-runtime": "13.0.96",
+      "nvidia-cudnn-cu13": "9.15.1.9",
+      "nvidia-cudnn-frontend": "1.18.0",
+      "nvidia-cufft": "12.0.0.61",
+      "nvidia-cufile": "1.15.1.6",
+      "nvidia-curand": "10.4.0.35",
+      "nvidia-cusolver": "12.0.4.66",
+      "nvidia-cusparse": "12.6.3.3",
+      "nvidia-cusparselt-cu13": "0.8.0",
+      "nvidia-cutlass-dsl": "4.4.2",
+      "nvidia-cutlass-dsl-libs-base": "4.4.2",
+      "nvidia-ml-py": "13.595.45",
+      "nvidia-nccl-cu13": "2.28.9",
+      "nvidia-nvjitlink": "13.0.88",
+      "nvidia-nvshmem-cu13": "3.4.5",
+      "nvidia-nvtx": "13.0.85",
+      "omegaconf": "2.3.1",
+      "openai": "2.32.0",
+      "openai-harmony": "0.0.8",
+      "opencv-python-headless": "4.13.0.92",
+      "opentelemetry-api": "1.41.0",
+      "opentelemetry-exporter-otlp": "1.41.0",
+      "opentelemetry-exporter-otlp-proto-common": "1.41.0",
+      "opentelemetry-exporter-otlp-proto-grpc": "1.41.0",
+      "opentelemetry-exporter-otlp-proto-http": "1.41.0",
+      "opentelemetry-proto": "1.41.0",
+      "opentelemetry-sdk": "1.41.0",
+      "opentelemetry-semantic-conventions": "0.62b0",
+      "opentelemetry-semantic-conventions-ai": "0.5.1",
+      "optuna": "5.1.0",
+      "orjson": "3.11.9",
+      "ormsgpack": "1.12.2",
+      "oss2": "2.19.1",
+      "outlines_core": "0.2.11",
+      "packaging": "25.0",
+      "pandas": "3.0.3",
+      "parso": "0.8.7",
+      "partial-json-parser": "0.2.1.1.post7",
+      "pathspec": "1.0.4",
+      "patsy": "1.0.3",
+      "pexpect": "4.9.0",
+      "pillow": "12.2.0",
+      "pip": "26.0.1",
+      "pkce": "1.0.3",
+      "platformdirs": "4.5.0",
+      "pluggy": "1.5.0",
+      "pooch": "1.9.0",
+      "progressbar": "2.5",
+      "prometheus-fastapi-instrumentator": "7.1.0",
+      "prometheus_client": "0.25.0",
+      "prompt_toolkit": "3.0.52",
+      "propcache": "0.4.1",
+      "protobuf": "6.33.6",
+      "psutil": "7.0.0",
+      "ptyprocess": "0.7.0",
+      "pure_eval": "0.2.3",
+      "py-cpuinfo": "9.0.0",
+      "pyahocorasick": "2.3.1",
+      "pyarrow": "24.0.0",
+      "pybase64": "1.4.3",
+      "pycosat": "0.6.6",
+      "pycountry": "26.2.16",
+      "pycparser": "2.23",
+      "pycryptodome": "3.23.0",
+      "pydantic": "2.12.4",
+      "pydantic-extra-types": "2.11.1",
+      "pydantic-settings": "2.12.0",
+      "pydantic_core": "2.41.5",
+      "pydub": "0.25.1",
+      "pygments": "2.19.2",
+      "pygrinder": "0.7",
+      "pyjwt": "2.10.1",
+      "pylint": "4.0.4",
+      "pynndescent": "0.6.0",
+      "pypandoc_binary": "1.17",
+      "pyparsing": "3.3.2",
+      "pypdf": "6.8.0",
+      "pypots": "2.0",
+      "pysocks": "1.7.1",
+      "pytest": "9.0.2",
+      "python-dateutil": "2.9.0.post0",
+      "python-docx": "1.2.0",
+      "python-dotenv": "1.2.1",
+      "python-json-logger": "4.1.0",
+      "python-multipart": "0.0.26",
+      "pytokens": "0.4.1",
+      "pytz": "2026.2",
+      "pyyaml": "6.0.3",
+      "pyzmq": "27.1.0",
+      "qrcode": "8.2",
+      "quack-kernels": "0.3.11",
+      "rarfile": "4.5",
+      "readchar": "4.2.1",
+      "referencing": "0.37.0",
+      "regex": "2026.4.4",
+      "reportlab": "5.0.1",
+      "requests": "2.32.5",
+      "requests-toolbelt": "1.0.0",
+      "rich": "14.2.0",
+      "rich-toolkit": "0.19.7",
+      "rignore": "0.7.6",
+      "rpds-py": "0.30.0",
+      "ruamel.yaml": "0.18.16",
+      "ruamel.yaml.clib": "0.2.14",
+      "safehttpx": "0.1.7",
+      "safetensors": "0.7.0",
+      "scikit-learn": "1.9.0",
+      "scipy": "1.17.1",
+      "seaborn": "0.13.2",
+      "secretstorage": "3.4.0",
+      "semantic-version": "2.10.0",
+      "semver": "3.0.4",
+      "sentencepiece": "0.2.1",
+      "sentry-sdk": "2.58.0",
+      "setproctitle": "1.3.7",
+      "setuptools": "80.10.2",
+      "shellingham": "1.5.4",
+      "simplejson": "4.1.1",
+      "six": "1.17.0",
+      "sklearn-compat": "0.1.6",
+      "sniffio": "1.3.1",
+      "sortedcontainers": "2.4.0",
+      "soundfile": "0.14.0",
+      "soxr": "1.1.0",
+      "spaces": "0.50.4",
+      "sqlalchemy": "2.0.49",
+      "sse-starlette": "3.3.4",
+      "stack_data": "0.6.3",
+      "standard-aifc": "3.13.0",
+      "standard-chunk": "3.13.0",
+      "standard-sunau": "3.13.0",
+      "starlette": "1.3.1",
+      "statsmodels": "0.15.0",
+      "structlog": "25.5.0",
+      "supervisor": "4.3.0",
+      "sympy": "1.14.0",
+      "tabulate": "0.10.0",
+      "tenacity": "9.1.4",
+      "tensorboard": "2.21.0",
+      "tensorboard-data-server": "0.7.2",
+      "tensorboardx": "2.6.5",
+      "textsearch": "0.0.24",
+      "threadpoolctl": "3.6.0",
+      "tiktoken": "0.12.0",
+      "tokenizers": "0.22.2",
+      "tomli": "2.4.0",
+      "tomlkit": "0.13.3",
+      "torch": "2.10.0+cu130",
+      "torch-complex": "0.4.4",
+      "torch_c_dlpack_ext": "0.1.5",
+      "torchaudio": "2.10.0+cu130",
+      "torchcodec": "0.14.0",
+      "torchvision": "0.25.0+cu130",
+      "tornado": "6.5.7",
+      "tqdm": "4.67.3",
+      "traitlets": "5.15.1",
+      "transformers": "4.57.6",
+      "triton": "3.6.0",
+      "truststore": "0.10.1",
+      "tsdb": "0.8",
+      "typeguard": "4.5.2",
+      "typer": "0.20.0",
+      "typer-slim": "0.20.0",
+      "typing-inspection": "0.4.2",
+      "typing_extensions": "4.15.0",
+      "umap-learn": "0.5.12",
+      "urllib3": "2.6.3",
+      "uuid_utils": "0.16.0",
+      "uvicorn": "0.45.0",
+      "uvloop": "0.22.1",
+      "vllm": "0.19.1+cu130",
+      "voxcpm": "2.0.3",
+      "watchfiles": "1.1.1",
+      "wcwidth": "0.8.1",
+      "websockets": "16.0",
+      "werkzeug": "3.1.9",
+      "wetext": "0.1.4",
+      "wheel": "0.46.3",
+      "wrapt": "2.5.2",
+      "xgboost": "3.4.1",
+      "xgrammar": "0.1.33",
+      "xmlschema": "4.3.2",
+      "xxhash": "3.7.0",
+      "yarl": "1.23.0",
+      "zipp": "3.23.1",
+      "zstandard": "0.24.0"
+    }
+  },
+  "started_at": "2026-11-20T15:39:11.219596+00:00",
+  "error": "KeyboardInterrupt: ",
+  "finished_at": "2026-11-21T19:34:03.909095+00:00"
+}
