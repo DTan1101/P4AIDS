@@ -1,25 +1,53 @@
-\section{Bảng siêu tham số tối ưu của từng mô hình}
+\section{Cấu hình thực nghiệm và khả năng tái lập}
 \label{sec:phu-luc-sieu-tham-so}
 
-\begin{table}[H]
-\centering
-\caption{Siêu tham số tối ưu sau tuning (Mục~\ref{sec:tuning-classic-ml}).}
-\label{tab:phu-luc-sieu-tham-so}
-\begin{tabular}{@{}lll@{}}
-\toprule
-\textbf{Mô hình} & \textbf{Siêu tham số} & \textbf{Giá trị tối ưu} \\
-\midrule
-\TODO{} & \TODO{} & \TODO{} \\
-\bottomrule
-\end{tabular}
-\end{table}
+Bảng~\ref{tab:dl-hyperparameters} ghi các siêu tham số cố định đã dùng, không
+phải giá trị tối ưu sau tuning. Số tham số của từng mô hình nằm trong
+Bảng~\ref{tab:chi-phi-tinh-toan}. Các cấu hình và checkpoint gốc được lưu theo
+model/case/seed để tránh nhầm giữa các lượt.
 
-\section{Kết quả chi tiết theo từng fold}
+Các bảng và hình DL được sinh bằng \texttt{report/generate\_deep\_report\_assets.py}
+từ snapshot \texttt{outputs/analysis/deep\_report\_5models}. File
+\texttt{report/generated/deep\_sources.json} lưu tên nguồn, thời điểm snapshot
+và SHA-256 của các bảng số liệu/manifest đã dùng. Báo cáo có thể biên dịch từ
+các bảng \texttt{.tex} và hình PDF đã sinh mà không cần tải lại checkpoint.
+
+Lệnh dưới đây chạy lại đủ năm mô hình trong một thư mục mới, sau khi chuẩn
+bị đúng dữ liệu/mask và môi trường theo README của dự án:
+\begin{lstlisting}[language=bash]
+python tools/run_deep_experiments.py \
+  --models gru_fill gru_mask_delta gru_d brits saits \
+  --seeds 42 1 2 --hidden-size 64 --batch-size 64 \
+  --epochs 50 --patience 10 --lr 0.001 \
+  --output-dir outputs/experiments/deep_report_replay \
+  --opts deep.device=cuda missing.seed=123
+\end{lstlisting}
+
+Cần đối chiếu checksum đầu vào và phiên bản thư viện trước khi tái lập. Seed
+và deterministic hỗ trợ lặp lại trong cùng môi trường, không bảo đảm đồng
+nhất từng bit giữa phần cứng, driver hoặc phiên bản thư viện khác nhau.
+Các kết quả tuning Classic ML chưa được bổ sung trong snapshot này.
+
+\section{Kết quả chi tiết theo điều kiện và seed}
 \label{sec:phu-luc-ket-qua-fold}
 
-\TODO{Trình bày bảng kết quả (Macro F1, PR-AUC) của mỗi mô hình trên từng fold
-rolling-origin đã mô tả ở Mục~\ref{sec:giao-thuc-chia-du-lieu}, kèm trung bình và độ lệch
-chuẩn qua các seed (Mục~\ref{sec:ky-thuat-huan-luyen-dl}).}
+Chiến dịch này dùng validation cố định năm 2014, không có kết quả rolling-origin.
+Bảng~\ref{tab:dl-macro-f1} đã trình bày Macro F1 theo case; bảng dưới đây bổ
+sung PR-AUC. Các bảng tiếp theo cung cấp Macro F1 của từng seed, cho phép
+đối chiếu phép tính mean/std. Các trường hợp 0\% chỉ là không ẩn thêm dữ liệu.
+
+\input{generated/deep_pr_auc.tex}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figs/deep_macro_f1_heatmap.pdf}
+\caption{Heatmap mean Macro F1 trên mười điều kiện của năm mô hình. Ô in đậm
+là mean lớn nhất trong hàng, không biểu thị ý nghĩa thống kê.}
+\label{fig:dl-macro-f1-heatmap}
+\end{figure}
+\clearpage
+\input{generated/deep_seed_details.tex}
+\clearpage
 
 \section{Phân công thành viên}
 \label{sec:phu-luc-phan-cong}

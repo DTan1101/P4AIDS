@@ -1,0 +1,22 @@
+{
+  "analysis_directory": "outputs/analysis/deep_report_5models",
+  "snapshot_time": "2026-11-22T02:43:10.838956+07:00",
+  "selected_models": [
+    "gru_fill",
+    "gru_mask_delta",
+    "gru_d",
+    "brits",
+    "saits"
+  ],
+  "verified_runs": 150,
+  "sha256": {
+    "summary_mean_std.csv": "4fe06b705bde82a8da7f2b8ea0e18edc955d1f62a49accd4f0490305fe5e274c",
+    "runs.csv": "fb6138e9cc531992c0aed711a7086671660448b3856588bdcf1b0775dc113807",
+    "overall_comparison.csv": "e71fe674486ac1ac10f92c52e97d8e65dc3fc56535ff8d4a2adea5b5fa136021",
+    "cost_and_progress.csv": "2fcd24153e2687acf539f138aae178d06baee2376612239efbb225863af09a18",
+    "model_parameters.csv": "b228e3d7496a9381610e722d6cce97f825ac216818e5c1eb950164d73acc447d",
+    "paired_seed_differences.csv": "046b33c9af1ac0b8bf124f2c33766d18d74d813a0f4d57b5f607636454061307",
+    "snapshot.json": "3cb4eaa942b105402d8b933d6f960d9528b04a0f1d7cd61a2f58d654893185b1",
+    "sources/manifest.json": "9aba9bbe6bc4f98f5ef8201010bf77c34861ef642a5e80a83756f549b38e3dc3"
+  }
+}

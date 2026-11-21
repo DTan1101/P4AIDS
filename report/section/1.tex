@@ -24,7 +24,7 @@ Bài toán được phát biểu như một bài toán phân loại nhị phân 
 \begin{itemize}
   \item \textbf{Đầu vào:} cửa sổ trượt $X \in \mathbb{R}^{24 \times 5}$, tương ứng với
         24 giờ quan trắc liên tiếp của 5 biến khí tượng (nhiệt độ, độ ẩm, tốc độ gió, áp
-        suất, và độ che phủ mây/khả năng nhìn).
+        suất, và tầm nhìn).
   \item \textbf{Đầu ra:} nhãn nhị phân $y \in \{\text{Rain}, \text{Snow}\}$ tại thời
         điểm $t+1$, ngay sau cửa sổ quan trắc.
   \item \textbf{Điều kiện ràng buộc:} tại thời điểm suy luận, một phần của $X$ có thể bị
@@ -49,16 +49,16 @@ mất dữ liệu (điểm/đoạn/khối) hay không, và việc đưa thêm th
   \item Xây dựng một giao thức benchmark thống nhất trên bộ dữ liệu Szeged, trong đó ba
         kiểu mất dữ liệu (điểm, đoạn liên tiếp, khối) ở các tỷ lệ 10/30/50\% được giả lập
         bằng một bộ mặt nạ dùng chung cho mọi phương pháp, đảm bảo so sánh công bằng.
-  \item So sánh có hệ thống ba hướng phương pháp -- đặc trưng chuỗi thời gian kết hợp cây
-        quyết định/gradient boosting, họ biến đổi ROCKET, và học sâu cho dữ liệu thiếu
-        (GRU-D, BRITS, SAITS, UniTS) -- trên cùng một tập huấn luyện/kiểm tra và cùng một
-        tập chỉ số đánh giá.
-  \item Phân tích định lượng mức suy giảm hiệu năng (Macro F1, PR-AUC) theo tỷ lệ và kiểu
-        mất dữ liệu, kèm kiểm định ý nghĩa thống kê (McNemar, Friedman) và ablation cho
-        từng thành phần (đặc trưng, mask/$\Delta t$, tuning, xử lý mất cân bằng lớp).
-  \item \TODO{Bổ sung đóng góp thứ tư nếu có (ví dụ: phân tích giải thích mô hình bằng
-        SHAP/Integrated Gradients, hoặc một phát hiện cụ thể về dải nhiệt độ chồng lấn
-        0--4\textdegree C).}
+  \item Triển khai pipeline cho ba hướng phương pháp -- Classic ML, ROCKET
+        và học sâu -- trên cùng giao thức. Phần thực nghiệm hiện có hoàn tất
+        năm mô hình DL: GRU-Fill, GRU+mask/$\Delta t$, GRU-D, BRITS và SAITS;
+        chưa kết luận so sánh với hai nhánh còn lại hoặc UniTS.
+  \item Phân tích định lượng Macro F1, PR-AUC, chỉ số từng lớp và ablation
+        mask/$\Delta t$ trên 150 lượt DL; trình bày rõ các phân tích thống kê,
+        tuning, mùa/nhiệt độ và giải thích mô hình chưa thực hiện.
+  \item Lưu cấu hình, môi trường, checksum, checkpoint và prediction theo
+        từng case/seed; cung cấp bảng/hình tái tạo được để đối chiếu kết quả
+        và đánh đổi hiệu năng--chi phí.
 \end{itemize}
 
 \subsection{Cấu trúc báo cáo}

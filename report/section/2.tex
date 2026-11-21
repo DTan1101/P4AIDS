@@ -262,6 +262,7 @@ Giờ & Temp. (°C) & Humidity & Wind (km/h) & Pressure (mb) & Visib. (km) \\
 
 \subsection{Sinh mặt nạ thiếu dữ liệu giả lập}
 \label{sec:sinh-mat-na}
+\label{sec:gia-lap-mat-du-lieu}
 
 Phần thiếu dữ liệu \emph{tự nhiên} của bộ dữ liệu rất nhỏ (0,42\% số điểm,
 Mục~\ref{sec:du-lieu-sau-tien-xu-ly}) -- không đủ để đánh giá mô hình hoạt động tốt đến
@@ -271,7 +272,7 @@ kế ở Mục~\ref{sec:gia-lap-mat-du-lieu}; phần này trình bày cụ thể
 thế nào và trông như thế nào trên dữ liệu thật):
 
 \begin{itemize}
-  \item \textbf{Point:} từng điểm $(giờ, biến)$ bị ẩn độc lập, chọn ngẫu nhiên không lặp
+  \item \textbf{Point:} từng điểm $(t,c)$ (chỉ số giờ, biến) bị ẩn độc lập, chọn ngẫu nhiên không lặp
         trong số các điểm đang quan sát được -- mô phỏng nhiễu đo/lỗi gói tin rời rạc.
   \item \textbf{Subsequence:} nhiều đoạn liên tiếp ngắn/vừa (độ dài ngẫu nhiên, tối đa nửa
         cửa sổ), mỗi đoạn trên \emph{một} biến -- mô phỏng mất kết nối tạm thời.
