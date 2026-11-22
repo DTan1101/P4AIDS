@@ -1,6 +1,188 @@
 \section{Kết quả và phân tích}
 \label{sec:ket-qua-va-phan-tich}
 
+\subsection{Phân tích riêng nhánh Classic ML}
+\label{sec:ket-qua-classic-ml}
+
+Phần phân tích dưới đây chỉ mô tả các kết quả thu được từ nhóm Classic ML; các con số
+này chưa được dùng để xếp hạng toàn bộ mô hình của đồ án, vì các nhánh ROCKET và Deep
+Learning chưa có kết quả cùng giao thức trong phần thực nghiệm hiện tại.
+
+\subsubsection{Thiết lập và phạm vi so sánh}
+
+Nhánh Classic ML được chạy trên 95\,888 cửa sổ 24 giờ; tập train có 69\,962 mẫu
+(2006--2013), validation có 8\,757 mẫu (2014) và test cố định có 17\,169 mẫu
+(2015--2016). Ma trận chính gồm XGBoost, Random Forest, LightGBM và CatBoost trên đặc
+trưng LiteStatTemp cộng mask/$\Delta t$; dữ liệu đầy đủ và 9 cấu hình missing giả lập
+(point/subsequence/block ở 10/30/50\%) được đánh giá bằng cùng seed, split và mask.
+Các ablation thêm gồm raw lag 24$\times$5, catch22, tsfresh, median, native NaN,
+MissForest, SMOTE và tuning Optuna.
+
+Mục tiêu tối ưu là Macro F1 trên validation. PR-AUC của lớp Snow, Balanced Accuracy,
+Precision/Recall/F1 theo từng lớp được báo cáo làm metric bổ sung. Kết quả test chỉ được
+đọc sau khi cấu hình đã được chọn; tất cả run tree-based ở ma trận chính dùng seed 42.
+
+\subsubsection{Kết quả trên dữ liệu đầy đủ}
+
+\begin{table}[H]
+\centering
+\caption{Hiệu năng nhóm Classic ML trên tập test dữ liệu đầy đủ (0\% giả lập thiếu).}
+\label{tab:ket-qua-classic-day-du}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Mô hình/đặc trưng} & \textbf{Macro F1} & \textbf{PR-AUC Snow} &
+\textbf{Snow Precision} & \textbf{Snow Recall} \\
+\midrule
+XGBoost -- raw lag + mask/$\Delta t$ & 0.9457 & 0.9769 & 0.8443 & 0.9644 \\
+LightGBM -- LiteStatTemp + mask/$\Delta t$ & 0.8529 & 0.8405 & 0.6532 & 0.8312 \\
+XGBoost -- LiteStatTemp + mask/$\Delta t$ & 0.8510 & 0.8454 & 0.6136 & 0.9016 \\
+CatBoost -- LiteStatTemp + mask/$\Delta t$ & 0.8446 & 0.8357 & 0.5921 & 0.9175 \\
+Random Forest -- LiteStatTemp + median/mask & 0.8368 & 0.8019 & 0.6038 & 0.8433 \\
+XGBoost -- tsfresh + mask/$\Delta t$ & 0.8038 & 0.7736 & 0.5272 & 0.8357 \\
+XGBoost -- catch22 + mask/$\Delta t$ & 0.5651 & 0.1596 & 0.1739 & 0.4656 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Trong ma trận LiteStatTemp chính, LightGBM đạt Macro F1 cao nhất trên dữ liệu đầy đủ,
+0.8529, nhưng XGBoost đạt PR-AUC cao hơn nhẹ (0.8454 so với 0.8405) và Snow Recall cao
+hơn rõ (0.9016 so với 0.8312). Điều này cho thấy hai mô hình có ưu thế khác nhau:
+LightGBM cân bằng tốt hơn tại ngưỡng phân loại 0.5, trong khi XGBoost bắt được nhiều mẫu
+Snow hơn. CatBoost có Snow Recall cao nhất trong ba boosting model LiteStatTemp
+(0.9175), nhưng Precision thấp hơn XGBoost và LightGBM.
+
+Ablation raw lag tạo mức cải thiện rất lớn so với LiteStatTemp XGBoost: Macro F1 tăng
+0.0947, PR-AUC tăng 0.1314 và Snow Recall tăng 0.0628. Tuy nhiên, raw lag chỉ được chạy
+ở dữ liệu đầy đủ, point50 và block50 nên chưa thể kết luận nó bền theo toàn bộ 9 cấu
+hình missing.
+
+\subsubsection{Độ nhạy theo kiểu và tỷ lệ missing}
+
+\begin{table}[H]
+\centering
+\caption{Macro F1 của các mô hình chính trong ma trận LiteStatTemp + mask/$\Delta t$.}
+\label{tab:classic-missing-matrix}
+\begin{tabular}{@{}lcccccccccc@{}}
+\toprule
+& & \multicolumn{3}{c}{\textbf{Point}} &
+\multicolumn{3}{c}{\textbf{Subsequence}} &
+\multicolumn{3}{c}{\textbf{Block}} \\
+\cmidrule(lr){3-5}\cmidrule(lr){6-8}\cmidrule(lr){9-11}
+\textbf{Mô hình} & 0\% & 10\% & 30\% & 50\% &
+10\% & 30\% & 50\% & 10\% & 30\% & 50\% \\
+\midrule
+XGBoost & 0.8510 & 0.8486 & 0.8428 & 0.8366 &
+0.8410 & 0.8370 & 0.8202 & 0.8541 & 0.8486 & 0.8447 \\
+LightGBM & 0.8529 & 0.8519 & 0.8497 & 0.8434 &
+0.8487 & 0.8415 & 0.8328 & 0.8582 & 0.8629 & 0.8546 \\
+Random Forest & 0.8368 & 0.8335 & 0.8314 & 0.8340 &
+0.8327 & 0.8251 & 0.8160 & 0.8434 & 0.8427 & 0.8492 \\
+CatBoost & 0.8446 & 0.8445 & 0.8350 & 0.8282 &
+0.8359 & 0.8322 & 0.8120 & 0.8493 & 0.8439 & 0.8406 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+LightGBM là mô hình ổn định nhất trong bốn biến thể LiteStatTemp. Từ dữ liệu đầy đủ
+đến point50, Macro F1 giảm 0.0095; từ subsequence10 đến subsequence50, Macro F1 giảm
+0.0159; tại block10--block50, kết quả dao động trong khoảng 0.8546--0.8629 và không
+cho thấy xu hướng suy giảm. XGBoost native giảm 0.0144 ở point50 so với dữ liệu đầy đủ
+và giảm 0.0208 từ subsequence10 đến subsequence50.
+
+Subsequence50 là cấu hình gây suy giảm rõ nhất trong nhóm XGBoost/CatBoost:
+XGBoost giảm 0.0208 so với kết quả subsequence10, còn CatBoost giảm 0.0239.
+Ngược lại, block50 không thể kết luận kém hơn point50 theo cách nhất quán; XGBoost
+đạt 0.8447 ở block50 so với 0.8366 ở point50, LightGBM đạt 0.8546 so với 0.8434,
+Random Forest đạt 0.8492 so với 0.8340 và CatBoost đạt 0.8406 so với 0.8282.
+Các hiện tượng này chỉ được quan sát trên ma trận nhân tạo hiện tại và nên được kiểm tra
+lại khi so sánh cùng phương pháp preprocessing của các nhánh khác.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figs/classic_missingness_curves.pdf}
+\caption{Suy giảm Macro F1 theo kiểu và tỷ lệ missing trong ma trận Classic ML.}
+\label{fig:classic-missing-curves}
+\end{figure}
+
+\subsubsection{Ablation feature, imputation và mất cân bằng lớp}
+
+Trên ba cấu hình đã có raw lag, raw lag 24$\times$5 + mask/$\Delta t$ liên tục vượt
+LiteStatTemp XGBoost:
+
+\begin{table}[H]
+\centering
+\caption{Ablation feature của XGBoost trên các cấu hình được chạy đầy đủ.}
+\label{tab:classic-feature-ablation}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Cấu hình} & \textbf{LiteStatTemp} & \textbf{Tsfresh} &
+\textbf{Raw lag 24$\times$5} \\
+\midrule
+0\% missing & 0.8510 & 0.8038 & 0.9457 \\
+Point50 & 0.8366 & 0.8066 & 0.9035 \\
+Block50 & 0.8447 & 0.8250 & 0.8915 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Catch22 không được đưa vào bảng ablation chính vì kết quả 0.5651 trên dữ liệu đầy đủ
+và khoảng 0.53--0.54 ở hai cấu hình 50\% chưa ổn định đối với pipeline hiện tại.
+Các giá trị này không được xem là bằng chứng catch22 kém trên Szeged cho tới khi
+được kiểm tra lại cơ chế điền và chuẩn hóa đầu vào.
+
+Native NaN và median+mask cho kết quả gần nhau trên LiteStatTemp XGBoost:
+Macro F1 bằng nhau ở dữ liệu đầy đủ (0.8510), point10 (0.8486) và point30 (0.8428);
+khác nhau không quá 0.0002 tại các cấu hình còn lại trong dữ liệu kết quả.
+MissForest đạt 0.850955 ở dữ liệu đầy đủ, 0.842803 ở point30 và 0.846964 ở block50,
+nên chưa tạo lợi ích rõ rệt so với hai phương án đơn giản.
+
+Trong phần mất cân bằng, weighting là chiến lược mặc định. SMOTE chỉ được thử ở point30
+và block50; tại point30, Macro F1 0.8473 đi kèm Snow Recall 0.6646; tại block50,
+Macro F1 tăng lên 0.8736 nhưng Snow Recall giảm còn 0.8077 so với khoảng 0.915--0.932
+của các cấu hình weighting tương ứng. Vì vậy, kết quả SMOTE không đơn phương cho thấy
+oversampling luôn tốt hơn trong nhóm Classic ML.
+
+\subsubsection{Ý nghĩa thống kê trong phạm vi Classic ML}
+
+Friedman test trên 9 cấu hình missing và các biến thể LiteStatTemp chính cho
+statistic 11.2376 và p-value 0.04687. Ở mức $\alpha=0.05$, có khác biệt có ý nghĩa
+thống kê trong nhóm mô hình Classic ML đã so sánh.
+
+Biểu đồ critical difference cho ranking này được minh họa trong Hình~\ref{fig:classic-cd}.
+McNemar cho thấy XGBoost native và median+mask không khác nhau có ý nghĩa trên dữ liệu
+đầy đủ (p=1.0); LightGBM khác XGBoost native ở dữ liệu đầy đủ và một số cấu hình thiếu
+ở mức p nhỏ. Các cặp McNemar nhiều biến thể khác chưa hiệu chỉnh Bonferroni/Holm,
+do đó chỉ được diễn giải như kiểm định cặp cụ thể, không phải kết luận đồng thời.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\textwidth]{figs/classic_critical_difference.png}
+\caption{Critical difference diagram cho ma trận mô hình Classic ML LiteStatTemp.
+Hạng thấp hơn tương ứng Macro F1 tốt hơn.}
+\label{fig:classic-cd}
+\end{figure}
+
+\paragraph{Chi phí tính toán và giới hạn}
+
+LightGBM LiteStatTemp chạy khoảng 1.6--2.3 giây/cấu hình, XGBoost khoảng 2.5--3.3 giây,
+CatBoost khoảng 7--10 giây và Random Forest khoảng 9--10 giây trên CPU hiện tại.
+XGBoost raw lag có thời gian khoảng 7.4--9.1 giây. Tốc độ không được chuẩn hóa theo
+phần cứng và inference latency chưa được đo, nên không dùng để xếp hạng mọi nhánh.
+
+Toàn bộ kết quả trên chỉ chạy một seed (42) cho mỗi cấu hình chính. Raw lag, catch22,
+tsfresh, MissForest, SMOTE và tuning là ablation một phần, không phủ đủ toàn bộ ma trận.
+Catch22 cần kiểm tra lại. Friedman/CD trên các cấu hình kind/rate không thay thế
+rolling-origin folds nhiều seed. Vì vậy, phần kết luận dưới đây chỉ mô tả nhánh
+Classic ML, không khẳng định mô hình tốt nhất của toàn đồ án.
+
+\subsubsection{Kết luận riêng Classic ML}
+
+Trong các thí nghiệm Classic ML đã chạy, LightGBM cân bằng tốt nhất giữa Macro F1,
+thời gian huấn luyện và độ nhạy missing cho LiteStatTemp. XGBoost là baseline ổn định
+nhất trong các biến thể xử lý thiếu; native NaN, median+mask và MissForest cho kết quả
+tương đương ở phần lớn cấu hình. Raw lag 24$\times$5 mang lại lợi thế rõ rệt nhưng chỉ
+được xác nhận trên ba cấu hình, nên cần mở rộng trước khi kết luận mạnh.
+
 \subsection{Kết quả trên dữ liệu đầy đủ (0\% thiếu)}
 \label{sec:ket-qua-du-lieu-day-du}
 
@@ -13,12 +195,14 @@ liệu (0\%).}
 \toprule
 \textbf{Mô hình} & \textbf{Macro F1} & \textbf{PR-AUC} & \textbf{Precision} & \textbf{Recall} \\
 \midrule
-Lớp đa số & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
-Persistence & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
-Ngưỡng nhiệt độ & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
-Logistic Regression & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
-k-NN & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
-XGBoost (LiteStatTemp) & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
+Lớp đa số & Chưa chạy trong đợt Classic ML & Chưa chạy & Chưa chạy & Chưa chạy \\
+Persistence & Chưa chạy trong đợt Classic ML & Chưa chạy & Chưa chạy & Chưa chạy \\
+Ngưỡng nhiệt độ & Chưa chạy trong đợt Classic ML & Chưa chạy & Chưa chạy & Chưa chạy \\
+Logistic Regression & Chưa chạy trong đợt Classic ML & Chưa chạy & Chưa chạy & Chưa chạy \\
+k-NN & Chưa chạy trong đợt Classic ML & Chưa chạy & Chưa chạy & Chưa chạy \\
+XGBoost (LiteStatTemp) & 0.8510 & 0.8454 & 0.6136 & 0.9016 \\
+LightGBM (LiteStatTemp) & 0.8529 & 0.8405 & 0.6532 & 0.8312 \\
+Random Forest (LiteStatTemp) & 0.8368 & 0.8019 & 0.6038 & 0.8433 \\
 MiniRocket & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
 MultiRocket & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
 GRU-D & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
@@ -64,7 +248,9 @@ có giữ được lợi thế so với baseline ngưỡng nhiệt độ đúng 
   \item \textbf{Xử lý mất cân bằng lớp:} so sánh các chiến lược ở Mục~\ref{sec:mat-can-bang-lop-classic}.
 \end{itemize}
 
-\TODO{Trình bày bảng/biểu đồ kết quả ablation và viết nhận xét cho từng dòng trên.}
+Raw lag 24$\times$5 + mask/$\Delta t$ đạt Macro F1 0.9457 trên dữ liệu đầy đủ, cao hơn
+LiteStatTemp XGBoost 0.8510 và giữ 0.9035 tại point50/block50. Tsfresh đạt 0.8038;
+catch22 cần kiểm tra lại pipeline điền dữ liệu do kết quả bất thường thấp.
 
 \subsection{Ý nghĩa thống kê}
 \label{sec:y-nghia-thong-ke}
