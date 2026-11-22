@@ -13,12 +13,14 @@ liệu (0\%).}
 \toprule
 \textbf{Mô hình} & \textbf{Macro F1} & \textbf{PR-AUC} & \textbf{Precision} & \textbf{Recall} \\
 \midrule
-Lớp đa số & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
-Persistence & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
-Ngưỡng nhiệt độ & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
-Logistic Regression & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
-k-NN & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
-XGBoost (LiteStatTemp) & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
+Lớp đa số & Chưa chạy trong đợt Classic ML & Chưa chạy & Chưa chạy & Chưa chạy \\
+Persistence & Chưa chạy trong đợt Classic ML & Chưa chạy & Chưa chạy & Chưa chạy \\
+Ngưỡng nhiệt độ & Chưa chạy trong đợt Classic ML & Chưa chạy & Chưa chạy & Chưa chạy \\
+Logistic Regression & Chưa chạy trong đợt Classic ML & Chưa chạy & Chưa chạy & Chưa chạy \\
+k-NN & Chưa chạy trong đợt Classic ML & Chưa chạy & Chưa chạy & Chưa chạy \\
+XGBoost (LiteStatTemp) & 0.8510 & 0.8454 & 0.6136 & 0.9016 \\
+LightGBM (LiteStatTemp) & 0.8529 & 0.8405 & 0.6532 & 0.8312 \\
+Random Forest (LiteStatTemp) & 0.8368 & 0.8019 & 0.6038 & 0.8433 \\
 MiniRocket & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
 MultiRocket & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
 GRU-D & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
@@ -64,7 +66,9 @@ có giữ được lợi thế so với baseline ngưỡng nhiệt độ đúng 
   \item \textbf{Xử lý mất cân bằng lớp:} so sánh các chiến lược ở Mục~\ref{sec:mat-can-bang-lop-classic}.
 \end{itemize}
 
-\TODO{Trình bày bảng/biểu đồ kết quả ablation và viết nhận xét cho từng dòng trên.}
+Raw lag 24$\times$5 + mask/$\Delta t$ đạt Macro F1 0.9457 trên dữ liệu đầy đủ, cao hơn
+LiteStatTemp XGBoost 0.8510 và giữ 0.9035 tại point50/block50. Tsfresh đạt 0.8038;
+catch22 cần kiểm tra lại pipeline điền dữ liệu do kết quả bất thường thấp.
 
 \subsection{Ý nghĩa thống kê}
 \label{sec:y-nghia-thong-ke}

@@ -6,7 +6,7 @@ from typing import Any, Mapping, Optional
 
 import numpy as np
 from sklearn.experimental import enable_iterative_imputer  # noqa: F401  (bắt buộc để bật IterativeImputer)
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.impute import IterativeImputer, SimpleImputer
 from xgboost import XGBClassifier
 
@@ -59,3 +59,64 @@ def compute_scale_pos_weight(y_train: np.ndarray) -> float:
     n_pos = int(np.sum(y_train == 1))
     n_neg = int(np.sum(y_train == 0))
     return float(n_neg) / float(max(n_pos, 1))
+
+
+def build_random_forest(params: Optional[Mapping[str, Any]] = None,
+                        class_weight: Optional[str] = "balanced") -> RandomForestClassifier:
+    default_params: dict = dict(
+        n_estimators=300,
+        max_depth=12,
+        min_samples_leaf=2,
+        max_features="sqrt",
+        n_jobs=-1,
+        class_weight=class_weight,
+        random_state=42,
+    )
+    default_params.update(params or {})
+    return RandomForestClassifier(**default_params)
+
+
+def build_lightgbm(params: Optional[Mapping[str, Any]] = None,
+                   scale_pos_weight: Optional[float] = None):
+    try:
+        from lightgbm import LGBMClassifier
+    except ImportError as exc:
+        raise RuntimeError("LightGBM chưa được cài: pip install lightgbm") from exc
+    default_params: dict = dict(
+        n_estimators=300,
+        learning_rate=0.05,
+        num_leaves=31,
+        max_depth=-1,
+        subsample=0.8,
+        colsample_bytree=0.8,
+        n_jobs=-1,
+        random_state=42,
+        verbosity=-1,
+    )
+    default_params.update(params or {})
+    if scale_pos_weight is not None:
+        default_params["scale_pos_weight"] = scale_pos_weight
+    return LGBMClassifier(**default_params)
+
+
+def build_catboost(params: Optional[Mapping[str, Any]] = None,
+                   scale_pos_weight: Optional[float] = None):
+    try:
+        from catboost import CatBoostClassifier
+    except ImportError as exc:
+        raise RuntimeError("CatBoost chưa được cài: pip install catboost") from exc
+    default_params: dict = dict(
+        iterations=300,
+        learning_rate=0.05,
+        depth=6,
+        loss_function="Logloss",
+        eval_metric="Logloss",
+        random_seed=42,
+        thread_count=-1,
+        verbose=False,
+        allow_writing_files=False,
+    )
+    default_params.update(params or {})
+    if scale_pos_weight is not None:
+        default_params["class_weights"] = [1.0, scale_pos_weight]
+    return CatBoostClassifier(**default_params)

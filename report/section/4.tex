@@ -32,9 +32,11 @@ dưới đây tập trung vào phần riêng của từng nhánh phương pháp.
 \label{sec:feature-engineering}
 
 \begin{itemize}
-  \item \textbf{LiteStatTemp:} \TODO{định nghĩa chính xác tập đặc trưng thống kê/nhiệt độ
-        rút gọn tự thiết kế -- ví dụ mean/std/min/max/slope của từng biến trong cửa sổ,
-        cùng một số đặc trưng riêng cho nhiệt độ (ví dụ số lần cắt ngưỡng 0\textdegree C).}
+  \item \textbf{LiteStatTemp:} mỗi biến trong cửa sổ 24 giờ được biểu diễn bằng mean,
+        std, min, max và hệ số góc hồi quy theo thời gian; tổng cộng 25 đặc trưng cho
+        5 biến. Với nhiệt độ, thêm số lần chuỗi cắt ngưỡng 0\textdegree C, tạo vector
+        26 chiều trước khi ghép mask/$\Delta t$. Các thống kê bỏ qua NaN hoặc gán NaN
+        hợp lý cho cửa sổ rỗng.
   \item \textbf{Đặc trưng mask/$\Delta t$:} tỷ lệ giá trị thiếu theo biến, độ dài đoạn
         thiếu dài nhất, và thời gian trôi qua từ lần quan trắc hợp lệ gần nhất, được tính
         trực tiếp từ mặt nạ $M$ ở Mục~\ref{sec:sinh-mat-na}.
@@ -62,18 +64,35 @@ Ba cách xử lý dữ liệu thiếu được so sánh ở nhánh này:
 \subsubsection{Xử lý mất cân bằng lớp}
 \label{sec:mat-can-bang-lop-classic}
 
-\TODO{Xác nhận mức độ mất cân bằng Rain/Snow thực tế (xem Mục~\ref{sec:eda}) và chọn
-chiến lược xử lý -- ví dụ \texttt{scale\_pos\_weight} của XGBoost, hoặc oversampling
-(SMOTE) trên tập huấn luyện -- so sánh các chiến lược này ở Mục~\ref{sec:ablation}.}
+Tập huấn luyện gồm 69\,962 cửa sổ, trong đó 61\,056 mẫu thuộc Rain (0) và 8\,906 mẫu
+thuộc Snow (1), tương ứng lớp Snow chiếm khoảng 12,73\% dữ liệu. Vì tập test có cùng
+lệch phân bố tương đối mạnh, các kết quả chỉ dựa trên Accuracy có thể che lỗi phân loại
+lớp thiểu số; nhánh Classic ML vì vậy dùng \texttt{scale\_pos\_weight},
+\texttt{class\_weight="balanced"} hoặc trọng số tương ứng của từng thư viện để tăng
+ảnh hưởng của lỗi sai trên lớp Snow trong quá trình huấn luyện.
+
+Trong ma trận chính, XGBoost và LightGBM sử dụng
+\[
+  \texttt{scale\_pos\_weight}
+  = \frac{n_{\mathrm{Rain}}}{n_{\mathrm{Snow}}}
+  = \frac{61056}{8906}
+  \approx 6,856.
+\]
+Random Forest đặt \texttt{class\_weight="balanced"}, còn CatBoost sử dụng
+\texttt{class\_weights=[1.0,\,scale\_pos\_weight]} để đạt cơ chế cân bằng tương thích.
+Tất cả trọng số đều được ước lượng hoặc áp dụng trên tập train 2006--2013; validation
+2014 và test 2015--2016 không tham gia tính trọng số hoặc thay đổi nhãn.
+
+Bên cạnh weighting, SMOTE được thử như một ablation oversampling trên hai cấu hình đại
+diện: point 30\% và block 50\%. SMOTE chỉ sinh mẫu Snow tổng hợp trên tập train sau bước
+imputation và được cố định seed 42.
 
 \subsubsection{Hyperparameter tuning}
 \label{sec:tuning-classic-ml}
 
 Siêu tham số của XGBoost (độ sâu cây, learning rate, số lượng cây, subsample,
 colsample\_bytree, min\_child\_weight) được tối ưu bằng Optuna \cite{akiba2019optuna},
-với hàm mục tiêu là Macro F1 trung bình trên các fold validation (Mục~\ref{sec:giao-thuc-chia-du-lieu}).
-\TODO{Ghi lại không gian tìm kiếm cụ thể cho từng siêu tham số và số lượng trial đã
-chạy.}
+với hàm mục tiêu là Macro F1 trên tập validation năm 2014.
 
 \subsection{Nhánh ROCKET}
 \label{sec:nhanh-rocket}
