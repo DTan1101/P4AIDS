@@ -21,6 +21,48 @@
 rolling-origin đã mô tả ở Mục~\ref{sec:giao-thuc-chia-du-lieu}, kèm trung bình và độ lệch
 chuẩn qua các seed (Mục~\ref{sec:ky-thuat-huan-luyen-dl}).}
 
+\section{Kết quả SAITS theo seed trên tập test cố định}
+\label{sec:phu-luc-saits-seed}
+
+Bảng~\ref{tab:saits-theo-seed} trình bày Macro F1 của từng lượt và epoch có
+validation weighted cross-entropy thấp nhất. Ba seed dùng cùng tập test
+2015--2016 và cùng mask cho một điều kiện; chúng không phải ba fold thời gian.
+Trung bình và độ lệch chuẩn mẫu ở Bảng~\ref{tab:saits-macro-f1-missingness}
+được tính từ số liệu đầy đủ trước khi làm tròn bốn chữ số thập phân.
+
+\begin{table}[H]
+\centering
+\caption{Macro F1 của SAITS theo seed. Cột epoch liệt kê checkpoint được chọn
+theo thứ tự seed 1/2/42, không phải tổng số epoch đã huấn luyện.}
+\label{tab:saits-theo-seed}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Điều kiện} & \textbf{Seed 1} & \textbf{Seed 2} & \textbf{Seed 42}
+& \shortstack{\textbf{Epoch tốt nhất}\\\textbf{(1/2/42)}} \\
+\midrule
+\input{section/saits_seed_rows}
+\end{tabular}
+\end{table}
+
+\paragraph{Nguồn số liệu và kiểm tra nhất quán.}
+Thí nghiệm gốc có mã \texttt{experiment\_a2a9e03b4630}, được thực hiện bằng
+notebook \path{notebooks/SAITS_Google_Colab.ipynb}. Đợt đối soát ngày
+24/11/2026 đã kiểm tra 30 lượt hoàn tất, tính lại Macro F1 từ 60 file dự đoán
+validation/test, đối chiếu với metrics từng lượt và bảng tổng hợp, đồng thời
+kiểm tra 180 checksum của các artifact. Các giá trị Macro F1 tính lại khớp
+với số liệu đã lưu. Bản số liệu SAITS dùng để tạo báo cáo được lưu tại
+\path{report/data/saits_verified_results.json}, gồm cấu hình, kết quả từng
+seed và số liệu tổng hợp; bản này được trích từ
+\path{outputs/saits_comparison_20261124/audit.json}.
+
+Bảng và hình riêng của SAITS có thể được tái tạo bằng
+\texttt{python report/make\_saits\_results\_figure.py}. Script đọc bản số liệu
+đã kiểm chứng, kiểm tra đủ ba seed cho mỗi điều kiện, tính sample std với
+mẫu số $3-1$ và xuất các hàng bảng cùng hình
+\path{report/figs/saits_macro_f1_missingness.png}. Cấu hình ở
+Bảng~\ref{tab:saits-cau-hinh} là cấu hình thực nghiệm cố định, chưa được xác
+nhận là cấu hình tối ưu qua tìm kiếm siêu tham số.
+
 \section{Phân công thành viên}
 \label{sec:phu-luc-phan-cong}
 

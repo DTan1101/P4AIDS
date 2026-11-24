@@ -21,5 +21,12 @@ giải thích bằng SHAP/Integrated Gradients.
 thiếu 50\%, và mức sụt giảm so với baseline) cùng một câu kết luận tổng quát sau khi có
 kết quả thực nghiệm.}
 
+Riêng SAITS, thực nghiệm đã hoàn tất 10 điều kiện thiếu dữ liệu với ba seed huấn
+luyện cho mỗi điều kiện. Macro F1 trên tập test đạt $0.9224 \pm 0.0082$ khi không
+ẩn thêm dữ liệu; tại mức thiếu 50\%, kết quả lần lượt là $0.8530 \pm 0.0071$
+(point), $0.8030 \pm 0.0614$ (subsequence) và $0.8943 \pm 0.0061$ (block).
+Các giá trị là trung bình và độ lệch chuẩn mẫu giữa ba seed; chúng phản ánh kết
+quả riêng của SAITS, chưa xác lập thứ hạng so với các mô hình khác.
+
 \textbf{Từ khóa:} phân loại pha giáng thủy, dữ liệu chuỗi thời gian bị thiếu, Szeged
 weather dataset, ROCKET, học sâu cho dữ liệu thiếu, GRU-D, BRITS, SAITS.

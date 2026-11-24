@@ -99,6 +99,14 @@ lệ, 0 nếu thiếu) và kênh \emph{delta} ($\Delta t$, thời gian trôi qua
 hợp lệ gần nhất của biến đó). Đầu vào mô hình do đó có 3 kênh cho mỗi biến gốc (giá trị,
 mask, delta).
 
+\paragraph{Đầu vào riêng của SAITS trong thực nghiệm đã chạy.}
+SAITS nhận tensor giá trị có kích thước $(B,24,5)$, với $B$ là batch size và các
+ô thiếu vẫn mang giá trị NaN tại giao diện \texttt{fit}/\texttt{predict}. Năm biến
+theo thứ tự là nhiệt độ, độ ẩm, tốc độ gió, áp suất và khả năng nhìn. Lần chạy được
+báo cáo đặt \texttt{NORMALIZE=False}, giữ đơn vị gốc của các biến và không bổ sung
+kênh $\Delta t$. Dataset bên trong PyPOTS tạo mask $M$ (1: quan sát, 0: thiếu),
+thay NaN bằng 0 để tính toán và ghép giá trị với mask trước lớp embedding của SAITS.
+
 \subsubsection{Mô hình}
 \label{sec:mo-hinh-dl}
 
@@ -111,8 +119,10 @@ mask, delta).
         điều chỉnh suy giảm ảnh hưởng của giá trị quan trắc cũ.
   \item \textbf{BRITS} \cite{cao2018brits}: imputation hai chiều dựa trên RNN, huấn
         luyện đa mục tiêu (imputation + phân loại).
-  \item \textbf{SAITS} \cite{du2023saits}: self-attention với mục tiêu kép imputation và
-        phân loại.
+  \item \textbf{SAITS} \cite{du2023saits}: biến thể phân loại trong PyPOTS, sử dụng
+        hai khối DMSA và một head phân loại Rain/Snow, huấn luyện bằng cross-entropy
+        có trọng số lớp. Cấu hình thực tế được trình bày tại
+        Mục~\ref{sec:saits-cau-hinh-da-chay}.
   \item \textbf{UniTS} \cite{gao2024units} (nếu đủ thời gian/tài nguyên): fine-tune từ
         checkpoint pretrained cho tác vụ phân loại trên dữ liệu Szeged.
 \end{itemize}
@@ -130,6 +140,46 @@ mask, delta).
   \item \textbf{Nhiều seed:} mỗi mô hình được huấn luyện lại với \TODO{số lượng} seed
         khác nhau để báo cáo trung bình và độ lệch chuẩn của mỗi chỉ số.
 \end{itemize}
+
+\subsubsection{Cấu hình SAITS đã sử dụng trong thực nghiệm}
+\label{sec:saits-cau-hinh-da-chay}
+
+Mô hình \texttt{pypots.classification.SAITS} được khởi tạo mới cho mỗi cặp điều
+kiện thiếu dữ liệu--seed. Mỗi khối DMSA chứa hai encoder layer và bốn attention
+head; phép chiếu đầu vào chuyển vector ghép giá trị--mask từ 10 chiều sang
+64 chiều, có positional encoding. Hai khối tạo các ước lượng được kết hợp bằng
+trọng số học từ mask và attention. Ước lượng kết hợp $(B,24,5)$ được trải phẳng
+thành $(B,120)$, qua lớp tuyến tính $120\to2$ và softmax để dự đoán Rain/Snow
+tại giờ kế tiếp. Đầu ra điền thiếu của PyPOTS là một nhánh phụ; kết quả thực nghiệm
+ở Chương~\ref{sec:ket-qua-va-phan-tich} đánh giá tác vụ phân loại.
+
+\begin{table}[H]
+\centering
+\caption{Cấu hình SAITS của 30 lượt chạy được báo cáo; đây là cấu hình đã sử dụng,
+không phải kết quả tìm kiếm siêu tham số.}
+\label{tab:saits-cau-hinh}
+\begin{tabular}{@{}p{5.2cm}p{9.8cm}@{}}
+\toprule
+\textbf{Thành phần} & \textbf{Thiết lập} \\
+\midrule
+Đầu vào và đầu ra & Cửa sổ $24\times5$; Rain $=0$, Snow $=1$ tại $t+1$ \\
+Backbone & Hai khối DMSA; 2 encoder layer mỗi khối; 4 head \\
+Kích thước biểu diễn & $d_{\mathrm{model}}=64$, $d_k=d_v=16$, $d_{\mathrm{ffn}}=128$ \\
+Regularization & Dropout $=0.1$; attention dropout $=0.1$; bật diagonal attention mask \\
+Optimizer & Adam, learning rate cố định $10^{-3}$, không dùng scheduler \\
+Huấn luyện & Batch size 128; tối đa 50 epoch; patience 10 \\
+Loss và chọn checkpoint & Weighted cross-entropy trên train; chọn validation loss thấp nhất \\
+Seed & Mask: 123; huấn luyện: 42, 1, 2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Trọng số lớp được tính trên tập train theo $w_c=N_{\mathrm{train}}/(2N_c)$,
+xấp xỉ $0.5729$ cho Rain và $3.9278$ cho Snow. Riêng SAITS sử dụng weighted
+cross-entropy trên validation để early stopping và chọn checkpoint, thay cho
+tiêu chí Macro F1 nêu trong khung huấn luyện chung ở trên. Sau huấn luyện, mô
+hình khôi phục checkpoint tốt nhất rồi dự đoán validation/test bằng argmax
+của hai xác suất lớp. Test không tham gia chọn epoch hoặc siêu tham số.
 
 \subsubsection{Fine-tuning}
 \label{sec:fine-tuning}

@@ -7,7 +7,19 @@
 % engine is XeTeX-based, so fontspec + a Unicode font bypasses that broken
 % legacy path entirely and renders correctly.
 \usepackage{fontspec}
-\setmainfont{DejaVu Serif}
+% Keep the existing typeface when it is not installed on the compiling machine.
+\IfFontExistsTF{DejaVu Serif}{
+  \setmainfont{DejaVu Serif}
+}{
+  \setmainfont{DejaVuSerif}[
+    Path=fonts/,
+    Extension=.ttf,
+    UprightFont=*,
+    BoldFont=*-Bold,
+    ItalicFont=*-Italic,
+    BoldItalicFont=*-BoldItalic
+  ]
+}
 \usepackage[x11names,rgb]{xcolor}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{graphicx}

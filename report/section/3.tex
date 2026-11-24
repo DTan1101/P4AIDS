@@ -64,8 +64,12 @@ làm đặc trưng bổ sung (GRU-Fill), nhằm đo đóng góp riêng của cơ
 \subsection{Transformer và mô hình nền tảng}
 \label{sec:lit-transformer}
 
-SAITS \cite{du2023saits} dùng cơ chế self-attention với một mục tiêu kép (joint-optimization
-giữa imputation và dự đoán) để tránh phải xây hai pha huấn luyện riêng biệt như BRITS.
+SAITS \cite{du2023saits} kết hợp hai khối diagonally-masked self-attention (DMSA)
+để xử lý chuỗi thời gian thiếu dữ liệu. Trong công trình gốc, hai mục tiêu huấn
+luyện là tái tạo phần quan sát (ORT) và điền phần bị che (MIT). Thực nghiệm của
+đồ án sử dụng biến thể phân loại SAITS trong PyPOTS, tối ưu cross-entropy có trọng
+số lớp cho nhãn Rain/Snow; cấu hình này không cộng thêm loss ORT/MIT
+(Mục~\ref{sec:saits-cau-hinh-da-chay}).
 Các mô hình nền tảng chuỗi thời gian đa nhiệm gần đây, ví dụ UniTS \cite{gao2024units},
 được huấn luyện trước trên nhiều bộ dữ liệu và nhiều tác vụ (dự báo, phân loại,
 imputation), cho phép fine-tune trên một bài toán cụ thể với lượng dữ liệu huấn luyện ít
