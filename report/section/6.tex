@@ -23,13 +23,62 @@ MiniRocket & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
 MultiRocket & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
 GRU-D & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
 BRITS & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
-SAITS & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
+SAITS & $0.9224 \pm 0.0082$ & \TODO{} & \TODO{} & \TODO{} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \subsection{Kết quả chính: suy giảm hiệu năng theo tỷ lệ thiếu dữ liệu}
 \label{sec:ket-qua-chinh}
+
+\subsubsection{Kết quả SAITS đã được đối soát}
+\label{sec:saits-ket-qua}
+
+Bảng~\ref{tab:saits-macro-f1-missingness} tổng hợp Macro F1 trên test của SAITS
+từ 30 lượt chạy thuộc thí nghiệm \texttt{experiment\_a2a9e03b4630}. Mỗi điều
+kiện có đủ ba seed 1, 2 và 42. Kết quả được lấy từ bản đối soát đã kiểm tra lại
+dự đoán từng lượt, không lấy từ bảng minh họa hay lượt chạy thử. Dòng SAITS ở
+Bảng~\ref{tab:ket-qua-day-du} dùng cùng cách tổng hợp mean $\pm$ sample std.
+
+\begin{table}[H]
+\centering
+\caption{Macro F1 của SAITS trên test theo điều kiện thiếu dữ liệu. Mean $\pm$
+sample std được tính giữa ba seed; chênh lệch là hiệu hai giá trị trung bình,
+lấy điều kiện không ẩn thêm làm mốc.}
+\label{tab:saits-macro-f1-missingness}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Điều kiện} & \textbf{Macro F1} & \textbf{Chênh lệch so với mốc} \\
+\midrule
+\input{section/saits_results_rows}
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figs/saits_macro_f1_missingness.png}
+\caption{Macro F1 của SAITS theo kiểu và mức thiếu. Điểm là trung bình, thanh
+sai số là độ lệch chuẩn mẫu giữa ba seed. Mốc 0\% dùng chung kết quả không ẩn
+thêm và vẫn giữ thiếu tự nhiên. Các đường nối chỉ hỗ trợ quan sát xu hướng.}
+\label{fig:saits-macro-f1-missingness}
+\end{figure}
+
+\paragraph{Ảnh hưởng của mức và kiểu thiếu.}
+Không ẩn thêm cho Macro F1 $0.9224 \pm 0.0082$. Ở mức thiếu 50\%, point,
+subsequence và block lần lượt đạt $0.8530 \pm 0.0071$, $0.8030 \pm 0.0614$
+và $0.8943 \pm 0.0061$, tương ứng giảm khoảng 6.94, 11.94 và 2.81 điểm phần
+trăm Macro F1 so với mốc. Trong lần chạy này, block ở mức 30\% và 50\% cho
+điểm trung bình cao hơn point/subsequence cùng mức; do đó kết quả SAITS không
+ủng hộ nhận định rằng block luôn là kiểu thiếu gây suy giảm mạnh nhất.
+
+\paragraph{Xu hướng không đơn điệu và độ biến thiên giữa seed.}
+Point 10\% đạt $0.9266$, nhỉnh hơn mốc không ẩn thêm $0.0042$; point 30\%
+đạt $0.8200$, thấp hơn point 50\% ($0.8530$). Vì từng điều kiện được huấn
+luyện độc lập, các quan sát này cần được báo cáo nguyên trạng; chưa đủ cơ sở
+để kết luận rằng tăng mức thiếu cải thiện mô hình. Subsequence 50\% có độ lệch
+chuẩn lớn nhất ($0.0614$): Macro F1 của seed 1, 2 và 42 lần lượt là $0.8411$,
+$0.8357$ và $0.7321$ (Phụ lục~\ref{sec:phu-luc-saits-seed}). Sự phân tán này
+cho thấy việc báo cáo cả ba seed cần thiết hơn việc chỉ chọn lượt tốt nhất.
 
 \begin{figure}[H]
 \centering
@@ -98,6 +147,15 @@ trong vùng chồng lấn và tỷ lệ thiếu dữ liệu cao).}
 
 \subsection{Thảo luận}
 \label{sec:thao-luan}
+
+\paragraph{Phạm vi kết luận từ thực nghiệm SAITS.}
+Các kết quả trên phản ánh khả năng phân loại Rain/Snow của cấu hình SAITS đã
+chạy: dữ liệu đầu vào giữ nguyên đơn vị, có mask, tối ưu weighted cross-entropy
+và chọn checkpoint theo validation loss. Chưa có ablation có/không chuẩn hóa,
+kiểm định khác biệt giữa mô hình, hay đánh giá sai số điền thiếu trong phần
+kết quả này. Vì vậy, chưa quy chênh lệch quan sát được cho riêng một thành
+phần kiến trúc, chưa kết luận SAITS vượt các baseline, và không dùng Macro F1
+để suy ra độ chính xác của các giá trị thời tiết được điền.
 
 \TODO{Trả lời trực tiếp câu hỏi nghiên cứu ở Mục~\ref{sec:cau-hoi-nghien-cuu} dựa trên kết
 quả ở trên, so sánh với các phát hiện trong tài liệu (Chương~\ref{sec:tong-quan-tai-lieu}),

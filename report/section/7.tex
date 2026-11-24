@@ -8,6 +8,15 @@
 họ phương pháp nào giữ hiệu năng tốt nhất khi tỷ lệ thiếu dữ liệu tăng, và mức độ cải
 thiện cụ thể so với các baseline ở Mục~\ref{sec:baseline}.}
 
+Phần thực nghiệm SAITS đã hoàn tất 30 lượt huấn luyện trên 10 điều kiện thiếu
+dữ liệu và ba seed. Macro F1 đạt $0.9224 \pm 0.0082$ khi không ẩn thêm; tại
+mức thiếu 50\%, point, subsequence và block lần lượt đạt $0.8530 \pm 0.0071$,
+$0.8030 \pm 0.0614$ và $0.8943 \pm 0.0061$. Trong cấu hình đã chạy, block
+50\% giữ Macro F1 cao hơn hai kiểu thiếu còn lại ở cùng mức, trong khi
+subsequence 50\% có độ biến thiên giữa seed lớn nhất. Đây là kết luận trong
+phạm vi SAITS; việc xếp hạng giữa các họ mô hình cần kết quả đối chiếu và kiểm
+định thống kê tương ứng.
+
 \subsection{Hạn chế}
 \label{sec:han-che}
 
@@ -25,6 +34,13 @@ thiện cụ thể so với các baseline ở Mục~\ref{sec:baseline}.}
 
 \subsection{Hướng phát triển}
 \label{sec:huong-phat-trien}
+
+Riêng SAITS, bước tiếp theo là ablation chuẩn hóa z-score trên phần quan sát
+của train, giữ nguyên split và mask để đánh giá ảnh hưởng của thang đo đầu vào.
+Cần kiểm tra độ ổn định của các điều kiện có biến thiên lớn, đặc biệt
+subsequence 50\%, và bổ sung đánh giá imputation riêng nếu mở rộng mục tiêu
+từ phân loại sang điền số đo thời tiết. Các thay đổi cấu hình cần được chọn
+bằng validation, không sử dụng test để điều chỉnh siêu tham số.
 
 \begin{itemize}
   \item \textbf{Neural CDE:} khai thác mô hình continuous-time (Neural Controlled

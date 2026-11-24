@@ -1,0 +1,335 @@
+{
+  "experiment_id": "experiment_a2a9e03b4630",
+  "source_audit": "outputs/saits_comparison_20261124/audit.json",
+  "source_audit_sha256": "732f632437e6a8ea64a4604ae2d5f718f382441655f99cb16f1b95cacde98284",
+  "verified_on": "2026-11-24",
+  "original_experiment_directory": "Output/experiment_a2a9e03b4630",
+  "verification": {
+    "runs_checked": 30,
+    "prediction_files_checked": 60,
+    "artifact_hashes_checked": 180,
+    "max_macro_f1_error": 0.0,
+    "data_hash_matches": true,
+    "summary_matches_recomputed_metrics": true
+  },
+  "protocol": {
+    "notebook_protocol": "saits-colab-v1",
+    "repo_url": "https://github.com/DTan1101/P4AIDS.git",
+    "git_commit": "f209fd4440df197873c597d100c73a195758b867",
+    "data_sha256": "36af1c0c0702cd96818ae617cc04176d56d8fb0f2b14428c487b60e0499fb135",
+    "versions": {
+      "pypots": "2.0",
+      "torch": "2.14.1+cu130",
+      "numpy": "2.4.6",
+      "pandas": "2.2.3",
+      "scikit-learn": "1.6.1",
+      "pygrinder": "0.7",
+      "tensorboard": "2.21.0"
+    },
+    "mask_seed": 123,
+    "n_steps": 24,
+    "n_features": 5,
+    "n_classes": 2,
+    "feature_names": [
+      "Temperature (C)",
+      "Humidity",
+      "Wind Speed (km/h)",
+      "Pressure (millibars)",
+      "Visibility (km)"
+    ],
+    "normalize": false,
+    "scaler_fit": "identity",
+    "architecture": {
+      "n_layers": 2,
+      "d_model": 64,
+      "n_heads": 4,
+      "d_k": 16,
+      "d_v": 16,
+      "d_ffn": 128,
+      "dropout": 0.1,
+      "attn_dropout": 0.1,
+      "diagonal_attention_mask": true
+    },
+    "epochs": 50,
+    "patience": 10,
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "loss": "WeightedCrossEntropy",
+    "checkpoint_selection": "minimum_validation_weighted_CE",
+    "smoke": false
+  },
+  "summary": [
+    {
+      "scenario": "point_00",
+      "test_macro_f1_mean": 0.9224160531857108,
+      "test_macro_f1_sample_std": 0.008165379198828138,
+      "n_seeds": 3
+    },
+    {
+      "scenario": "point_10",
+      "test_macro_f1_mean": 0.9266358402556335,
+      "test_macro_f1_sample_std": 0.0038067172215251765,
+      "n_seeds": 3
+    },
+    {
+      "scenario": "point_30",
+      "test_macro_f1_mean": 0.820018047546571,
+      "test_macro_f1_sample_std": 0.01541660038650039,
+      "n_seeds": 3
+    },
+    {
+      "scenario": "point_50",
+      "test_macro_f1_mean": 0.8529791906229819,
+      "test_macro_f1_sample_std": 0.007101626255900383,
+      "n_seeds": 3
+    },
+    {
+      "scenario": "subsequence_10",
+      "test_macro_f1_mean": 0.9067701334564923,
+      "test_macro_f1_sample_std": 0.005273600878068211,
+      "n_seeds": 3
+    },
+    {
+      "scenario": "subsequence_30",
+      "test_macro_f1_mean": 0.8680999937875288,
+      "test_macro_f1_sample_std": 0.0062283774242128465,
+      "n_seeds": 3
+    },
+    {
+      "scenario": "subsequence_50",
+      "test_macro_f1_mean": 0.8029663876876085,
+      "test_macro_f1_sample_std": 0.06141604930937036,
+      "n_seeds": 3
+    },
+    {
+      "scenario": "block_10",
+      "test_macro_f1_mean": 0.9174400105561578,
+      "test_macro_f1_sample_std": 0.007725526821418376,
+      "n_seeds": 3
+    },
+    {
+      "scenario": "block_30",
+      "test_macro_f1_mean": 0.9085366158010958,
+      "test_macro_f1_sample_std": 0.008419781594256796,
+      "n_seeds": 3
+    },
+    {
+      "scenario": "block_50",
+      "test_macro_f1_mean": 0.8943189302889751,
+      "test_macro_f1_sample_std": 0.006118977172615564,
+      "n_seeds": 3
+    }
+  ],
+  "runs": [
+    {
+      "scenario": "point_00",
+      "seed": 1,
+      "macro_f1_test": 0.9130242798455143,
+      "macro_f1_val": 0.9466065460672317,
+      "best_epoch": 12
+    },
+    {
+      "scenario": "point_00",
+      "seed": 2,
+      "macro_f1_test": 0.927832608021774,
+      "macro_f1_val": 0.9513702623906706,
+      "best_epoch": 22
+    },
+    {
+      "scenario": "point_00",
+      "seed": 42,
+      "macro_f1_test": 0.9263912716898441,
+      "macro_f1_val": 0.9524229700263327,
+      "best_epoch": 27
+    },
+    {
+      "scenario": "point_10",
+      "seed": 1,
+      "macro_f1_test": 0.9310263065154162,
+      "macro_f1_val": 0.956115654200032,
+      "best_epoch": 25
+    },
+    {
+      "scenario": "point_10",
+      "seed": 2,
+      "macro_f1_test": 0.9242563504543873,
+      "macro_f1_val": 0.9503766461564975,
+      "best_epoch": 19
+    },
+    {
+      "scenario": "point_10",
+      "seed": 42,
+      "macro_f1_test": 0.9246248637970971,
+      "macro_f1_val": 0.9495240027575331,
+      "best_epoch": 37
+    },
+    {
+      "scenario": "point_30",
+      "seed": 1,
+      "macro_f1_test": 0.8277217000628938,
+      "macro_f1_val": 0.8774935774218979,
+      "best_epoch": 13
+    },
+    {
+      "scenario": "point_30",
+      "seed": 2,
+      "macro_f1_test": 0.8022679526585458,
+      "macro_f1_val": 0.8562555651019292,
+      "best_epoch": 25
+    },
+    {
+      "scenario": "point_30",
+      "seed": 42,
+      "macro_f1_test": 0.8300644899182736,
+      "macro_f1_val": 0.8899780286245055,
+      "best_epoch": 10
+    },
+    {
+      "scenario": "point_50",
+      "seed": 1,
+      "macro_f1_test": 0.8510333570055769,
+      "macro_f1_val": 0.8945700088920383,
+      "best_epoch": 13
+    },
+    {
+      "scenario": "point_50",
+      "seed": 2,
+      "macro_f1_test": 0.8608509040027195,
+      "macro_f1_val": 0.8902017099635294,
+      "best_epoch": 19
+    },
+    {
+      "scenario": "point_50",
+      "seed": 42,
+      "macro_f1_test": 0.8470533108606492,
+      "macro_f1_val": 0.8853396795936521,
+      "best_epoch": 10
+    },
+    {
+      "scenario": "subsequence_10",
+      "seed": 1,
+      "macro_f1_test": 0.911455145994511,
+      "macro_f1_val": 0.9379696036309093,
+      "best_epoch": 17
+    },
+    {
+      "scenario": "subsequence_10",
+      "seed": 2,
+      "macro_f1_test": 0.9010588203719891,
+      "macro_f1_val": 0.9335650418243604,
+      "best_epoch": 17
+    },
+    {
+      "scenario": "subsequence_10",
+      "seed": 42,
+      "macro_f1_test": 0.9077964340029765,
+      "macro_f1_val": 0.9379506249945795,
+      "best_epoch": 31
+    },
+    {
+      "scenario": "subsequence_30",
+      "seed": 1,
+      "macro_f1_test": 0.8749860257394508,
+      "macro_f1_val": 0.9086055733355107,
+      "best_epoch": 49
+    },
+    {
+      "scenario": "subsequence_30",
+      "seed": 2,
+      "macro_f1_test": 0.8628598667114196,
+      "macro_f1_val": 0.8909589984594422,
+      "best_epoch": 33
+    },
+    {
+      "scenario": "subsequence_30",
+      "seed": 42,
+      "macro_f1_test": 0.866454088911716,
+      "macro_f1_val": 0.9088603030704551,
+      "best_epoch": 19
+    },
+    {
+      "scenario": "subsequence_50",
+      "seed": 1,
+      "macro_f1_test": 0.8410868776992946,
+      "macro_f1_val": 0.8599670023296303,
+      "best_epoch": 16
+    },
+    {
+      "scenario": "subsequence_50",
+      "seed": 2,
+      "macro_f1_test": 0.8356946770665377,
+      "macro_f1_val": 0.8680574654687692,
+      "best_epoch": 36
+    },
+    {
+      "scenario": "subsequence_50",
+      "seed": 42,
+      "macro_f1_test": 0.7321176082969935,
+      "macro_f1_val": 0.765753209238919,
+      "best_epoch": 8
+    },
+    {
+      "scenario": "block_10",
+      "seed": 1,
+      "macro_f1_test": 0.9087551559176601,
+      "macro_f1_val": 0.9434141001873748,
+      "best_epoch": 11
+    },
+    {
+      "scenario": "block_10",
+      "seed": 2,
+      "macro_f1_test": 0.9235470170319137,
+      "macro_f1_val": 0.9494341848700522,
+      "best_epoch": 18
+    },
+    {
+      "scenario": "block_10",
+      "seed": 42,
+      "macro_f1_test": 0.9200178587188994,
+      "macro_f1_val": 0.9496134789381234,
+      "best_epoch": 15
+    },
+    {
+      "scenario": "block_30",
+      "seed": 1,
+      "macro_f1_test": 0.9107305510658671,
+      "macro_f1_val": 0.9322781775844173,
+      "best_epoch": 25
+    },
+    {
+      "scenario": "block_30",
+      "seed": 2,
+      "macro_f1_test": 0.8992370444274899,
+      "macro_f1_val": 0.9174138792060091,
+      "best_epoch": 18
+    },
+    {
+      "scenario": "block_30",
+      "seed": 42,
+      "macro_f1_test": 0.9156422519099303,
+      "macro_f1_val": 0.9352757566336667,
+      "best_epoch": 38
+    },
+    {
+      "scenario": "block_50",
+      "seed": 1,
+      "macro_f1_test": 0.8909343032564392,
+      "macro_f1_val": 0.9104071851767991,
+      "best_epoch": 15
+    },
+    {
+      "scenario": "block_50",
+      "seed": 2,
+      "macro_f1_test": 0.9013824733224916,
+      "macro_f1_val": 0.9215866727290998,
+      "best_epoch": 17
+    },
+    {
+      "scenario": "block_50",
+      "seed": 42,
+      "macro_f1_test": 0.8906400142879948,
+      "macro_f1_val": 0.897253383733691,
+      "best_epoch": 38
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+%% SAITS classification used by P4AIDS, verified against the notebook configuration.
+%% B = batch size; M = 1 for observed cells, 0 for missing cells.
+%% The classifier consumes X3, not the observation-preserving X_imp output.
+%% References:
+%% https://github.com/WenjieDu/PyPOTS/blob/main/pypots/classification/saits/core.py
+%% https://github.com/WenjieDu/PyPOTS/blob/main/pypots/nn/modules/saits/backbone.py
+flowchart TD
+    X["24 giờ × 5 biến, sau masking<br/>X chứa NaN: (B,24,5)"]
+    P["Dataset bên trong PyPOTS<br/>X0: thay NaN bằng 0<br/>M: 1 quan sát, 0 thiếu<br/>X0 và M: (B,24,5)"]
+    E1["Embedding 1<br/>Concat X0 và M: (B,24,10)<br/>Linear 10→64 + positional encoding + dropout<br/>(B,24,64)"]
+    B1["DMSA block 1<br/>2 encoder layer, 4 attention head<br/>Linear 64→5<br/>Ước lượng X1: (B,24,5)"]
+    F["Giữ ô quan sát, điền ô thiếu bằng X1<br/>X′ = M⊙X0 + (1−M)⊙X1<br/>(B,24,5)"]
+    E2["Embedding 2<br/>Concat X′ và M: (B,24,10)<br/>Linear 10→64 + positional encoding + dropout<br/>(B,24,64)"]
+    B2["DMSA block 2<br/>2 encoder layer, 4 attention head<br/>Linear 64→5 → ReLU → Linear 5→5<br/>Ước lượng X2: (B,24,5)"]
+    G["Gate kết hợp<br/>Concat M và A2 trung bình qua head: (B,24,29)<br/>Linear 29→5 + sigmoid<br/>η: (B,24,5)"]
+    C["Kết hợp hai ước lượng<br/>X3 = η⊙X1 + (1−η)⊙X2<br/>(B,24,5)"]
+    H["Classification head<br/>Flatten: (B,120)<br/>Linear 120→2 → logits: (B,2)"]
+    O["Softmax: P(Rain), P(Snow)<br/>(B,2)<br/>Argmax → nhãn giờ kế tiếp: (B,)"]
+    Y["Nhãn thật y: (B,)<br/>0 = Rain, 1 = Snow"]
+    L["Weighted cross-entropy<br/>Backpropagation qua head và backbone"]
+    I["Nhánh điền thiếu phụ<br/>X_imp = M⊙X0 + (1−M)⊙X3<br/>(B,24,5)"]
+
+    X --> P --> E1 --> B1 --> F --> E2 --> B2
+    P -. "X0, M" .-> F
+    P -. "M" .-> G
+    B2 -- "A2 của encoder layer cuối" --> G
+    B1 -- "X1" --> C
+    B2 -- "X2" --> C
+    G -- "η" --> C
+    C --> H --> O
+    H -- "logits" --> L
+    Y --> L
+    C -. "X3; tái dùng X0 và M" .-> I
+
+    classDef input fill:#eaf3ff,stroke:#3974b8,color:#172b4d;
+    classDef backbone fill:#e7f5ef,stroke:#25855c,color:#143c2c;
+    classDef fusion fill:#f1eafa,stroke:#8054af,color:#38234f;
+    classDef output fill:#fff2df,stroke:#b87920,color:#553814;
+    classDef auxiliary fill:#f4f5f7,stroke:#7a8494,color:#384355;
+    class X,P,Y input;
+    class E1,B1,F,E2,B2 backbone;
+    class G,C fusion;
+    class H,O,L output;
+    class I auxiliary;
