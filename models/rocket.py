@@ -1,156 +1,404 @@
-"""Nhánh ROCKET: nội suy + MiniRocket/MultiRocket + RidgeClassifierCV (Mục 4.5)."""
-
-from __future__ import annotations
-
-from typing import Optional
+"""MiniRocket/MultiRocket with validation-tuned Ridge."""
 
 import numpy as np
-from aeon.transformations.collection.convolution_based import MiniRocket, MultiRocket
-from sklearn.linear_model import RidgeClassifierCV
+from scipy.special import expit
+from sklearn.linear_model import RidgeClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import f1_score
+from threadpoolctl import threadpool_limits
 
 ROCKET_VARIANTS = ("mini", "multi")
 
 
-def interpolate_missing(X: np.ndarray) -> np.ndarray:
-    """Nội suy tuyến tính theo thời gian cho từng biến/cửa sổ; đoạn đầu/cuối thiếu
-    được điền bằng giá trị hợp lệ gần nhất (``np.interp`` tự ngoại suy hằng số ở
-    biên), theo đúng Mục 4.5. Cửa sổ mất trọn một biến được điền bằng 0.
-    """
-    n_samples, window, n_features = X.shape
-    out = X.copy()
-    t = np.arange(window)
-    for i in range(n_samples):
-        for c in range(n_features):
-            series = out[i, :, c]
-            valid = ~np.isnan(series)
-            n_valid = int(valid.sum())
-            if n_valid == window:
-                continue
-            if n_valid == 0:
-                out[i, :, c] = 0.0
-                continue
-            out[i, :, c] = np.interp(t, t[valid], series[valid])
+def interpolate_missing(X, fallback=None, method="linear"):
+    out = np.asarray(X, dtype=np.float32).copy()
+
+    if out.ndim != 3:
+        raise ValueError("Expected (N, time, channels)")
+
+    if method not in ("linear", "ffill"):
+        raise ValueError("Invalid imputation method")
+
+    out[~np.isfinite(out)] = np.nan
+
+    if fallback is None:
+        fallback = np.zeros(out.shape[2])
+
+    t = np.arange(out.shape[1])
+
+    for i, c in np.argwhere(np.isnan(out).any(axis=1)):
+        row = out[i, :, c]
+        valid = np.isfinite(row)
+
+        if not valid.any():
+            row[:] = fallback[c]
+
+        elif method == "linear":
+            row[~valid] = np.interp(
+                t[~valid], t[valid], row[valid]
+            )
+
+        else:
+            last = fallback[c]
+
+            for j in range(len(row)):
+                if valid[j]:
+                    last = row[j]
+                else:
+                    row[j] = last
+
+    if not np.isfinite(out).all():
+        raise ValueError("Imputation failed")
+
     return out
 
 
-def to_aeon_format(X: np.ndarray) -> np.ndarray:
-    """``(N, window, n_feat)`` -> ``(N, n_feat, window)`` theo định dạng aeon."""
-    return np.ascontiguousarray(X.transpose(0, 2, 1))
+def to_aeon_format(X):
+    return np.ascontiguousarray(
+        X.transpose(0, 2, 1),
+        dtype=np.float32
+    )
 
 
-def build_rocket_transformer(variant: str = "mini", random_state: int = 42, n_jobs: int = 2,
-                              n_kernels: Optional[int] = None):
-    """``n_jobs`` mặc định nhỏ (không dùng ``-1``/tất cả lõi): MiniRocket/MultiRocket
-    cấp phát bộ nhớ đệm song song theo từng luồng, với ~70 nghìn cửa sổ train có thể
-    vượt RAM trên máy không có swap nếu chạy hết số lõi. Tăng giá trị này nếu máy
-    nhiều RAM.
+def build_rocket_transformer(
+    variant="mini",
+    random_state=42,
+    n_jobs=2,
+    n_kernels=None
+):
+    from aeon.transformations.collection.convolution_based import (
+        MiniRocket, MultiRocket
+    )
 
-    ``n_kernels`` mặc định ``None`` = giữ nguyên mặc định gốc của aeon (MiniRocket
-    10000, MultiRocket 6250) -- đúng chuẩn phương pháp theo Mục 4.5. Với ma trận đặc
-    trưng ~70 nghìn x ~10 nghìn, RidgeClassifierCV có thể cần ép kiểu float64 nội bộ
-    và vượt RAM trên máy không có swap/ít RAM (đã xác minh thực nghiệm); hạ
-    ``n_kernels`` (ví dụ 1000-2000) đánh đổi một phần độ chính xác để chạy được trên
-    máy yếu hơn.
-    """
-    kwargs = dict(random_state=random_state, n_jobs=n_jobs)
+    kwargs = dict(
+        random_state=random_state,
+        n_jobs=n_jobs
+    )
+
     if n_kernels is not None:
-        kwargs["n_kernels"] = n_kernels
+        kwargs["n_kernels"] = int(n_kernels)
+
     if variant == "mini":
         return MiniRocket(**kwargs)
+
     if variant == "multi":
         return MultiRocket(**kwargs)
-    raise ValueError(f"variant phải thuộc {ROCKET_VARIANTS}, nhận '{variant}'.")
+
+    raise ValueError(f"Invalid variant: {variant}")
 
 
-def build_ridge_classifier(cv: int = 5, class_weight: Optional[str] = "balanced") -> RidgeClassifierCV:
-    """``cv`` cố định (k-fold tường minh), KHÔNG dùng ``cv=None``: mặc định của
-    sklearn khi ``cv=None`` dùng một "trick" generalized-CV dựa trên SVD của toàn
-    bộ ma trận thiết kế, cấp phát một ma trận ``U`` cùng kích thước với đặc trưng
-    đầu vào -- với ~70 nghìn cửa sổ train x ~10 nghìn đặc trưng ROCKET, đã xác minh
-    thực nghiệm việc này gây OOM trên máy không có swap. ``cv`` tường minh chậm hơn
-    (phải refit theo từng fold) nhưng bộ nhớ ổn định, không phụ thuộc cỡ dữ liệu.
+def build_ridge_classifier(alpha=1.0, class_weight="balanced"):
+    return RidgeClassifier(
+        alpha=float(alpha),
+        class_weight=class_weight,
+        solver="lsqr",
+        tol=1e-3,
+        max_iter=1000
+    )
 
-    ``class_weight="balanced"`` (mặc định): Snow chỉ chiếm ~11\% dữ liệu (Mục 2.2 báo
-    cáo), nên trọng số nghịch đảo tần suất lớp được áp ngay ở bước này, đồng nhất với
-    cách nhánh Classic ML (``scale_pos_weight``) và Deep Learning (cross-entropy có
-    trọng số) xử lý mất cân bằng -- xem Mục 2.7.
-    """
-    return RidgeClassifierCV(alphas=np.logspace(-3, 3, 5), cv=cv, class_weight=class_weight)
+
+def macro_f1(y, pred):
+    return float(f1_score(
+        y,
+        pred,
+        labels=[0, 1],
+        average="macro",
+        zero_division=0
+    ))
+
+
+def choose_threshold(y, scores):
+    scores = np.asarray(scores, dtype=np.float64)
+
+    if not scores.size or not np.isfinite(scores).all():
+        raise ValueError("Invalid validation scores")
+
+    thresholds = np.unique(np.r_[
+        0.0,
+        np.quantile(scores, np.linspace(0, 1, 101)),
+        np.nextafter(scores.max(), np.inf)
+    ])
+
+    return float(max(
+        thresholds,
+        key=lambda t: (
+            macro_f1(y, scores >= t),
+            -abs(t)
+        )
+    ))
 
 
 class RocketClassifier:
-    """Nội suy -> MiniRocket/MultiRocket -> (nối mask/Δt tuỳ chọn) -> RidgeClassifierCV.
 
-    ``predict_proba`` không có sẵn ở ``RidgeClassifierCV`` (chỉ là linear SVM
-    kiểu hồi quy), nên dùng ``decision_function`` đã chuẩn hoá qua sigmoid làm
-    điểm số xác suất xấp xỉ cho PR-AUC (Mục 5.3).
-    """
-
-    def __init__(self, variant: str = "mini", random_state: int = 42, n_jobs: int = 2,
-                 max_fit_samples: int = 2500, transform_batch_size: int = 2000,
-                 ridge_cv: int = 5, n_kernels: Optional[int] = None) -> None:
-        """Hai chốt chặn bộ nhớ, cả hai đều cần thiết (đã xác minh thực nghiệm mỗi bước
-        có thể tự gây OOM riêng trên máy không có swap với ~70 nghìn cửa sổ train):
-
-        - ``max_fit_samples``: ``fit()`` (ước lượng dilation/bias bằng quantile) cấp
-          phát bộ nhớ tỉ lệ thuận số mẫu đưa vào. Theo đúng khuyến nghị gốc của
-          ROCKET/MiniRocket, việc này chỉ cần một mẫu con nhỏ là đủ ổn định, nên
-          ``fit()`` chỉ gọi trên một mẫu con ngẫu nhiên tối đa ``max_fit_samples`` dòng.
-        - ``transform_batch_size``: ``transform()`` CŨNG cấp phát bộ nhớ tỉ lệ thuận số
-          mẫu đưa vào trong một lần gọi (giới hạn riêng ``max_fit_samples`` không đủ --
-          gọi ``transform()`` trên toàn bộ ~70 nghìn mẫu cùng lúc vẫn OOM), nên luôn gọi
-          theo từng lô nhỏ dù là tập train/val/test nào.
-        """
+    def __init__(
+        self,
+        variant="mini",
+        random_state=42,
+        n_jobs=2,
+        max_fit_samples=2500,
+        transform_batch_size=512,
+        n_kernels=None,
+        alphas=(0.1, 1.0, 10.0),
+        class_weight="balanced",
+        tune_threshold=True,
+        imputer="linear",
+        max_feature_mib=1024
+    ):
         self.variant = variant
-        self.random_state = random_state
-        self.max_fit_samples = max_fit_samples
-        self.transform_batch_size = transform_batch_size
-        self.transformer = build_rocket_transformer(variant, random_state, n_jobs, n_kernels)
-        self.classifier = build_ridge_classifier(cv=ridge_cv)
+        self.random_state = int(random_state)
+        self.n_jobs = int(n_jobs)
+
+        self.max_fit_samples = int(max_fit_samples)
+        self.batch_size = int(transform_batch_size)
+
+        self.alphas = tuple(float(a) for a in alphas)
+        self.class_weight = class_weight
+        self.tune_threshold = tune_threshold
+        self.imputer = imputer
+        self.max_feature_mib = float(max_feature_mib)
+
+        if (
+            min(self.n_jobs, self.batch_size,
+                self.max_fit_samples) <= 0
+            or not self.alphas
+            or min(self.alphas) <= 0
+            or self.max_feature_mib <= 0
+        ):
+            raise ValueError("Invalid configuration")
+
+        self.transformer = build_rocket_transformer(
+            variant, random_state, n_jobs, n_kernels
+        )
+
+        self.scaler = StandardScaler(copy=False)
+        self.classifier = None
+
+        self.best_alpha = None
+        self.threshold = 0.0
+        self.validation_trials = []
+        self.val_scores_ = None
         self._fitted = False
 
-    def _transform_in_batches(self, X_aeon: np.ndarray) -> np.ndarray:
-        batches = [
-            self.transformer.transform(X_aeon[start:start + self.transform_batch_size])
-            for start in range(0, X_aeon.shape[0], self.transform_batch_size)
-        ]
-        return np.concatenate(batches, axis=0)
+    def _batch_features(self, X, mask_delta=None):
 
-    def _features(self, X: np.ndarray, mask_delta: Optional[np.ndarray], fit: bool) -> np.ndarray:
-        X_filled = interpolate_missing(X)
-        X_aeon = to_aeon_format(X_filled)
+        filled = interpolate_missing(
+            X, self.fallback, self.imputer
+        )
 
-        if fit:
-            n_samples = X_aeon.shape[0]
-            if self.max_fit_samples and n_samples > self.max_fit_samples:
-                rng = np.random.default_rng(self.random_state)
-                fit_idx = rng.choice(n_samples, size=self.max_fit_samples, replace=False)
-                self.transformer.fit(X_aeon[fit_idx])
-            else:
-                self.transformer.fit(X_aeon)
+        z = np.asarray(
+            self.transformer.transform(
+                to_aeon_format(filled)
+            ),
+            dtype=np.float32
+        )
 
-        rocket_feats = self._transform_in_batches(X_aeon)
         if mask_delta is not None:
-            return np.concatenate([rocket_feats, mask_delta], axis=1)
-        return rocket_feats
+            z = np.concatenate([
+                z,
+                np.asarray(mask_delta, dtype=np.float32)
+            ], axis=1)
 
-    def fit(self, X: np.ndarray, y: np.ndarray, mask_delta: Optional[np.ndarray] = None) -> "RocketClassifier":
-        features = self._features(X, mask_delta, fit=True)
-        self.classifier.fit(features, y)
+        if not np.isfinite(z).all():
+            raise ValueError("Non-finite features")
+
+        return z
+
+    def _batches(self, X, mask_delta=None):
+
+        for start in range(0, len(X), self.batch_size):
+
+            end = min(start + self.batch_size, len(X))
+
+            md = (
+                None if mask_delta is None
+                else mask_delta[start:end]
+            )
+
+            yield start, end, self._batch_features(
+                X[start:end], md
+            )
+
+    def _features(self, X, mask_delta=None):
+
+        if not len(X):
+            raise ValueError("Empty split")
+
+        result = None
+
+        for start, end, z in self._batches(X, mask_delta):
+
+            if result is None:
+                width = z.shape[1]
+
+                mib = len(X) * width * 4 / 1024**2
+
+                if mib > self.max_feature_mib:
+                    raise MemoryError(
+                        f"Feature matrix: {mib:.1f} MiB. "
+                        "Reduce n_kernels."
+                    )
+
+                result = np.empty(
+                    (len(X), width),
+                    dtype=np.float32
+                )
+
+            result[start:end] = z
+
+        return result
+
+    def fit(
+        self, X, y, mask_delta=None,
+        X_val=None, y_val=None,
+        mask_delta_val=None
+    ):
+        y = np.asarray(y)
+
+        if set(np.unique(y)) != {0, 1}:
+            raise ValueError("Train must contain both classes")
+
+        if X_val is not None and y_val is None:
+            raise ValueError("Validation labels missing")
+
+        self._fitted = False
+        self.val_scores_ = None
+        self.scaler = StandardScaler(copy=False)
+
+        # Train-only imputation statistics.
+        self.fallback = np.nanmedian(
+            X, axis=(0, 1)
+        ).astype(np.float32)
+
+        if not np.isfinite(self.fallback).all():
+            raise ValueError("Entire training channel missing")
+
+        rng = np.random.default_rng(self.random_state)
+
+        ids = rng.choice(
+            len(X),
+            size=min(len(X), self.max_fit_samples),
+            replace=False
+        )
+
+        fit_data = interpolate_missing(
+            X[ids], self.fallback, self.imputer
+        )
+
+        self.transformer.fit(
+            to_aeon_format(fit_data)
+        )
+
+        ztr = self._features(X, mask_delta)
+        self.n_features = int(ztr.shape[1])
+
+        # Train-only scaling, using batches.
+        for start in range(0, len(ztr), self.batch_size):
+            self.scaler.partial_fit(
+                ztr[start:start + self.batch_size]
+            )
+
+        for start in range(0, len(ztr), self.batch_size):
+            part = ztr[start:start + self.batch_size]
+            part[:] = self.scaler.transform(part)
+
+        zv = None
+
+        if X_val is not None:
+            zv = self.scaler.transform(
+                self._features(X_val, mask_delta_val)
+            )
+
+        candidates = (
+            self.alphas
+            if zv is not None
+            else self.alphas[:1]
+        )
+
+        best = None
+        self.validation_trials = []
+
+        for alpha in candidates:
+
+            clf = build_ridge_classifier(
+                alpha, self.class_weight
+            )
+
+            with threadpool_limits(limits=self.n_jobs):
+                clf.fit(ztr, y)
+
+            threshold = 0.0
+            score = None
+            scores = None
+
+            if zv is not None:
+
+                scores = clf.decision_function(zv)
+
+                if self.tune_threshold:
+                    threshold = choose_threshold(
+                        y_val, scores
+                    )
+
+                score = macro_f1(
+                    y_val, scores >= threshold
+                )
+
+            self.validation_trials.append({
+                "alpha": alpha,
+                "threshold": threshold,
+                "val_macro_f1": score
+            })
+
+            rank = (
+                score if score is not None else 0,
+                -abs(threshold),
+                -alpha
+            )
+
+            if best is None or rank > best:
+
+                best = rank
+                self.classifier = clf
+                self.best_alpha = alpha
+                self.threshold = threshold
+
+                self.val_scores_ = (
+                    scores.copy()
+                    if scores is not None else None
+                )
+
         self._fitted = True
         return self
 
-    def decision_scores(self, X: np.ndarray, mask_delta: Optional[np.ndarray] = None) -> np.ndarray:
+    def decision_scores(self, X, mask_delta=None):
+
         if not self._fitted:
-            raise RuntimeError("Gọi fit() trước.")
-        features = self._features(X, mask_delta, fit=False)
-        return self.classifier.decision_function(features)
+            raise RuntimeError("Call fit() first")
 
-    def predict(self, X: np.ndarray, mask_delta: Optional[np.ndarray] = None) -> np.ndarray:
-        scores = self.decision_scores(X, mask_delta)
-        return (scores >= 0.0).astype(np.int64)
+        parts = []
 
-    def predict_proba_positive(self, X: np.ndarray, mask_delta: Optional[np.ndarray] = None) -> np.ndarray:
-        """Xấp xỉ P(Snow) bằng sigmoid(decision_function) -- dùng cho PR-AUC."""
-        scores = self.decision_scores(X, mask_delta)
-        return 1.0 / (1.0 + np.exp(-scores))
+        for _, _, z in self._batches(X, mask_delta):
+
+            z = self.scaler.transform(z)
+
+            with threadpool_limits(limits=self.n_jobs):
+                parts.append(
+                    self.classifier.decision_function(z)
+                )
+
+        if not parts:
+            return np.empty(0)
+
+        return np.concatenate(parts)
+
+    def predict(self, X, mask_delta=None):
+        return (
+            self.decision_scores(X, mask_delta)
+            >= self.threshold
+        ).astype(np.int64)
+
+    def predict_proba_positive(self, X, mask_delta=None):
+        # Compatibility only, not calibrated probabilities.
+        return expit(
+            self.decision_scores(X, mask_delta)
+        )
