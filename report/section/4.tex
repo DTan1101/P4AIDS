@@ -78,14 +78,15 @@ chạy.}
 \subsection{Nhánh ROCKET}
 \label{sec:nhanh-rocket}
 
-MiniRocket \cite{dempster2021minirocket} và MultiRocket \cite{tan2022multirocket} yêu cầu
-đầu vào không có giá trị thiếu, do đó mỗi cửa sổ bị thiếu được nội suy tuyến tính theo
-thời gian cho từng biến trước khi đưa vào bộ biến đổi kernel ngẫu nhiên; các đoạn thiếu ở
-đầu/cuối cửa sổ được điền bằng giá trị hợp lệ gần nhất (forward/backward fill). Đặc trưng
-đầu ra của MiniRocket/MultiRocket sau đó được đưa vào một mô hình tuyến tính (ridge
-classifier) để phân loại. Việc nội suy trước khi biến đổi khiến nhánh này "mù" với vị trí
-thiếu gốc trừ khi đặc trưng mask/$\Delta t$ ở Mục~\ref{sec:feature-engineering} được nối
-thêm vào đặc trưng ROCKET trước khi phân loại.
+MiniRocket \cite{dempster2021minirocket} và MultiRocket \cite{tan2022multirocket} được triển khai qua thư viện aeon. Đầu vào là cửa sổ 24 giờ gồm Temperature, Humidity, Wind Speed, Pressure và Visibility; nhãn tại $t+1$ là Rain hoặc Snow. Quy trình áp dụng độc lập cho từng kịch bản thiếu dữ liệu:
+\begin{enumerate}
+  \item Áp dụng mặt nạ dùng chung (True là quan trắc hợp lệ). Nội suy tuyến tính riêng từng biến trong cửa sổ; đầu/cuối dùng giá trị hợp lệ gần nhất. Nếu cả kênh thiếu, dùng median quan trắc của kênh trên tập train. Không sử dụng dữ liệu sau thời điểm cuối cửa sổ.
+  \item Chuyển layout từ $(N,24,5)$ sang $(N,5,24)$. Fit transformer trên tối đa 2500 cửa sổ train lấy ngẫu nhiên với seed 42, sau đó transform toàn bộ train theo lô 512. Validation/test dùng transformer đã fit.
+  \item Nối 3 đặc trưng cho mỗi biến từ mask gốc: tỷ lệ thiếu, độ dài đoạn thiếu dài nhất và độ cũ quan trắc gần nhất (hai đại lượng sau chuẩn hóa theo 24 giờ). Chuẩn hóa vector đặc trưng bằng StandardScaler fit riêng trên train.
+  \item Huấn luyện RidgeClassifier (LSQR, tolerance $10^{-3}$, tối đa 1000 vòng) với trọng số $w_c=N/(2N_c)$ để xử lý mất cân bằng. Thử $\alpha\in\{0.1,1,10\}$; chọn ngưỡng $\tau$ trong các phân vị điểm số validation, thêm 0 và một giá trị ngay trên điểm tối đa. Dự đoán Snow nếu $s(x)\geq\tau$. Chọn cặp $(\alpha,\tau)$ theo Macro F1 validation; khi bằng nhau ưu tiên $|\tau|$ nhỏ hơn rồi $\alpha$ nhỏ hơn.
+  \item Giữ nguyên mô hình được chọn, không refit trên validation. Đánh giá trên test cố định; decision score chỉ dùng xếp hạng/đặt ngưỡng, không phải xác suất được hiệu chỉnh. PR-AUC là Average Precision của Snow.
+\end{enumerate}
+Ngân sách kernel lần lượt 1008 và 336, tạo 1023 và 2703 đặc trưng khi có đủ 5 biến và mask/$\Delta t$. Giới hạn một ma trận đặc trưng là 1024 MiB, không phải giới hạn RAM tổng. So sánh bổ sung bỏ trọng số, bỏ mask/$\Delta t$, forward-fill và các tập con biến trên MiniRocket (Mục~\ref{sec:ablation}).
 
 \subsection{Nhánh Deep Learning}
 \label{sec:nhanh-deep-learning}

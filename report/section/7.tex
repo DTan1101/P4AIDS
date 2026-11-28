@@ -8,6 +8,8 @@
 họ phương pháp nào giữ hiệu năng tốt nhất khi tỷ lệ thiếu dữ liệu tăng, và mức độ cải
 thiện cụ thể so với các baseline ở Mục~\ref{sec:baseline}.}
 
+\paragraph{Kết luận nhánh ROCKET.} MiniRocket đạt Macro F1 trung bình 0.9001, cao hơn MultiRocket 0.8878 trong cấu hình đã thử, thắng 9/10 kịch bản và có chi phí tính toán thấp hơn. Subsequence 50\% khó nhất theo Macro F1 cho cả hai. Ablation cho thấy nhiệt độ là biến nổi bật, Temperature-only có kết quả validation tốt nhất trong các tập con được thử. Nhãn API có thể phụ thuộc nhiệt độ, nên kết quả không khẳng định khả năng dự báo pha giáng thủy độc lập. Kết luận toàn nhóm cần tổng hợp thêm các nhánh và baseline.
+
 \subsection{Hạn chế}
 \label{sec:han-che}
 
@@ -23,6 +25,8 @@ thiện cụ thể so với các baseline ở Mục~\ref{sec:baseline}.}
         nguồn điện).
 \end{itemize}
 
+\paragraph{Hạn chế riêng ROCKET.} Một model seed (42) và một mask seed (123); ngân sách kernel và chiều feature khác nhau; cửa sổ thời gian chồng lấn; mỗi kịch bản fit lại, không phải đánh giá một mô hình cố định khi độ thiếu thay đổi. Ablation chỉ xét MiniRocket tại 0\% và Block 50\%, tỷ lệ thiếu trên các tập con kênh có thể khác tỷ lệ danh định. Chưa có kiểm chứng trên dữ liệu nhiều trạm hay nhãn độc lập.
+
 \subsection{Hướng phát triển}
 \label{sec:huong-phat-trien}
 
@@ -36,3 +40,5 @@ thiện cụ thể so với các baseline ở Mục~\ref{sec:baseline}.}
         giữa hiệu năng và chi phí tính toán, xem Mục~\ref{sec:chi-phi-tinh-toan}) trên
         thiết bị biên gắn tại trạm quan trắc thực tế.
 \end{itemize}
+
+\paragraph{Mở rộng ROCKET.} Thử nhiều seed, ngân sách feature tương đương và giao thức train sạch/test missing như một thực nghiệm bổ sung; đối chiếu baseline nhiệt độ trong vùng khó và kiểm chứng trên dữ liệu có nhãn quan trắc độc lập.

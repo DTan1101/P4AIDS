@@ -110,7 +110,7 @@ Baseline k-NN & Không xử lý & \texttt{KNeighborsClassifier} của scikit-lea
 \addlinespace
 Classic ML (XGBoost) & \texttt{scale\_pos\_weight}\newline (mặc định) hoặc SMOTE & \texttt{scale\_pos\_weight} = (số Rain)/(số Snow) trên tập train; SMOTE sinh thêm mẫu Snow tổng hợp trước khi huấn luyện (\texttt{models/classic.py}, \texttt{trainers/classic\_trainer.py}) -- so sánh hai chiến lược ở Mục~\ref{sec:ablation}. \\
 \addlinespace
-ROCKET (RidgeClassifierCV) & \texttt{class\_weight}\newline\texttt{="balanced"} & Trọng số nghịch tần suất lớp trong hàm mất mát ridge, đồng nhất với baseline Logistic Regression (\texttt{models/rocket.py}). \\
+ROCKET (RidgeClassifier) & \texttt{class\_weight}\newline\texttt{="balanced"} & Trọng số nghịch tần suất lớp trong hàm mất mát ridge, đồng nhất với baseline Logistic Regression (\texttt{models/rocket.py}). \\
 \addlinespace
 Deep Learning\newline (mọi mô hình GRU/BRITS/SAITS) & Cross-entropy\newline có trọng số lớp & Trọng số lớp $c$ = $N / (2 \times \text{số mẫu lớp } c)$, áp cho cả vòng lặp huấn luyện tự cài lẫn \texttt{WeightedCrossEntropy} tuỳ biến cho PyPOTS (\texttt{trainers/deep\_trainer.py}). \\
 \bottomrule

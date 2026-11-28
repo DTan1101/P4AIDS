@@ -19,14 +19,16 @@ Ngưỡng nhiệt độ & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
 Logistic Regression & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
 k-NN & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
 XGBoost (LiteStatTemp) & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
-MiniRocket & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
-MultiRocket & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
+MiniRocket & 0.9145 & 0.9178 & 0.8157 & 0.8713 \\
+MultiRocket & 0.8914 & 0.8716 & 0.7119 & 0.9182 \\
 GRU-D & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
 BRITS & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
 SAITS & \TODO{} & \TODO{} & \TODO{} & \TODO{} \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\paragraph{Nhánh ROCKET.} Hai dòng MiniRocket/MultiRocket trong Bảng~\ref{tab:ket-qua-day-du} sử dụng Precision và Recall của lớp Snow; nhóm cần thống nhất quy ước này cho các dòng còn lại. Balanced Accuracy lần lượt 0.9275 và 0.9436; Snow F1 là 0.8426 và 0.8020. MiniRocket có Macro F1 và AP cao hơn ở mức 0\%, nhưng MultiRocket có Snow Recall và Balanced Accuracy cao hơn.
 
 \subsection{Kết quả chính: suy giảm hiệu năng theo tỷ lệ thiếu dữ liệu}
 \label{sec:ket-qua-chinh}
@@ -44,12 +46,66 @@ mỗi đường ứng với một mô hình, tách thành 3 subplot riêng cho t
 liệu kiểu block có gây suy giảm mạnh hơn point/subsequence ở cùng tỷ lệ hay không (dự
 kiến có, vì block loại bỏ toàn bộ tín hiệu của một biến trong một khoảng thời gian).}
 
+\begin{table}[H]
+\centering
+\small
+\caption{Kết quả test của nhánh ROCKET theo kịch bản; AP là PR-AUC theo Average Precision.}
+\label{tab:rocket-robust}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Kịch bản} & \textbf{Mini F1} & \textbf{Mini AP} & \textbf{Multi F1} & \textbf{Multi AP} \\
+\midrule
+0\% & 0.9145 & 0.9178 & 0.8914 & 0.8716 \\
+Point 10\% & 0.9161 & 0.9219 & 0.8865 & 0.8894 \\
+Point 30\% & 0.9104 & 0.9130 & 0.8970 & 0.9004 \\
+Point 50\% & 0.9071 & 0.9088 & 0.8988 & 0.8985 \\
+Subsequence 10\% & 0.9075 & 0.9017 & 0.8925 & 0.8819 \\
+Subsequence 30\% & 0.8921 & 0.8730 & 0.8814 & 0.8559 \\
+Subsequence 50\% & 0.8753 & 0.8285 & 0.8616 & 0.8227 \\
+Block 10\% & 0.8910 & 0.9096 & 0.9039 & 0.8985 \\
+Block 30\% & 0.8973 & 0.8642 & 0.8818 & 0.8875 \\
+Block 50\% & 0.8896 & 0.8380 & 0.8826 & 0.8343 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+MiniRocket đạt Macro F1 cao hơn MultiRocket ở 9/10 kịch bản, ngoại trừ Block 10\%. Subsequence 50\% cho F1 thấp nhất (0.8753 và 0.8616); Point 50\% vẫn đạt 0.9071 và 0.8988. So với 0\%, Subsequence 50\% giảm khoảng 3,92 và 2,99 điểm phần trăm. Không suy ra mất dữ liệu làm tăng hiệu năng từ các điểm không đơn điệu, vì mỗi kịch bản fit/tune riêng. Các số đo dùng một model seed và một mask seed, chưa phản ánh phương sai giữa seed.
+\begin{figure}[H]
+\centering
+\includegraphics[width=.48\textwidth]{figs/rocket/macro_f1_point.png}\hfill
+\includegraphics[width=.48\textwidth]{figs/rocket/macro_f1_subsequence.png}\\
+\includegraphics[width=.48\textwidth]{figs/rocket/macro_f1_block.png}
+\caption{Macro F1 theo tỷ lệ thiếu dữ liệu của MiniRocket/MultiRocket. Một seed; không diễn giải thanh sai số bằng 0 là độ ổn định đã xác nhận.}
+\label{fig:rocket-robust}
+\end{figure}
+
+
 \subsection{Phân tích theo dải nhiệt độ và theo mùa}
 \label{sec:phan-tich-nhiet-do-mua}
 
 \TODO{So sánh Macro F1 của các mô hình riêng trong vùng nhiệt độ chồng lấn 0--4\textdegree C
 (Mục~\ref{sec:eda}) so với toàn tập test, và theo từng mùa, để kiểm tra liệu các mô hình
 có giữ được lợi thế so với baseline ngưỡng nhiệt độ đúng ở vùng khó nhất hay không.}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Phân nhóm test nhánh ROCKET ở mức 0\% giả lập thiếu.}
+\label{tab:rocket-subgroup}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{Nhóm} & \textbf{N} & \textbf{Mini F1} & \textbf{Mini AP} & \textbf{Multi F1} & \textbf{Multi AP} \\
+\midrule
+Nhiệt độ 0–4 độ C & 2731 & 0.6639 & 0.2706 & 0.6033 & 0.2686 \\
+Đông & 4343 & 0.8968 & 0.9285 & 0.8672 & 0.9056 \\
+Xuân & 4416 & 0.8428 & 0.7217 & 0.8169 & 0.6826 \\
+Hạ & 4416 & N/A & N/A & N/A & N/A \\
+Thu & 3994 & 0.8867 & 0.8482 & 0.8237 & 0.5818 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Phân nhóm nhiệt độ sử dụng giá trị gốc ở giờ cuối cửa sổ lịch sử, chỉ cho chẩn đoán, không cấp thông tin bị che cho mô hình. Mùa xác định theo timestamp nhãn. Vùng 0--4\textdegree C có Macro F1 thấp đáng kể so với toàn tập test; mùa Hạ không có Snow nên code không báo F1/AP cho subgroup một lớp (N/A). Chưa đối chiếu với baseline ngưỡng nhiệt độ ở nhóm này.
 
 \subsection{Ablation}
 \label{sec:ablation}
@@ -66,12 +122,76 @@ có giữ được lợi thế so với baseline ngưỡng nhiệt độ đúng 
 
 \TODO{Trình bày bảng/biểu đồ kết quả ablation và viết nhận xét cho từng dòng trên.}
 
+\paragraph{Ablation riêng nhánh ROCKET.} Dùng MiniRocket, cùng ngân sách kernel và seed, tune lại alpha/ngưỡng trên validation cho từng đối chứng. Ba đối chứng thành phần chạy ở Block 50\%; tám tổ hợp kênh chạy ở 0\% và Block 50\% (tổng 19 lượt bổ sung).
+\begin{table}[H]
+\centering
+\small
+\caption{Đóng góp thành phần tại Block 50\% (MiniRocket).}
+\label{tab:rocket-components}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+\textbf{Biến thể} & \textbf{Val F1} & \textbf{Test F1} & \textbf{AP} & \textbf{Snow Rec.} & \textbf{Snow F1} & \textbf{Delta F1} \\
+\midrule
+Đầy đủ & 0.9148 & 0.8896 & 0.8380 & 0.8039 & 0.7964 & 0.00 \\
+Không class weighting & 0.9125 & 0.8832 & 0.8483 & 0.7911 & 0.7845 & -0.64 \\
+Không Mask/Delta & 0.9148 & 0.8859 & 0.8442 & 0.7918 & 0.7894 & -0.37 \\
+Forward-fill & 0.9034 & 0.8748 & 0.8357 & 0.7752 & 0.7691 & -1.48 \\
+\bottomrule
+\end{tabular}
+\end{table}
+Delta F1 tính theo điểm phần trăm so với cấu hình đầy đủ. Trọng số lớp và mask/$\Delta t$ tăng Macro F1, Snow F1 trong kịch bản này nhưng AP giảm nhẹ so với bỏ chúng; linear interpolation tốt hơn forward-fill ở Macro F1, AP, Snow F1.
+\begin{table}[H]
+\centering
+\small
+\caption{Ablation kênh: Val/Test Macro F1 và AP của MiniRocket.}
+\label{tab:rocket-channels}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+\textbf{Tổ hợp} & \textbf{Val 0} & \textbf{Test 0} & \textbf{AP 0} & \textbf{Val B50} & \textbf{Test B50} & \textbf{AP B50} \\
+\midrule
+Đầy đủ 5 biến & 0.9262 & 0.9145 & 0.9178 & 0.9148 & 0.8896 & 0.8380 \\
+Chỉ Temperature & 0.9537 & 0.9219 & 0.9397 & 0.9308 & 0.9063 & 0.8739 \\
+Temperature + Humidity & 0.9470 & 0.9174 & 0.9404 & 0.9274 & 0.9045 & 0.8729 \\
+Temp. + Humidity + Pressure & 0.9388 & 0.9146 & 0.9172 & 0.9217 & 0.8925 & 0.8498 \\
+Bỏ Temperature & 0.6021 & 0.6024 & 0.1979 & 0.5819 & 0.6177 & 0.2189 \\
+Bỏ Humidity & 0.9285 & 0.9086 & 0.9119 & 0.9102 & 0.8836 & 0.8079 \\
+Bỏ Wind & 0.9262 & 0.9061 & 0.9141 & 0.9148 & 0.8855 & 0.8204 \\
+Bỏ Pressure & 0.9262 & 0.9041 & 0.9116 & 0.9148 & 0.8884 & 0.8143 \\
+Bỏ Visibility & 0.9285 & 0.9161 & 0.9256 & 0.9123 & 0.8704 & 0.8175 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Temperature-only có Val F1 cao nhất trong các tổ hợp đã thử (0.9537 và 0.9308), Test F1 tương ứng 0.9219 và 0.9063. Bỏ Temperature giảm về 0.6024 và 0.6177. Kết quả phù hợp quan hệ rất mạnh giữa nhiệt độ và nhãn cùng thời điểm trong EDA; nhãn API có thể phụ thuộc vào nhiệt độ. Temperature-only vẫn có mask/$\Delta t$ của nhiệt độ, không phải baseline ngưỡng đơn giản. Do mask sinh trên 5 kênh trước khi lấy tập con, tỷ lệ thiếu thực tế trên kênh còn lại có thể khác tỷ lệ danh định. Đây là phân tích đóng góp trong phạm vi MiniRocket và hai kịch bản, không khẳng định nhân quả hoặc loại bỏ các biến khác cho mọi mô hình. Giữ benchmark 5 biến như kế hoạch.
+
+
+\paragraph{Ảnh hưởng của tối ưu ngưỡng quyết định.} So sánh ngưỡng mặc định 0 và ngưỡng tối ưu Macro F1 trên validation, giữ nguyên classifier, alpha và decision scores của benchmark chính.
+\begin{table}[H]
+\centering
+\small
+\caption{Đối chứng ngưỡng quyết định trên test của nhánh ROCKET.}
+\label{tab:rocket-threshold}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+\textbf{Mô hình} & \textbf{Kịch bản} & \textbf{F1 mặc định} & \textbf{F1 tối ưu} & \textbf{Delta F1} \\
+\midrule
+MiniRocket & 0\% & 0.8324 & 0.9145 & +8.21 \\
+MultiRocket & 0\% & 0.8457 & 0.8914 & +4.57 \\
+MiniRocket & Block 50\% & 0.8167 & 0.8896 & +7.29 \\
+MultiRocket & Block 50\% & 0.8208 & 0.8826 & +6.18 \\
+\bottomrule
+\end{tabular}
+\end{table}
+Delta F1 tính theo điểm phần trăm. Trong bốn cấu hình minh họa, ngưỡng tối ưu trên validation cải thiện Test Macro F1. Số liệu được lấy từ JSON đã lưu, không huấn luyện thêm và không chọn ngưỡng trên test. Alpha vẫn được tuning, do đó đây không phải đối chứng loại bỏ toàn bộ hyperparameter tuning.
+
 \subsection{Ý nghĩa thống kê}
 \label{sec:y-nghia-thong-ke}
 
 \TODO{Báo cáo kết quả kiểm định McNemar cho các cặp mô hình gần nhau nhất về Macro F1, và
 biểu đồ critical difference từ kiểm định Friedman (Mục~\ref{sec:kiem-dinh-thong-ke}), nêu
 rõ nhóm mô hình không khác biệt có ý nghĩa thống kê ở mức $\alpha = 0.05$.}
+
+\paragraph{Dữ liệu kiểm định từ ROCKET.} Đã xuất predictions cho 20 kịch bản chính với sample index, timestamp nhãn, y true, y pred và decision score. Có thể ghép theo sample index và kiểm tra nhãn để nhóm thực hiện McNemar. Chưa đưa ra kết luận ý nghĩa thống kê; các cửa sổ chồng lấn và kịch bản dùng cùng test không độc lập.
 
 \subsection{Chi phí tính toán}
 \label{sec:chi-phi-tinh-toan}
@@ -89,6 +209,22 @@ rõ nhóm mô hình không khác biệt có ý nghĩa thống kê ở mức $\al
 \end{tabular}
 \end{table}
 
+\begin{table}[H]
+\centering
+\small
+\caption{Chi phí ROCKET trung bình trên 10 kịch bản chính.}
+\label{tab:rocket-cost}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Mô hình} & \textbf{Train+tune (s)} & \textbf{Infer (ms/mẫu)} & \textbf{Tham số tuyến tính} \\
+\midrule
+MiniRocket & 24.21 & 0.2169 & 1024 \\
+MultiRocket & 55.16 & 0.4201 & 2704 \\
+\bottomrule
+\end{tabular}
+\end{table}
+Thời gian huấn luyện gồm fit transformer, trích xuất đặc trưng train/validation, scaling và tuning; inference không gồm bước chuẩn bị mask/delta. Lần chạy đầu có thể gồm JIT của Numba. Số tham số chỉ gồm ridge và intercept, không tính bộ kernel cố định. MiniRocket đạt F1 trung bình 0.9001, MultiRocket 0.8878; AP trung bình tương ứng 0.8877 và 0.8741. Hai ngân sách kernel khác nhau, nên đây là so sánh chi phí triển khai đã đo, không phải so sánh ở cùng số chiều đặc trưng.
+
 \subsection{Giải thích mô hình}
 \label{sec:giai-thich-mo-hinh-ket-qua}
 
@@ -103,3 +239,5 @@ trong vùng chồng lấn và tỷ lệ thiếu dữ liệu cao).}
 quả ở trên, so sánh với các phát hiện trong tài liệu (Chương~\ref{sec:tong-quan-tai-lieu}),
 và nêu rõ giới hạn của các kết luận (ví dụ chỉ áp dụng cho một trạm quan trắc, nhãn suy ra
 từ API).}
+
+\paragraph{Thảo luận riêng nhánh ROCKET.} Trong các thiết lập đã đo, MiniRocket cân bằng chất lượng và chi phí tốt hơn MultiRocket. Point missing ít ảnh hưởng hơn Subsequence ở 50\%; thông tin mask/$\Delta t$ và class weighting giúp Macro F1 ở đối chứng Block 50\% nhưng không cải thiện mọi metric. Vùng gần ngưỡng đóng băng vẫn khó. Temperature-only là ứng viên theo validation, song kết quả có thể bị chi phối bởi quy luật gán nhãn API; cần baseline nhiệt độ và dữ liệu quan trắc độc lập để kiểm chứng. Không kết luận ROCKET tốt nhất toàn nhóm khi chưa có số liệu các nhánh khác.
