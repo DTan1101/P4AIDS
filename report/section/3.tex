@@ -35,17 +35,9 @@ tiếp của XGBoost như một baseline xử lý thiếu dữ liệu đơn gi�
 \subsection{Họ ROCKET}
 \label{sec:lit-rocket}
 
-Họ phương pháp ROCKET biến đổi chuỗi thời gian bằng một số lượng lớn kernel tích chập
-ngẫu nhiên, sau đó dùng các đặc trưng tổng hợp (ví dụ tỷ lệ giá trị dương) để huấn luyện
-một mô hình tuyến tính. MiniRocket \cite{dempster2021minirocket} giảm không gian kernel
-xuống phần lớn là tất định, giúp tăng tốc đáng kể so với ROCKET gốc mà không giảm độ
-chính xác. MultiRocket \cite{tan2022multirocket} mở rộng thêm các phép biến đổi đầu vào
-(first-order difference) và nhiều phép pooling để tăng độ đa dạng đặc trưng.
+Họ ROCKET biến đổi chuỗi thời gian bằng các kernel tích chập và dùng đặc trưng tổng hợp để huấn luyện mô hình tuyến tính. MiniRocket \cite{dempster2021minirocket} sử dụng tập kernel phần lớn xác định, khai thác tỷ lệ phần tử dương (PPV) với các dilation và bias khác nhau. MultiRocket \cite{tan2022multirocket} mở rộng trên chuỗi gốc và sai phân bậc một, sử dụng nhiều phép pooling nhằm làm phong phú biểu diễn đặc trưng.
 
-\textbf{Hệ quả cho đồ án:} vì ROCKET không được thiết kế cho dữ liệu thiếu, nhánh ROCKET
-(Mục~\ref{sec:nhanh-rocket}) cần một bước nội suy dữ liệu trước khi biến đổi, và kết quả
-của nhánh này cho biết liệu một bộ biến đổi mạnh nhưng "mù" với vị trí thiếu dữ liệu có
-đủ bền vững hay không.
+\textbf{Hệ quả cho đồ án:} cả hai cần đầu vào hữu hạn, nên nhánh ROCKET (Mục~\ref{sec:nhanh-rocket}) nội suy trong cửa sổ lịch sử và nối đặc trưng mask/$\Delta t$ để bổ sung thông tin vị trí thiếu. Thực nghiệm đánh giá các biến thể có ngân sách kernel giảm để phù hợp tài nguyên, không nhằm tái hiện đầy đủ benchmark gốc. Kết quả chỉ được so sánh trong giao thức Szeged của đồ án.
 
 \subsection{RNN xử lý dữ liệu thiếu}
 \label{sec:lit-rnn-missing}

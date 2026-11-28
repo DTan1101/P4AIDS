@@ -26,7 +26,7 @@ P4AIDS/
 │   └── cache.py                     # lưu/nạp dữ liệu đã chuẩn bị (.npz)
 ├── models/
 │   ├── classic.py          # XGBoost (NaN gốc), median+mask, MissForest
-│   ├── rocket.py            # MiniRocket/MultiRocket + RidgeClassifierCV
+│   ├── rocket.py            # MiniRocket/MultiRocket + RidgeClassifier
 │   ├── deep.py               # GRU-Fill, GRU+mask/Δt, GRU-D (tự cài)
 │   ├── deep_pypots.py        # BRITS/SAITS/GRU-D qua thư viện PyPOTS
 │   └── units_stub.py         # UniTS -- CHƯA triển khai (xem docstring)
@@ -88,7 +88,8 @@ python tools/run_classic.py --missing-kind point --missing-rate 0.3
 python tools/run_classic.py --opts classic.impute_strategy=missforest classic.tune=true
 
 # 5. ROCKET (Mục 4.5)
-python tools/run_rocket.py --opts rocket.variant=multi
+python tools/run_rocket.py --variant mini
+python tools/run_rocket.py --variant multi
 
 # 6. Deep Learning (Mục 4.6) -- chọn mô hình qua deep.model
 python tools/run_deep.py --opts deep.model=gru_d
@@ -106,11 +107,20 @@ Mỗi `tools/run_*.py` nhận chung các cờ: `--config`, `--seed`,
 
 ### Giới hạn bộ nhớ đã biết (ROCKET)
 
-Trên máy không có swap, `RidgeClassifierCV` trên ma trận đặc trưng MiniRocket
-mặc định (~10 nghìn chiều) với toàn bộ ~70 nghìn cửa sổ train có thể vượt RAM.
-`configs/rain_snow_rocket.yaml` đã đặt sẵn `n_jobs`, `max_fit_samples`,
-`transform_batch_size` ở mức an toàn; hạ thêm `rocket.n_kernels` (ví dụ
-1000–2000) nếu vẫn gặp lỗi hết bộ nhớ trên máy yếu hơn.
+Nhánh ROCKET dùng `RidgeClassifier` (LSQR), chọn alpha và threshold theo
+Macro F1 trên validation 2014. Cấu hình mặc định của nhánh đã triển khai:
+MiniRocket 1008, MultiRocket 336 kernel budget; batch 512, 2 CPU jobs,
+fit transformer tối đa 2500 mẫu train và giới hạn một ma trận feature 1024 MiB
+(không phải giới hạn tổng RAM). Giảm ngân sách khi cần và dùng output/tag mới
+để tránh trộn kết quả khác cấu hình.
+
+Cài riêng nhánh: `python -m pip install -r requirements_rocket.txt`.
+Khi dữ liệu và 9 mask dùng chung đã có, không cần chạy lại bước 1–2.
+Hai lệnh ROCKET trên tạo 20 JSON chính và predictions tương ứng; Quick và
+ablation lưu riêng. `python tools/plot_rocket_results.py` tổng hợp benchmark chính.
+Xem [tài liệu Task 2](docs/TASK2_ROCKET.md) để tái lập 19 ablation, xuất đầy đủ bảng/hình
+và đọc kết quả, giới hạn. Kết quả nằm trong `outputs/results/` (Git ignore),
+bàn giao bằng ZIP riêng. Script tổng hợp toàn nhóm chỉ chạy khi có đủ các nhánh.
 
 ## Kiểm thử
 

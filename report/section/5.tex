@@ -10,6 +10,8 @@ dùng cho validation (ví dụ huấn luyện tăng dần theo năm, validate tr
 xác nhận tập test cuối cùng, cố định, là giai đoạn 2015--2016, không được dùng cho bất kỳ
 quyết định chọn mô hình hay siêu tham số nào.}
 
+\paragraph{Giao thức riêng nhánh ROCKET.} Dùng split theo timestamp nhãn: train 2006--2013 (69.962 mẫu, 8.906 Snow), validation 2014 (8.757 mẫu, 485 Snow), test 2015--2016 (17.169 mẫu, 1.321 Snow). Không dùng rolling-origin trong nhánh này; không purge các cửa sổ giáp ranh. Các cửa sổ chồng lấn nên không độc lập. Mỗi kịch bản fit/tune riêng với mask chung seed 123 áp dụng lên cả ba tập; seed mô hình 42. 0\% nghĩa là không ẩn thêm, vẫn có thiếu tự nhiên. Test không tham gia fit hoặc chọn siêu tham số.
+
 \subsection{Baseline}
 \label{sec:baseline}
 
@@ -33,6 +35,8 @@ chọn Macro F1 thay vì Accuracy do mất cân bằng lớp, và vì sao bổ s
 độ nhạy với ngưỡng quyết định). Liệt kê đầy đủ: Macro F1, Precision/Recall theo lớp,
 PR-AUC, và bất kỳ chỉ số phụ nào khác (ví dụ Balanced Accuracy, Cohen's Kappa).}
 
+\paragraph{Chỉ số nhánh ROCKET.} Macro F1 là trung bình F1 hai lớp; PR-AUC được tính bằng Average Precision cho Snow (không phải tích phân hình thang); Balanced Accuracy là trung bình recall hai lớp. Báo cáo Precision, Recall và F1 riêng Rain/Snow. Trên test, Snow chiếm 7,69\%; accuracy của dự đoán toàn Rain là 92,31\%, không phản ánh khả năng nhận diện Snow.
+
 \subsection{Kiểm định thống kê}
 \label{sec:kiem-dinh-thong-ke}
 
@@ -48,3 +52,5 @@ xếp hạng và xác định nhóm mô hình không khác biệt có ý nghĩa 
 \TODO{Ghi lại phần cứng (CPU/GPU, RAM), phiên bản Python và các thư viện chính (XGBoost,
 sktime/aeon cho MiniRocket/MultiRocket, PyTorch cho GRU-D/BRITS/SAITS/UniTS, Optuna), và
 danh sách seed cố định dùng cho khả năng tái lập kết quả.}
+
+\paragraph{Môi trường nhánh ROCKET.} Intel Core i3-1125G4 @ 2.00 GHz (4 nhân, 8 luồng), Python 3.11.5, aeon 1.3.0, NumPy 2.2.6, pandas 2.3.3, scikit-learn 1.6.1, Numba 0.61.2, SciPy 1.15.3. Chạy CPU 2 jobs; batch 512; ngân sách MiniRocket 1008, MultiRocket 336; seed mô hình 42 và mask 123. RAM hệ thống 31,77 GiB; Microsoft Windows 11 Home Single Language, phiên bản 10.0.26200, kiến trúc 64-bit (theo file môi trường thực nghiệm). Không sử dụng GPU cho nhánh ROCKET.
